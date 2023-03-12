@@ -21,6 +21,14 @@ const requestSchema = new mongoose.Schema ({
     date: {
         type: Date, 
         required: true
+    },
+    available: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    users: {
+        type: Number
     }
 });
 

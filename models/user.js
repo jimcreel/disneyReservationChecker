@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema ({
     requests: {
         type: [requestSchema]
     },
+    notifications: {
+        type: [String]
+    },
     subscription: {
         type: Boolean,
         required: true
