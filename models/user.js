@@ -23,6 +23,15 @@ const userSchema = new mongoose.Schema ({
     subscription: {
         type: Boolean,
         required: true
+    }, 
+    defaultResort: {
+        type: String,
+        enum: ['DLR', 'WDW']
+    },
+    defaultPass: {
+        type: String, 
+        enum: ['inspire-key-pass', 'believe-key-pass', 'enchant-key-pass', 'dream-key-pass', 'imagine-key-pass',
+        'disney-incredi-pass', 'disney-sorceror-pass', 'disney-pirate-pass', 'disney-pixie-dust-pass']
     }
 });
 

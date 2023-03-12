@@ -9,7 +9,8 @@ const connectLiveReload = require("connect-livereload");
 const db = require('./models');
 const requestsCtrl = require('./controllers/requests')
 const usersCtrl = require('./controllers/users')
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
+const { abort } = require('process');
 const app = express();
 
 // refresh the browser when nodemon restarts
@@ -45,6 +46,15 @@ app.get('/', function (req, res) {
 })
 
 
+app.get('/seed', function (req, res) {
+    db.User.findByIdAndUpdate(userID,
+    { $push: { requests: testRequests } },
+        { new: true }
+    )
+    .then(result => res.json(result))
+    .catch(err => console.log(err))
+}
+)
 
 
 /* app.use('/requests', requestsCtrl)
