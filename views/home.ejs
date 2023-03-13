@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <%-include ('./partials/header.ejs', {title: 'Home'}) %>
+    <link rel="stylesheet" href=".styles/style.css">
 </head>
 <body>
 
@@ -14,7 +15,7 @@
 <% let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
 
 <% // Array of day names %>
-<% let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; %>
+<% let dayNames = ["S", "M", "T", "W", "T", "F", "S"]; %>
 
 <% // Function to generate calendar HTML %> 
 <% function generateCalendarHTML(date) { %>
@@ -43,12 +44,26 @@
     <% let resortYear = month.getFullYear(); %>
     <% let resortFullDate = resortYear + '-' + resortMonth + '-' + resortDate; %>
     <% let resortAvailability = resort[0]['calendar-availabilities'].find(resort => resort.date === resortFullDate); %>
-    <% let resortHTML = ''; %>
+    <% let resortClass = ''; %>
+    <% let imgHTML = ''; %>
     <% if (resortAvailability !== undefined) { %>
-      <% resortHTML = resortAvailability.availability %>
+        <% console.log(resortAvailability); %>
+      <% if (resortAvailability.availability === 'cms-key-all-availability') { %>
+        <% resortClass = 'both' %>
+        <% imgHTML = `<img src="./assets/both.png" alt="both" style="width: 36px; height: 20px;"">` %>
+        <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
+            <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>
+            <% imgHTML = `<img src="./assets/${resortClass}.png" alt="${resortClass}" style="width: 20px; height: 20px;">` %> 
+        <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
+            <% resortClass = 'slash' %>
+        <% } %>
+    <% }else{ %>
+        <% resortClass = 'slash' %>
     <% } %>
     
-    <% week += '<div class="day">' + month.getDate() + resortHTML + '</div>'; %>
+
+    
+    <% week += `<div class='day ${resortClass}'>` + month.getDate() + imgHTML + '</div>'; %>
     
 
     

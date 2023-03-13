@@ -21,8 +21,23 @@
   text-align: center;
   padding: 5px;
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
 }
+
+
 
 .empty {
   background-color: #eee;
 }
+
+.slash, .cms-key-no-availability {
+  background-color: #ccc;
+  text-decoration: line-through;
+}
+
+
