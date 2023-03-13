@@ -1,7 +1,15 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+#calendars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .calendar {
   display: inline-block;
   margin: 10px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   padding: 10px;
   font-size: 14px;
 }
@@ -10,6 +18,7 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .week {
@@ -20,13 +29,15 @@
   flex: 1;
   text-align: center;
   padding: 5px;
-  border: 1px solid black;
+  border-top: 1px solid lightgray;
   display: flex;
   flex-direction: column;
   height: 50px;
   width: 50px;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 
@@ -38,6 +49,7 @@
 .slash, .cms-key-no-availability {
   background-color: #ccc;
   text-decoration: line-through;
+  color: lightslategray;
 }
 
 

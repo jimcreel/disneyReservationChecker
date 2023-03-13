@@ -3,12 +3,15 @@
 <head>
     <%-include ('./partials/header.ejs', {title: 'Home'}) %>
     <link rel="stylesheet" href=".styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <% // Get the current date %>
 <% let today = new Date(); %>
-
+<% let weekCounter = 0; %>
 
 
 <% // Array of month names %>
@@ -21,7 +24,7 @@
 <% function generateCalendarHTML(date) { %>
   <% // Create a new date object for the given month %>
   <% let month = new Date(date.getFullYear(), date.getMonth(), 1); %>
-
+<% weekCounter = 0; %>
   <% // Start building the HTML %>
   <% let html = '<div class="calendar">'; %> 
   <% html += '<div class="month">' + monthNames[month.getMonth()] + ' ' + month.getFullYear() + '</div>'; %>
@@ -35,6 +38,7 @@
 
   <% // Add the days of the month %>
   <% let week = '<div class="week">'; %> 
+    <% weekCounter += 1; %>
   <% for (let i = 0; i < month.getDay(); i++) { %>
     <% week += '<div class="day empty"></div>'; %>
   <% }  %>
@@ -50,10 +54,10 @@
         <% console.log(resortAvailability); %>
       <% if (resortAvailability.availability === 'cms-key-all-availability') { %>
         <% resortClass = 'both' %>
-        <% imgHTML = `<img src="./assets/both.png" alt="both" style="width: 36px; height: 20px;"">` %>
+        <% imgHTML = `<img src="./assets/both.png" alt="both" style="width: 27px; height: 15px;"">` %>
         <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
             <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>
-            <% imgHTML = `<img src="./assets/${resortClass}.png" alt="${resortClass}" style="width: 20px; height: 20px;">` %> 
+            <% imgHTML = `<img src="./assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;">` %> 
         <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
             <% resortClass = 'slash' %>
         <% } %>
@@ -69,6 +73,7 @@
     
     <% if (month.getDay() === 6) { %> 
       <% week += '</div><div class="week">'; %> 
+        <% weekCounter += 1; %>
     <% } %>
     <% month.setDate(month.getDate() + 1); %>
   <% } %>
@@ -78,6 +83,13 @@
   <% html += week + '</div>'; %>
 
   <% // Close the calendar div %> 
+  <% if (weekCounter === 5){ %>
+    <% html += '<div class="week">'; %>
+    <% for (let i = 0; i < 7; i++) { %>
+        <% html += '<div class="day empty"></div>'; %>
+    <% } %>
+    <% html += '</div>'; %>
+    <% } %>
   <% html += '</div>'; %> 
 
   <% return html; %> 
@@ -85,7 +97,7 @@
 
 <% // Generate HTML for the next four months %>
 <% let calendarHTML = ''; %>
-<% for (let i = 0; i < 4; i++) { %> 
+<% for (let i = 0; i < 6; i++) { %> 
   <% calendarHTML += generateCalendarHTML(new Date(today.getFullYear(), today.getMonth() + i, 1)); %> 
 <% } %>
 <div id="calendars">
