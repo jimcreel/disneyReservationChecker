@@ -41,7 +41,8 @@ app.use(methodOverride('_method'));
 app.get('/', function (req, res) {
     
     db.api.getResorts()
-    .then (result => res.json(result))
+    .then (result => 
+        res.render('home', {resort: result}))
     .catch(err => console.log(err))
 })
 
