@@ -2,42 +2,79 @@
 <html lang="en">
 <head>
     <%-include ('./partials/header.ejs', {title: 'Home'}) %>
-    <style rel="stylesheet" href="/styles/style.css"></style>
 </head>
 <body>
-<% let day1 = resort[0].availabilities[0] %>
-<% console.log(day1) %>
+
+<% // Get the current date %>
+<% let today = new Date(); %>
 
 
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Calendar #01</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="calendar calendar-first" id="calendar_first">
-                <div class="calendar_header">
-                    
-                     <h2></h2>
-                    
-                </div>
-                <div class="calendar_weekdays"></div>
-                <div class="calendar_content"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<% // Array of month names %>
+<% let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/popper.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+<% // Array of day names %>
+<% let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; %>
 
-</body>
+<% // Function to generate calendar HTML %> 
+<% function generateCalendarHTML(date) { %>
+  <% // Create a new date object for the given month %>
+  <% let month = new Date(date.getFullYear(), date.getMonth(), 1); %>
+
+  <% // Start building the HTML %>
+  <% let html = '<div class="calendar">'; %> 
+  <% html += '<div class="month">' + monthNames[month.getMonth()] + ' ' + month.getFullYear() + '</div>'; %>
+
+  <% // Add the day labels %>
+  <% html += '<div class="week">'; %> 
+ <% for (let i = 0; i < 7; i++) { %>
+    <% html += '<div class="day">' + dayNames[i] + '</div>'; %>
+  <% } %>
+  <% html += '</div>'; %>
+
+  <% // Add the days of the month %>
+  <% let week = '<div class="week">'; %> 
+  <% for (let i = 0; i < month.getDay(); i++) { %>
+    <% week += '<div class="day empty"></div>'; %>
+  <% }  %>
+  <% while (month.getMonth() === date.getMonth()) { %> 
+    <% let resortMonth = (month.getMonth() + 1).toString().padStart(2, '0'); %>
+    <% let resortDate = month.getDate().toString().padStart(2, '0'); %>
+    <% let resortYear = month.getFullYear(); %>
+    <% let resortFullDate = resortYear + '-' + resortMonth + '-' + resortDate; %>
+    <% let resortAvailability = resort[0]['calendar-availabilities'].find(resort => resort.date === resortFullDate); %>
+    <% let resortHTML = ''; %>
+    <% if (resortAvailability !== undefined) { %>
+      <% resortHTML = resortAvailability.availability %>
+    <% } %>
+    
+    <% week += '<div class="day">' + month.getDate() + resortHTML + '</div>'; %>
+    
+
+    
+    <% if (month.getDay() === 6) { %> 
+      <% week += '</div><div class="week">'; %> 
+    <% } %>
+    <% month.setDate(month.getDate() + 1); %>
+  <% } %>
+  <% for (let i = month.getDay(); i < 7; i++) { %> 
+    <% week += '<div class="day empty"></div>'; %>
+  <% } %>
+  <% html += week + '</div>'; %>
+
+  <% // Close the calendar div %> 
+  <% html += '</div>'; %> 
+
+  <% return html; %> 
+<% } %>
+
+<% // Generate HTML for the next four months %>
+<% let calendarHTML = ''; %>
+<% for (let i = 0; i < 4; i++) { %> 
+  <% calendarHTML += generateCalendarHTML(new Date(today.getFullYear(), today.getMonth() + i, 1)); %> 
+<% } %>
+<div id="calendars">
+<%- calendarHTML %>
+</div>
 </body>
 </html>

@@ -1,212 +1,59 @@
-(function($) {
 
-	"use strict";
+// Get the current date
+let today = new Date();
 
 
-	$(document).ready(function () {
-    function c(passed_month, passed_year, calNum) {
-        var calendar = calNum == 0 ? calendars.cal1 : calendars.cal2;
-        makeWeek(calendar.weekline);
-        calendar.datesBody.empty();
-        var calMonthArray = makeMonthArray(passed_month, passed_year);
-        var r = 0;
-        var u = false;
-        while (!u) {
-            if (daysArray[r] == calMonthArray[0].weekday) {
-                u = true
-            } else {
-                calendar.datesBody.append('<div class="blank"></div>');
-                r++;
-            }
-        }
-        for (var cell = 0; cell < 42 - r; cell++) { // 42 date-cells in calendar
-            if (cell >= calMonthArray.length) {
-                calendar.datesBody.append('<div class="blank"></div>');
-            } else {
-                var shownDate = calMonthArray[cell].day;
-                var iter_date = new Date(passed_year, passed_month, shownDate);
-                if (
-                (
-                (shownDate != today.getDate() && passed_month == today.getMonth()) || passed_month != today.getMonth()) && iter_date < today) {
-                    var m = '<div class="past-date">';
-                } else {
-                    var m = checkToday(iter_date) ? '<div class="today">' : "<div>";
-                }
-                calendar.datesBody.append(m + shownDate + '<br>' + 'test'+ "</div>");
-            }
-        }
 
-        var color = "#444444";
-        calendar.calHeader.find("h2").text(i[passed_month] + " " + passed_year);
-        calendar.weekline.find("div").css("color", color);
-        calendar.datesBody.find(".today").css("color", "#00bdaa");
+// Array of month names
+let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        // find elements (dates) to be clicked on each time
-        // the calendar is generated
-        var clicked = false;
-        selectDates(selected);
+// Array of day names
+let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-        
+// Function to generate calendar HTML
+function generateCalendarHTML(date) {
+  // Create a new date object for the given month
+  let month = new Date(date.getFullYear(), date.getMonth(), 1);
 
+  // Start building the HTML
+  let html = '<div class="calendar">';
+  html += '<div class="month">' + monthNames[month.getMonth()] + ' ' + month.getFullYear() + '</div>';
+
+  // Add the day labels
+  html += '<div class="week">';
+  for (let i = 0; i < 7; i++) {
+    html += '<div class="day">' + dayNames[i] + '</div>';
+  }
+  html += '</div>';
+
+  // Add the days of the month
+  let week = '<div class="week">';
+  for (let i = 0; i < month.getDay(); i++) {
+    week += '<div class="day empty"></div>';
+  }
+  while (month.getMonth() === date.getMonth()) {
+    week += '<div class="day">' + month.getDate() + '</div>';
+    if (month.getDay() === 6) {
+      week += '</div><div class="week">';
     }
+    month.setDate(month.getDate() + 1);
+  }
+  for (let i = month.getDay(); i < 7; i++) {
+    week += '<div class="day empty"></div>';
+  }
+  html += week + '</div>';
 
-    
+  // Close the calendar div
+  html += '</div>';
 
-    function makeMonthArray(passed_month, passed_year) { // creates Array specifying dates and weekdays
-        var e = [];
-        for (var r = 1; r < getDaysInMonth(passed_year, passed_month) + 1; r++) {
-            e.push({
-                day: r,
-                // Later refactor -- weekday needed only for first week
-                weekday: daysArray[getWeekdayNum(passed_year, passed_month, r)]
-            });
-        }
-        return e;
-    }
+  return html;
+}
 
-    function makeWeek(week) {
-        week.empty();
-        for (var e = 0; e < 7; e++) {
-            week.append("<div>" + daysArray[e].substring(0, 3) + "</div>")
-        }
-    }
+// Generate HTML for the current month and the next three months
+let calendarHTML = '';
+for (let i = 0; i < 4; i++) {
+  calendarHTML += generateCalendarHTML(new Date(today.getFullYear(), today.getMonth() + i, 1));
+}
 
-    function getDaysInMonth(currentYear, currentMon) {
-        return (new Date(currentYear, currentMon + 1, 0)).getDate();
-    }
-
-    function getWeekdayNum(e, t, n) {
-        return (new Date(e, t, n)).getDay();
-    }
-
-    function checkToday(e) {
-        var todayDate = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
-        var checkingDate = e.getFullYear() + '/' + (e.getMonth() + 1) + '/' + e.getDate();
-        return todayDate == checkingDate;
-
-    }
-
-    function getAdjacentMonth(curr_month, curr_year, direction) {
-        var theNextMonth;
-        var theNextYear;
-        if (direction == "next") {
-            theNextMonth = (curr_month + 1) % 12;
-            theNextYear = (curr_month == 11) ? curr_year + 1 : curr_year;
-        } else {
-            theNextMonth = (curr_month == 0) ? 11 : curr_month - 1;
-            theNextYear = (curr_month == 0) ? curr_year - 1 : curr_year;
-        }
-        return [theNextMonth, theNextYear];
-    }
-
-    function b() {
-        today = new Date;
-        year = today.getFullYear();
-        month = today.getMonth();
-        var nextDates = getAdjacentMonth(month, year, "next");
-        nextMonth = nextDates[0];
-        nextYear = nextDates[1];
-    }
-
-    var e = 480;
-
-    var today;
-    var year,
-    month,
-    nextMonth,
-    nextYear;
-
-    var r = [];
-    var i = [
-        "January",
-        "Feburary",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"];
-    var daysArray = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"];
-
-    var cal1 = $("#calendar_first");
-    var calHeader1 = cal1.find(".calendar_header");
-    var weekline1 = cal1.find(".calendar_weekdays");
-    var datesBody1 = cal1.find(".calendar_content");
-
-    var cal2 = $("#calendar_second");
-    var calHeader2 = cal2.find(".calendar_header");
-    var weekline2 = cal2.find(".calendar_weekdays");
-    var datesBody2 = cal2.find(".calendar_content");
-
-    var bothCals = $(".calendar");
-
-    var switchButton = bothCals.find(".calendar_header").find('.switch-month');
-
-    var calendars = {
-        "cal1": {
-            "name": "first",
-                "calHeader": calHeader1,
-                "weekline": weekline1,
-                "datesBody": datesBody1
-        },
-            "cal2": {
-            "name": "second",
-                "calHeader": calHeader2,
-                "weekline": weekline2,
-                "datesBody": datesBody2
-        }
-    }
-
-
-    var clickedElement;
-    var firstClicked,
-    secondClicked,
-    thirdClicked;
-    var firstClick = false;
-    var secondClick = false;
-    var selected = {};
-
-    b();
-    c(month, year, 0);
-    c(nextMonth, nextYear, 1);
-    switchButton.on("click", function () {
-        var clicked = $(this);
-        var generateCalendars = function (e) {
-            var nextDatesFirst = getAdjacentMonth(month, year, e);
-            var nextDatesSecond = getAdjacentMonth(nextMonth, nextYear, e);
-            month = nextDatesFirst[0];
-            year = nextDatesFirst[1];
-            nextMonth = nextDatesSecond[0];
-            nextYear = nextDatesSecond[1];
-
-            c(month, year, 0);
-            c(nextMonth, nextYear, 1);
-        };
-        if (clicked.attr("class").indexOf("left") != -1) {
-            generateCalendars("previous");
-        } else {
-            generateCalendars("next");
-        }
-        clickedElement = bothCals.find(".calendar_content").find("div");
-    });
-
-
-    
-
-
-    
-});
-
-
-})(jQuery);
+// Display the HTML
+document.getElementById('calendars').innerHTML = calendarHTML;
