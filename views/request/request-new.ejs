@@ -10,31 +10,35 @@
 <body>
 
     <form method="POST" action="/requests/create/<%= user.id %>">
-        <select name = "resort" type="text" placeholder="Resort">
-            <option value="DLR">Disneyland Resort</option>
-            <option value="WDW">Walt Disney World</option>
+        <select name = "resort" type="text" placeholder="Resort" id="resortSelect">
+            <option value="Select Resort" selected disabled>Select Resort</option>
+            <option value="DLR" id="DLR">Disneyland Resort</option>
+            <option value="WDW" id="WDW">Walt Disney World</option>
         </select>
         <select name = "park" type="text" placeholder="Park">
-            <option value="ANY" selected>Any</option>
-            <option value="DP">Disneyland Resort</option>
-            <option value="CA">Disney California Adventure</option>
-            <option value="MK">Magic Kingdom</option>
-            <option value="EPCOT">Epcot</option>
-            <option value="HS">Hollywood Studios</option>
-            <option value="AN">Animal Kingdom</option>
+            <option value="Select Park" selected disabled>Select Park</option>
+            <option value="ANY" class="DLR WDW">Any</option>
+            <option value="DP" class="DLR"  disabled>Disneyland Resort</option>
+            <option value="CA" class="DLR"  disabled>Disney California Adventure</option>
+            <option value="MK" class="WDW"  disabled>Magic Kingdom</option>
+            <option value="EPCOT" class="WDW"  disabled>Epcot</option>
+            <option value="HS" class="WDW"  disabled>Hollywood Studios</option>
+            <option value="AN" class="WDW"  disabled>Animal Kingdom</option>
         </select>
         
-        <input name = "date" type="date" value="<%= date %>" type="hidden">
+        <input name = "date" type="date" value="<%= date %>" type="" readonly>
         <select name = "pass" type="text">
-            <option value = "inspire-key-pass">Inspire Key</option>
-            <option value = "enchant-key-pass">Enchant Key</option>
-            <option value = "believe-key-pass">Believe Key</option>
-            <option value = "dream-key-pass">Dream Key</option>
-            <option value = "disney-incredi-pass">Incredi-Pass</option>
-            <option value = "disney-sorceror-pass">Sorcerers Pass</option>
-            <option value = "disney-pirate-pass">Pirate Pass</option>
-            <option value = "disney-pixie-dust-pass">Pixie-Dust Pass</option>
+            <option value="Select Pass" selected disabled>Select Pass</option>
+            <option value = "inspire-key-pass" class="DLR" disabled>Inspire Key</option>
+            <option value = "enchant-key-pass" class="DLR" disabled>Enchant Key</option>
+            <option value = "believe-key-pass" class="DLR" disabled>Believe Key</option>
+            <option value = "dream-key-pass" class="DLR" disabled>Dream Key</option>
+            <option value = "disney-incredi-pass" class="WDW" disabled>Incredi-Pass</option>
+            <option value = "disney-sorceror-pass" class="WDW" disabled>Sorcerers Pass</option>
+            <option value = "disney-pirate-pass" class="WDW" disabled>Pirate Pass</option>
+            <option value = "disney-pixie-dust-pass" class="WDW" disabled>Pixie-Dust Pass</option>
         </select>
         <input name = "submit" type="submit" value="Submit">
-        <input name = "available" value="false" type="hidden">
+        <input name = "available" value="false" hidden>
+        <script src="/js/main.js" defer></script>
     </form>

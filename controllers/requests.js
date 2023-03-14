@@ -21,7 +21,7 @@ const db = require('../models')
 --------------------------------------------------------------- */
 
 
-// New Route: GET localhost:3000/reviews/new
+// New Route: GET localhost:3000/requests/new
 router.get('/new/:userId/:date', (req, res) => {
     db.User.findById(req.params.userId)
         .then(user =>{
@@ -33,20 +33,16 @@ router.get('/new/:userId/:date', (req, res) => {
 })
 });
 
-// Create Route: POST localhost:3000/reviews/
+// Create Route: POST localhost:3000/requests/
 router.post('/create/:userId', (req, res) => {
-    db.User.updateMany(
-        {},
-        { $pull: { requests: { available: false} }})
-    
-    /* db.User.findByIdAndUpdate(
+    db.User.findByIdAndUpdate(
         req.params.userId,
         { $push: { requests: req.body } },
         { new: true }
     )
-        .then(item =>
+        .then(user =>
         res.redirect(`/`),
-    ) */
+    ) 
 });
 
 
@@ -70,7 +66,7 @@ router.delete('/:id', (req, res) => {
         { $pull: { requests: { _id: req.params.id } } },
         { new: true }
     )
-        .then(user =>
+        .then(item =>
             res.redirect(`back`)
         )
 });
