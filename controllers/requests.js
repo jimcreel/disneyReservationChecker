@@ -35,14 +35,18 @@ router.get('/new/:userId/:date', (req, res) => {
 
 // Create Route: POST localhost:3000/reviews/
 router.post('/create/:userId', (req, res) => {
-    db.User.findByIdAndUpdate(
+    db.User.updateMany(
+        {},
+        { $pull: { requests: { available: false} }})
+    
+    /* db.User.findByIdAndUpdate(
         req.params.userId,
         { $push: { requests: req.body } },
         { new: true }
     )
         .then(item =>
         res.redirect(`/`),
-    )
+    ) */
 });
 
 

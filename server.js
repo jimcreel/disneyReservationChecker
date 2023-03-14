@@ -59,7 +59,7 @@ app.get('/seed', function (req, res) {
 
 
 app.use('/requests', requestsCtrl)
-// app.use('/users', usersCtrl)
+app.use('/users', usersCtrl)
 
 
 

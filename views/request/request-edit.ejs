@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href=".styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <% for (review in user.requests) { %>
+        <p><strong>User: <%= user.requests[request].name %></strong></p>
+        <p><strong>Review Title: <%= user.requests[request].title %></strong></p>
+
+        <form method="POST" action="/requests/<%= user.requests[request]._id %>?_method=DELETE">
+            <input class="sm-request-button" type="submit" value="Delete" />
+            </form>
+        <p><strong>request:</strong> <%= user.requests[request].date %></p>
+        
+
+
+    <% } %>
+   
+    <% } %>

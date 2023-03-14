@@ -9,30 +9,32 @@
 </head>
 <body>
 
-    <form method="POST" action="/requests/${userId}">
+    <form method="POST" action="/requests/create/<%= user.id %>">
         <select name = "resort" type="text" placeholder="Resort">
             <option value="DLR">Disneyland Resort</option>
             <option value="WDW">Walt Disney World</option>
         </select>
         <select name = "park" type="text" placeholder="Park">
             <option value="ANY" selected>Any</option>
-            <option value="DLR_DP">Disneyland Resort</option>
-            <option value="DLR_CA">Disney California Adventure</option>
-            <option value="WDW_MK">Magic Kingdom</option>
-            <option value="WDW_EPCOT">Epcot</option>
-            <option value="WDW_HS">Hollywood Studios</option>
-            <option value="WDW_AN">Animal Kingdom</option>
+            <option value="DP">Disneyland Resort</option>
+            <option value="CA">Disney California Adventure</option>
+            <option value="MK">Magic Kingdom</option>
+            <option value="EPCOT">Epcot</option>
+            <option value="HS">Hollywood Studios</option>
+            <option value="AN">Animal Kingdom</option>
         </select>
-        <% console.log(date) %>
-        <input name = "date" type="date" value=`${date}` disabled>
+        
+        <input name = "date" type="date" value="<%= date %>" type="hidden">
         <select name = "pass" type="text">
             <option value = "inspire-key-pass">Inspire Key</option>
             <option value = "enchant-key-pass">Enchant Key</option>
             <option value = "believe-key-pass">Believe Key</option>
             <option value = "dream-key-pass">Dream Key</option>
             <option value = "disney-incredi-pass">Incredi-Pass</option>
-            <option value = "disney-sorcerers-pass">Sorcerers Pass</option>
+            <option value = "disney-sorceror-pass">Sorcerers Pass</option>
             <option value = "disney-pirate-pass">Pirate Pass</option>
             <option value = "disney-pixie-dust-pass">Pixie-Dust Pass</option>
         </select>
+        <input name = "submit" type="submit" value="Submit">
+        <input name = "available" value="false" type="hidden">
     </form>
