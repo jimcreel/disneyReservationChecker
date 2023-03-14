@@ -40,7 +40,12 @@
   font-weight: bold;
 }
 
-
+.day:hover {
+  transform: scale(1.02);
+  transition: all 0.5s ease-in-out;
+  border: 1px solid darkslategray;
+  transition: border 0.5s fade-in-out;
+}
 
 .empty {
   background-color: #eee;
@@ -52,11 +57,7 @@
   color: lightslategray;
 }
 
-.slash:hover {
-  transform: scale(1.1);
-  transition: all 0.2s ease-in-out;
-  border: 1px solid darkslategray;
-}
+
 
 a { 
   text-decoration: none;

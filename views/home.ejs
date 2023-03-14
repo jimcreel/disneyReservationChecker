@@ -67,7 +67,7 @@
     
 
     
-    <% week += `<div class='day ${resortClass}'>` + `<a href="/requests/new/userId">` + month.getDate() + '</a>' + imgHTML + '</div>'; %>
+    <% week += `<div class='day ${resortClass}'>` + `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}">` + month.getDate() + '</a>' + imgHTML + '</div>'; %>
     
 
     
@@ -97,7 +97,7 @@
 
 <% // Generate HTML for the next four months %>
 <% let calendarHTML = ''; %>
-<% for (let i = 0; i < 6; i++) { %> 
+<% for (let i = 0; i < 4; i++) { %> 
   <% calendarHTML += generateCalendarHTML(new Date(today.getFullYear(), today.getMonth() + i, 1)); %> 
 <% } %>
 <div id="calendars">

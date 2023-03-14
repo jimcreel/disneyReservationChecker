@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href=".styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <form method="POST" action="/requests/${userId}">
+        <select name = "resort" type="text" placeholder="Resort">
+            <option value="DLR">Disneyland Resort</option>
+            <option value="WDW">Walt Disney World</option>
+        </select>
+        <select name = "park" type="text" placeholder="Park">
+            <option value="ANY" selected>Any</option>
+            <option value="DLR_DP">Disneyland Resort</option>
+            <option value="DLR_CA">Disney California Adventure</option>
+            <option value="WDW_MK">Magic Kingdom</option>
+            <option value="WDW_EPCOT">Epcot</option>
+            <option value="WDW_HS">Hollywood Studios</option>
+            <option value="WDW_AN">Animal Kingdom</option>
+        </select>
+        <% console.log(date) %>
+        <input name = "date" type="date" value=`${date}` disabled>
+        <select name = "pass" type="text">
+            <option value = "inspire-key-pass">Inspire Key</option>
+            <option value = "enchant-key-pass">Enchant Key</option>
+            <option value = "believe-key-pass">Believe Key</option>
+            <option value = "dream-key-pass">Dream Key</option>
+            <option value = "disney-incredi-pass">Incredi-Pass</option>
+            <option value = "disney-sorcerers-pass">Sorcerers Pass</option>
+            <option value = "disney-pirate-pass">Pirate Pass</option>
+            <option value = "disney-pixie-dust-pass">Pixie-Dust Pass</option>
+        </select>
+    </form>
