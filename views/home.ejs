@@ -57,7 +57,7 @@
         <% imgHTML = `<img src="./assets/both.png" alt="both" style="width: 27px; height: 15px;"">` %>
         <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
             <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>
-            <% imgHTML = `<img src="./assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;">` %> 
+            <% imgHTML = `<img src="./assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;"></a>` %> 
         <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
             <% resortClass = 'slash' %>
         <% } %>
@@ -67,7 +67,7 @@
     
 
     
-    <% week += `<div class='day ${resortClass}'>` + month.getDate() + imgHTML + '</div>'; %>
+    <% week += `<div class='day ${resortClass}'>` + `<a href="/requests/new/userId">` + month.getDate() + '</a>' + imgHTML + '</div>'; %>
     
 
     

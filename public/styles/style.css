@@ -52,4 +52,13 @@
   color: lightslategray;
 }
 
+.slash:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+  border: 1px solid darkslategray;
+}
 
+a { 
+  text-decoration: none;
+  color: black;
+}
