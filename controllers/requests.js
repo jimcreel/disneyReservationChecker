@@ -52,7 +52,7 @@ router.post('/create/:userId', (req, res) => {
 
 // Show Route: GET localhost:3000/reviews/:id
 router.get('/:id', (req, res) => {
-    db.Item.findOne(
+    db.Item.find(
         { 'reviews._id': req.params.id },
         { 'reviews.$': true, _id: false }
     )
@@ -66,12 +66,12 @@ router.get('/:id', (req, res) => {
 // Destroy Route: DELETE localhost:3000/reviews/:id
 router.delete('/:id', (req, res) => {
     db.Item.findOneAndUpdate(
-        { 'reviews._id': req.params.id },
+        { 'requests._id': req.params.id },
         { $pull: { reviews: { _id: req.params.id } } },
         { new: true }
     )
         .then(item =>
-            res.redirect(`/items/${item.id}`),
+            res.redirect(`/`)
         )
 });
 

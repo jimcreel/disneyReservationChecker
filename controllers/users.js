@@ -51,11 +51,9 @@ router.post('/create/:userId', (req, res) => {
 
 // Show Route: GET localhost:3000/reviews/:id
 router.get('/:id', (req, res) => {
-    db.User.findOne(
-        { '_id': req.params.id }
-    )
+    db.User.findById(req.params.id)
         .then(user => {
-	    res.json(user);
+	    res.render('./user/user-show.ejs', { user: user })
         })
 });
 
