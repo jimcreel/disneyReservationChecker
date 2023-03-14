@@ -25,13 +25,31 @@ const db = require('../models')
 router.get('/new/:userId/:date', (req, res) => {
     db.User.findById(req.params.userId)
         .then(user =>{
-        res.render('./user/user-new.ejs', { 
+        res.render('./use/user-new.ejs', { 
             user: user,
          })
 
 })
 });
+router.get('/:id/edit', function (req, res) {
+    db.User.findById(req.params.id)
+    .then(user => {
+    res.render('./user/user-edit.ejs',
+    {user: user})
+    })
+    .catch(function(err){
+    })
+});
 
+router.put('/:id', function (req, res) {
+    db.User.findByIdAndUpdate(req.params.id,
+        req.body,{new: true})
+        .then(user => {
+            res.redirect(`/users/${user.id}`)
+        })
+        .catch(function(err){
+        })
+});
 // Create Route: POST localhost:3000/reviews/
 router.post('/create/:userId', (req, res) => {
     db.User.updateMany(

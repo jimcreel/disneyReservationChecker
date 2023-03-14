@@ -24,7 +24,7 @@ liveReloadServer.server.once("connection", () => {
 /* Configure the app (app.set)
 --------------------------------------------------------------- */
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 
 
 /* Middleware (app.use)
