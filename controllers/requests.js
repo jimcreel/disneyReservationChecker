@@ -65,13 +65,13 @@ router.get('/:id', (req, res) => {
 
 // Destroy Route: DELETE localhost:3000/reviews/:id
 router.delete('/:id', (req, res) => {
-    db.Item.findOneAndUpdate(
+    db.User.findOneAndUpdate(
         { 'requests._id': req.params.id },
-        { $pull: { reviews: { _id: req.params.id } } },
+        { $pull: { requests: { _id: req.params.id } } },
         { new: true }
     )
-        .then(item =>
-            res.redirect(`/`)
+        .then(user =>
+            res.redirect(`back`)
         )
 });
 
