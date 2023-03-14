@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+    <%- include('../partials/header', {title: `User Profile`}) %>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/user-details.css">
 </head>
 <body>
-    <h1> Username: <%= user.username %></h1>
-    <h1> Email: <%= user.email %></h1>
-    <h1> Phone: <%= user.phone %></h1>
-    <h1> Requests: 
+    <h1> User Profile </h1>
+    <div class="user-details">
+    <p> Username: <%= user.username %></p>
+    <p> Email: <%= user.email %></p>
+    <p> Phone: <%= user.phone %></p>
+    </div>
+    <h1> Requests: </h1>
+    <div class="request-body">
         <% for (request in user.requests) { %>
-            <p><strong>Request:</strong> <%= user.requests[request].date %></p>
-            <p><strong>Resort:</strong> <%= user.requests[request].resort %></p>
-            <p><strong>Park:</strong> <%= user.requests[request].park %></p>
-            <p><strong>Pass:</strong> <%= user.requests[request].pass %></p>
-            <p><strong>Available:</strong> <%= user.requests[request].available %></p>
+            <div class="request">
+            <p>Request Date: <%= user.requests[request].date %></p>
+            <p>Resort: <%= user.requests[request].resort %></p>
+            <p>Park: <%= user.requests[request].park %></p>
+            <p>Pass: <%= user.requests[request].pass %></p>
+            <p>Available: <%= user.requests[request].available %></p>
             <form method="POST" action="/requests/<%= user.requests[request]._id %>?_method=DELETE">
                 <input class="sm-request-button" type="submit" value="Delete" />
                 </form>
+            </div>
         <% } %>
+        </div>
 
 
 </body>

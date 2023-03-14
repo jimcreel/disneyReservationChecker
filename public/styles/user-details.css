@@ -1,0 +1,23 @@
+.request {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 20vw;
+}
+
+.request-body {
+    display: flex;
+    flex-direction: row;
+   
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+    padding: 2em;
+    width: 20vw;
+}
