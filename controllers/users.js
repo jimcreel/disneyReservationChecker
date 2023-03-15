@@ -20,17 +20,30 @@ const db = require('../models')
 /* Routes
 --------------------------------------------------------------- */
 
-
-// New Route: GET localhost:3000/reviews/new
-router.get('/new/:userId/:date', (req, res) => {
-    db.User.findById(req.params.userId)
-        .then(user =>{
-        res.render('./use/user-new.ejs', { 
-            user: user,
-         })
-
+// Show Route: shows the new user form
+router.get ('/new', (req, res) => {
+    res.render('./user/user-new.ejs')
 })
+
+// Create Route: creates a new user
+router.post('/', (req, res) => {
+    db.User.create(req.body)
+    .then(user => {
+        res.redirect(`/users/${user.id}`)
+    })
+    .catch(function(err){
+    })
 });
+
+// Show Route: shows the user details and link to edit/delete
+router.get('/:id', (req, res) => {
+    db.User.findById(req.params.id)
+        .then(user => {
+	    res.render('./user/user-show.ejs', { user: user })
+        })
+});
+
+// Show Route: shows the user edit form
 router.get('/:id/edit', function (req, res) {
     db.User.findById(req.params.id)
     .then(user => {
@@ -41,51 +54,32 @@ router.get('/:id/edit', function (req, res) {
     })
 });
 
+// UPDATE Route: updates the user details
+// 
 router.put('/:id', function (req, res) {
-    db.User.findByIdAndUpdate(req.params.id,
-        req.body,{new: true})
+    db.User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true})
         .then(user => {
             res.redirect(`/users/${user.id}`)
         })
         .catch(function(err){
         })
 });
-// Create Route: POST localhost:3000/reviews/
-router.post('/create/:userId', (req, res) => {
-    db.User.updateMany(
-        {},
-        { $pull: { requests: { available: false} }})
-    
-    /* db.User.findByIdAndUpdate(
-        req.params.userId,
-        { $push: { requests: req.body } },
-        { new: true }
-    )
-        .then(item =>
-        res.redirect(`/`),
-    ) */
-});
 
 
-// Show Route: GET localhost:3000/reviews/:id
-router.get('/:id', (req, res) => {
-    db.User.findById(req.params.id)
-        .then(user => {
-	    res.render('./user/user-show.ejs', { user: user })
-        })
-});
 
 // Destroy Route: DELETE localhost:3000/reviews/:id
 router.delete('/:id', (req, res) => {
-    db.Item.findOneAndUpdate(
-        { 'reviews._id': req.params.id },
-        { $pull: { reviews: { _id: req.params.id } } },
-        { new: true }
-    )
-        .then(item =>
-            res.redirect(`/items/${item.id}`),
-        )
+    db.User.findByIdAndDelete(req.params.id)
+        .then(() => {
+            res.redirect('/')
+        })
+        .catch(function(err){
+        })
 });
+
 
 
 /* Export these routes so that they are accessible in `server.js`
