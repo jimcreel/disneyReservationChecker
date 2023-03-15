@@ -50,10 +50,38 @@
     <% let resortAvailability = availability[0]['calendar-availabilities'].find(avail => avail.date === resortFullDate); %>
     <% let resortClass = ''; %>
     <% let imgHTML = ''; %>
+    <% let modalHTML = ''; %>
     <% if (resortAvailability !== undefined) { %>
+      <% modalHTML = `<div class="modal" id="modal-${resortFullDate}">` %>
+      <% modalHTML += `<div class="modal-content">` %>
+      <% modalHTML += `<div class="modal-header">` %>
+      <% modalHTML += `<span class="close" id="close-${resortFullDate}">&times;</span>` %>
+      <% modalHTML += `<h2>Availability for ${resortFullDate}</h2>` %>
+      <% modalHTML += `</div>` %>
+      <% modalHTML += `<div class="modal-body">` %>
+      <% modalHTML += `<div class="modal-body-content">` %>
+      <% modalHTML += `<div class="modal-body-content-left">` %>
+      <% modalHTML += `<h3>Resort</h3>` %>
+      <% modalHTML += `<h3>Park</h3>` %>
+      <% modalHTML += `</div>` %>
+      <% modalHTML += `<div class="modal-body-content-right">` %>
+      <% modalHTML += `<h3>resort</h3>` %>
+      <% for (facilities of resortAvailability.facilities) { %>
+        <% modalHTML += `<h3>${facilities.facilityName}</h3>` %>
+        <% modalHTML += `<h3>${facilities.available ? 'Yes' : 'No'}</h3>` %>
+      <% } %>
+      <% modalHTML += `</div>` %>
+      <% modalHTML += `</div>` %>
+      <% modalHTML += `</div>` %>
+      <% modalHTML += `</div>` %>
+      <% modalHTML += `</div>` %>
+      <% html += modalHTML; %>
+      
+
       <% if (resortAvailability.availability === 'cms-key-all-availability') { %>
         <% resortClass = 'both' %>
         <% imgHTML = `<img src="/assets/both.png" alt="both" style="width: 27px; height: 15px;"">` %>
+        
         <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
             <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>
             <% imgHTML = `<img src="/assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;"></a>` %> 
@@ -66,7 +94,7 @@
     
 
     
-    <% week += `<div class='day ${resortClass}'>` + `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}">` + month.getDate() + '</a>' + imgHTML + '</div>'; %>
+    <% week += `<div class='day ${resortClass}' id='${resortFullDate}'>` + month.getDate() + '</a>' + imgHTML + '</div>'; %>
     
 
     
@@ -102,5 +130,6 @@
 <div id="calendars">
 <%- calendarHTML %>
 </div>
+<script src="/js/calendar.js" defer></script>
 </body>
 </html>
