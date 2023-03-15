@@ -25,6 +25,9 @@
             <form method="POST" action="/requests/<%= user.requests[request]._id %>?_method=DELETE">
                 <input class="sm-request-button" type="submit" value="Delete" />
                 </form>
+            <form method="GET" action="/requests/<%= user.requests[request]._id %>/edit">
+                <input class="sm-request-button" type="submit" value="Update" />
+                </form>
             </div>
         <% } %>
         </div>

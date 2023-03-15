@@ -45,19 +45,28 @@ router.post('/create/:userId', (req, res) => {
     ) 
 });
 
-
-// Show Route: GET localhost:3000/reviews/:id
-router.get('/:id', (req, res) => {
-    db.Item.find(
-        { 'reviews._id': req.params.id },
-        { 'reviews.$': true, _id: false }
-    )
-        .then(item => {
-	        // format query results to appear in one object, 
-	        // rather than an object containing an array of one object
-            res.json(item.reviews[0])
+router.get('/:requestId/edit', (req, res) => {
+    db.User.findOne({ 'requests._id': req.params.requestId })
+        .then(user => {
+            const request = user.requests.id(req.params.requestId)
+            res.render('./request/request-edit.ejs', {
+                user: user,
+                request: request
+            })
         })
 });
+
+
+router.post('/:requestId', (req, res) => {
+    db.User.findOneAndUpdate(
+        { 'requests._id': req.params.requestId },
+        { $set: { 'requests.$.status': req.body.status } },
+        { new: true }
+    )
+    then(user => 
+        res.redirect(`/user/${user.id}`))
+    });
+
 
 // Destroy Route: DELETE localhost:3000/reviews/:id
 router.delete('/:id', (req, res) => {

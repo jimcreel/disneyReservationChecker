@@ -1,25 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%- include('../partials/header', {title: 'Edit Request'}) %>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/newrequest.css">
     
-    <link rel="stylesheet" href=".styles/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <% for (review in user.requests) { %>
-        <p><strong>User: <%= user.requests[request].name %></strong></p>
-        <p><strong>Review Title: <%= user.requests[request].title %></strong></p>
-
-        <form method="POST" action="/requests/<%= user.requests[request]._id %>?_method=DELETE">
-            <input class="sm-request-button" type="submit" value="Delete" />
-            </form>
-        <p><strong>request:</strong> <%= user.requests[request].date %></p>
-        
-
-
-    <% } %>
-   
-    <% } %>
+    <div class="container">
+        <h1> Edit Request for <%= user.id %> </h1>
+    <form method="POST" action="/requests/create/<%= user.id %>">
+        <label for="resort">Resort:</label>
+        <select name = "resort" type="text" placeholder="Resort" id="resortSelect">
+            <option value="Select Resort" selected disabled>Select Resort</option>
+            <option value="DLR" id="DLR">Disneyland Resort</option>
+            <option value="WDW" id="WDW">Walt Disney World</option>
+        </select>
+        <br>
+        <label for="park">Park:</label>
+        <select name = "park" type="text" placeholder="Park">
+            <option value="Select Park" selected disabled>Select Park</option>
+            <option value="ANY" >Any</option>
+            <option value="DP" class="DLR"  disabled>Disneyland Resort</option>
+            <option value="CA" class="DLR"  disabled>Disney California Adventure</option>
+            <option value="MK" class="WDW"  disabled>Magic Kingdom</option>
+            <option value="EPCOT" class="WDW"  disabled>Epcot</option>
+            <option value="HS" class="WDW"  disabled>Hollywood Studios</option>
+            <option value="AN" class="WDW"  disabled>Animal Kingdom</option>
+        </select>
+        <br>
+        <label for="date">Date:</label>
+        <input name = "date" type="date" value="<%= request.date %>" >
+        <br>
+        <label for="pass">Pass:</label>
+        <select name = "pass" type="text">
+            <option value="Select Pass" selected disabled>Select Pass</option>
+            <option value = "inspire-key-pass" class="DLR" disabled>Inspire Key</option>
+            <option value = "enchant-key-pass" class="DLR" disabled>Enchant Key</option>
+            <option value = "believe-key-pass" class="DLR" disabled>Believe Key</option>
+            <option value = "dream-key-pass" class="DLR" disabled>Dream Key</option>
+            <option value = "disney-incredi-pass" class="WDW" disabled>Incredi-Pass</option>
+            <option value = "disney-sorceror-pass" class="WDW" disabled>Sorcerers Pass</option>
+            <option value = "disney-pirate-pass" class="WDW" disabled>Pirate Pass</option>
+            <option value = "disney-pixie-dust-pass" class="WDW" disabled>Pixie-Dust Pass</option>
+        </select>
+        <br>
+    
+        <input name = "submit" type="submit" value="Submit">
+            
+        <input name = "available" value="false" hidden>
+        </form>
+        </div>
+        <script src="/js/main.js" defer></script>
+    </form>
