@@ -38,6 +38,7 @@
   align-items: center;
   font-size: 16px;
   font-weight: bold;
+  border: 1px lightgray;
 }
 
 .day:hover {
@@ -49,12 +50,14 @@
 
 .empty {
   background-color: #eee;
+  border: 1px solid #eee;
 }
 
 .slash, .cms-key-no-availability {
   background-color: #ccc;
   text-decoration: line-through;
   color: lightslategray;
+  border: 1px solid #ccc;
 }
 
 
