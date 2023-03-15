@@ -22,12 +22,13 @@ const db = require('../models')
 
 
 // New Route: GET localhost:3000/requests/new
-router.get('/new/:userId/:date', (req, res) => {
+router.get('/new/:userId/:date?/:resortPark?', (req, res) => {
     db.User.findById(req.params.userId)
         .then(user =>{
         res.render('./request/request-new.ejs', { 
             user: user,
-            date: req.params.date
+            date: req.params.date,
+            resortPark: req.params.resortPark
          })
 
 })
@@ -41,7 +42,7 @@ router.post('/create/:userId', (req, res) => {
         { new: true }
     )
         .then(user =>
-        res.redirect(`/`),
+        res.redirect(`/users/${user.id}`),
     ) 
 });
 

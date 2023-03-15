@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 </head>
 <body>
-<a href="./users/640d649def9a82312f066ba0">See all requests</a>
+<a href="/users/640d649def9a82312f066ba0">See all requests</a>
 <% // Get the current date %>
 <% let today = new Date(); %>
 <% let weekCounter = 0; %>
@@ -67,8 +67,16 @@
       <% modalHTML += `<div class="modal-body-content-right">` %>
       <% modalHTML += `<h3>resort</h3>` %>
       <% for (facilities of resortAvailability.facilities) { %>
-        <% modalHTML += `<h3>${facilities.facilityName}</h3>` %>
-        <% modalHTML += `<h3>${facilities.available ? 'Yes' : 'No'}</h3>` %>
+        <% modalHTML += `<img src=/assets/${facilities.facilityName}.png>` %>
+        <% modalHTML += `<h3>${facilities.available ? 'Available' : facilities.blocked ? 'Blocked Out' : 'No Reservations'}</h3>` %>
+        <% if (facilities.available && resort === 'DLR'){
+          modalHTML += `<a href="https://disneyland.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
+        }else if (facilities.available && resort === 'WDW'){
+          modalHTML += `<a href="https://disneyworld.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
+        }else if (!facilities.available){
+          modalHTML += `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${facilities.facilityName}"><button>Request a Notification</button></a>`
+        } %>
+        
       <% } %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>
@@ -80,7 +88,7 @@
 
       <% if (resortAvailability.availability === 'cms-key-all-availability') { %>
         <% resortClass = 'both' %>
-        <% imgHTML = `<img src="/assets/both.png" alt="both" style="width: 27px; height: 15px;"">` %>
+        <% imgHTML = `<img src="/assets/both.png" alt="both" style="width: 27px; height: 15px;">` %>
         
         <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
             <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>

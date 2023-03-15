@@ -42,9 +42,9 @@
 
 .day:hover {
   transform: scale(1.02);
-  transition: all 0.5s ease-in-out;
+  transition: scale 0.5s ease-in-out;
   border: 1px solid darkslategray;
-  transition: border 0.5s fade-in-out;
+
 }
 
 .empty {
@@ -89,6 +89,9 @@ a {
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.modal button {
+  display: block;
+}
 /* The Close Button */
 .close {
   color: #aaaaaa;

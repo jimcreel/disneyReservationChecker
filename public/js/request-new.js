@@ -19,3 +19,5 @@ document.getElementById('resortSelect').addEventListener('change', function() {
       }
     }
   });
+
+  
