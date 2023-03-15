@@ -11,6 +11,7 @@ const requestsCtrl = require('./controllers/requests')
 const usersCtrl = require('./controllers/users')
 const methodOverride = require('method-override');
 const { abort } = require('process');
+const { api } = require('./models');
 const app = express();
 
 // refresh the browser when nodemon restarts
@@ -35,16 +36,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 
-/* Mount routes
+/* Mount routes/
 --------------------------------------------------------------- */
 
 app.get('/', function (req, res) {
-    
-    db.api.getResorts()
-    .then (result => 
-        res.render('home', {resort: result}))
-    .catch(err => console.log(err))
+    res.render('index');
 })
+
+app.get('/home/:resort', function (req, res) {
+    let resort = req.params.resort
+    db.api.getResorts(req, res, resort)
+    .then(availability => {
+        res.render('home', 
+        {availability: availability,
+        resort: resort})
+    })
+})
+
 
 
 app.get('/seed', function (req, res) {
