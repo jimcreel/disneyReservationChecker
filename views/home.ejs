@@ -10,6 +10,27 @@
 <body>
 <a href="/users/640d649def9a82312f066ba0">See all requests</a>
 <% // Get the current date %>
+<% function getText(code) {
+  switch (code) {
+      case 'DLR':
+          return 'Disneyland Resort'
+      case 'WDW':
+          return 'Walt Disney World Resort'
+      case 'DP':
+          return 'Disneyland Park'
+      case 'CA':
+          return 'California Adventure'
+      case 'MK':
+          return 'Magic Kingdom'
+      case 'EPCOT':
+          return 'Epcot'
+      case 'HS':
+          return 'Hollywood Studios'
+      case 'AK':
+          return 'Animal Kingdom'
+  }
+  
+}; %>
 <% let today = new Date(); %>
 <% let weekCounter = 0; %>
 
@@ -61,12 +82,13 @@
       <% modalHTML += `<div class="modal-body">` %>
       <% modalHTML += `<div class="modal-body-content">` %>
       <% modalHTML += `<div class="modal-body-content-left">` %>
-      <% modalHTML += `<h3>Resort</h3>` %>
-      <% modalHTML += `<h3>Park</h3>` %>
+        <% let textResort = getText(resort); %> 
+      <% modalHTML += `<h3>Resort: ${textResort}</h3>` %>
+      <% modalHTML += `<h3>Park Availability: </h3>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `<div class="modal-body-content-right">` %>
-      <% modalHTML += `<h3>resort</h3>` %>
       <% for (facilities of resortAvailability.facilities) { %>
+        <% modalHTML += `<div class="facilities">` %>
         <% modalHTML += `<img src=/assets/${facilities.facilityName}.png>` %>
         <% modalHTML += `<h3>${facilities.available ? 'Available' : facilities.blocked ? 'Blocked Out' : 'No Reservations'}</h3>` %>
         <% if (facilities.available && resort === 'DLR'){
@@ -75,7 +97,9 @@
           modalHTML += `<a href="https://disneyworld.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
         }else if (!facilities.available){
           modalHTML += `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${facilities.facilityName}"><button>Request a Notification</button></a>`
-        } %>
+        }
+        modalHTML += `</div>`
+         %>
         
       <% } %>
       <% modalHTML += `</div>` %>
@@ -86,13 +110,24 @@
       <% html += modalHTML; %>
       
 
-      <% if (resortAvailability.availability === 'cms-key-all-availability') { %>
-        <% resortClass = 'both' %>
-        <% imgHTML = `<img src="/assets/both.png" alt="both" style="width: 27px; height: 15px;">` %>
+      <% if (resortAvailability.availability === 'cms-key-all-availability' ) { %>
+        <% if (resort === 'DLR') { %>
+          <% resortClass = 'both' %>
+          <% imgHTML = `<img src="/assets/both.png" alt="both" style="width: 27px; height: 15px;">` %>
+        <% }else{
+          resortClass = 'all'
+          imgHTML = `<img src="/assets/all.png" alt="all" style="width: 27px; height: 15px;">`
+        } %>
         
         <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
+          <% if (resort === 'DLR') { %>
             <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>
             <% imgHTML = `<img src="/assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;"></a>` %> 
+          <% }else{
+            resortClass = 'some'
+            imgHTML = `<img src="/assets/some.png" alt="some" style="width: 27px; height: 15px;">`
+          } %>
+          
         <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
             <% resortClass = 'slash' %>
         <% } %>

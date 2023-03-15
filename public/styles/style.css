@@ -69,30 +69,30 @@ a {
 }
 
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none; 
+  position: fixed;
+  z-index: 1; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0.4); 
 }
 
-/* Modal Content/Box */
+
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto; 
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 40%; 
 }
 
 .modal button {
   display: block;
 }
-/* The Close Button */
+
+
 .close {
   color: #aaaaaa;
   float: right;
@@ -107,12 +107,35 @@ a {
   cursor: pointer;
 }
 
-/* Add animation */
+
 .modal-content {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
-
+.modal-body-content-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 100%;
+  flex-wrap: wrap;
+}
+.facilities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 10px;
+  width: 10vh;
+  font-size: 12px;
+}
+.facilities img {
+  width: 30px;
+  height: auto;
+  margin: 5px;
+  
+}
 @keyframes zoom {
   from {
     transform: scale(0);

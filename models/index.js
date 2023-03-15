@@ -14,5 +14,6 @@ const mongodbUri = process.env.MONGODBURI;
 module.exports = {
     api: require('./api'),
     User: require('./user'),
-    Request: require('./request')
+    Request: require('./request'),
+    getText: require('./getText')
 }

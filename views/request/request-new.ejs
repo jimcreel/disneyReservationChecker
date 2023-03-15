@@ -7,6 +7,27 @@
     
 </head>
 <body>
+<% function getText(code) {
+    switch (code) {
+        case 'DLR':
+            return 'Disneyland Resort'
+        case 'WDW':
+            return 'Walt Disney World Resort'
+        case 'DP':
+            return 'Disneyland Park'
+        case 'CA':
+            return 'California Adventure'
+        case 'MK':
+            return 'Magic Kingdom'
+        case 'EPCOT':
+            return 'Epcot'
+        case 'HS':
+            return 'Hollywood Studios'
+        case 'AK':
+            return 'Animal Kingdom'
+    }
+    
+}; %>
     <div class="container">
         <h1> New Request for <%= user.id %> </h1>
     <form method="POST" action="/requests/create/<%= user.id %>">
@@ -32,40 +53,8 @@
         <% } else { 
                 let resort = resortPark.slice(0,3) 
                 let park = resortPark.slice(4) 
-                let resortText = '' 
-                let parkText = '' 
-                switch (resort) {
-                    case "DLR": 
-                        resortText = "Disneyland Resort" 
-                        break; 
-                    case "WDW":
-                        resortText = "Walt Disney World" 
-                        break;
-                    }
-                
-                switch (park) { 
-                    case "ANY": 
-                        parkText = "Any"
-                        break;
-                    case "DP": 
-                        parkText = "Disneyland Park" 
-                        break;
-                    case "CA": 
-                        parkText = "Disney California Adventure" 
-                        break;
-                    case "MK": 
-                    parkText = "Magic Kingdom" 
-                    break; 
-                    case "EPCOT": 
-                    parkText = "Epcot" 
-                    break; 
-                    case "HS": 
-                    parkText = "Hollywood Studios" 
-                    break; 
-                    case "AK": 
-                    parkText = "Animal Kingdom" 
-                    break;
-            } %>
+                let resortText = getText(resort);
+                let parkText = getText(park); %>
 
 
         <h2> Resort: <%= resortText %> </h2>
