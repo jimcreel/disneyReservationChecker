@@ -25,7 +25,7 @@ const db = require('../models')
 router.get('/new/:userId/:date?/:resortPark?', (req, res) => {
     db.User.findById(req.params.userId)
         .then(user =>{
-        res.render('./request/request-new.ejs', { 
+            res.render('./request/request-new.ejs', { 
             user: user,
             date: req.params.date,
             resortPark: req.params.resortPark
@@ -36,6 +36,7 @@ router.get('/new/:userId/:date?/:resortPark?', (req, res) => {
 
 // Create Route: POST localhost:3000/requests/
 router.post('/create/:userId', (req, res) => {
+    console.log(req.body);
     db.User.findByIdAndUpdate(
         req.params.userId,
         { $push: { requests: req.body } },

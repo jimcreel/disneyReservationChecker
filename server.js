@@ -5,6 +5,9 @@ const path = require('path');
 const express = require('express');
 const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload");
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('express-session');
 
 const db = require('./models');
 const requestsCtrl = require('./controllers/requests')
@@ -13,6 +16,7 @@ const methodOverride = require('method-override');
 const { abort } = require('process');
 const { api } = require('./models');
 const app = express();
+let userProfile;
 
 // refresh the browser when nodemon restarts
 const liveReloadServer = livereload.createServer();
@@ -34,10 +38,53 @@ app.use(express.static('public'))
 app.use(connectLiveReload());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(session({
+    secret: process.env.GOOGLE_CLIENT_SECRET,
+    resave: false,
+    saveUninitialized: true
+}));
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+},
+    function (accessToken, refreshToken, profile, cb) {
+        userProfile = profile;
+        return cb(null, userProfile);
+    }
+));
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 /* Mount routes/
 --------------------------------------------------------------- */
+app.get ('/success', async (req, res) => 
+    
+    res.render(`/users/${userProfile.id}`));
+
+app.get('/error', (req, res) => res.send("error logging in"));
+
+
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/error' }),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/success')}
+    );
 
 app.get('/', function (req, res) {
     res.render('index');
