@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <%- include ('../partials/header', {title: `User Profile`}) %>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/user-details.css">
 </head>
 
 
 <body>
-
+    <%- include('../partials/nav') %>
+    <h1> User Profile </h1>
+    <div class="user-details">
     <form action = "/users/<%=user.id %>?_method=PUT" method = "POST">
         <label for="username">Username</label>
         <input type="text" name="username" value="<%= user.username %>">
@@ -18,9 +22,28 @@
         <input type="text" name="email" value="<%= user.email %>">
         <label for="phone">Phone</label>
         <input type="text" name="phone" value="<%= user.phone %>">
+        <select name = "defaultResort">
+            <option value="default" disabled selected>Select Your Home Resort</option>
+            <option value="DLR">Disneyland Resort</option>
+            <option value="WDL">Walt Disney World</option>
+        </select>
+        <select name ="defaultPass">
+            <option value="default" disabled selected>Select Your Default Pass</option>
+            <option value="inspire-key-pass">Inspire Key</option>
+            <option value="believe-key-pass">Believe Key</option>
+            <option value="dream-key-pass">Dream Key</option>
+            <option value="imagine-key-pass">Imagine Key</option>
+            <option value="enchant-key-pass">Enchant Key</option>
+            <option value="disney-incredi-pass">Incredi-Pass</option>
+            <option value="disney-sorceror-pass">Sorceror Pass</option>
+            <option value="disney-pirate-pass">Pirate Pass</option>
+            <option value="disney-pixie-dust-pass">Pixie-Dust Pass</option>
+
+        </select>
         <input type="submit" value="Update">
 
 
     </form>
+    </div>
 </body>
 </html>

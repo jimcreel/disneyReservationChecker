@@ -12,7 +12,9 @@
     <p> Username: <%= user.username %></p>
     <p> Email: <%= user.email %></p>
     <p> Phone: <%= user.phone %></p>
-    <a href="/users/<%=user._id%>/edit">Edit User</a>
+    <p> Home Resort: <%= user.defaultResort %></p>
+    <p> Annual Pass: <%= user.defaultPass %></p>
+    <button class="sm-request-button"><a href="/users/<%=user._id%>/edit">Edit User</a></button>
     </div>
     <h1> Requests: </h1>
     <div class="request-body">
