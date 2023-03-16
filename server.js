@@ -5,11 +5,12 @@ const path = require('path');
 const express = require('express');
 const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload");
-const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
+const passport = require('passport');
 
 const db = require('./models');
+require('./config/passport');
 const requestsCtrl = require('./controllers/requests')
 const usersCtrl = require('./controllers/users')
 const methodOverride = require('method-override');
@@ -43,48 +44,48 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
-},
-    function (accessToken, refreshToken, profile, cb) {
-        userProfile = profile;
-        return cb(null, userProfile);
-    }
-));
-
-passport.serializeUser(function(user, done) {
-    done(null, user);
-  });
-  
-  passport.deserializeUser(function(user, done) {
-    done(null, user);
-  });
-
 app.use(passport.initialize());
 app.use(passport.session());
+// Add this middleware BELOW passport middleware
+app.use(function (req, res, next) {
+    res.locals.user = req.user;
+    next();
+  });
+  
+
+
+
+
+
+
 
 
 /* Mount routes/
 --------------------------------------------------------------- */
-app.get ('/success', async (req, res) => 
-    
-    res.render(`/users/${userProfile.id}`));
+app.get('/auth/google', passport.authenticate(
+    'google', 
+    { scope: ['profile', 'email'], 
+    prompt: 'select_account'    
+    }
+));
+
+
+app.get ('/oauth2callback', passport.authenticate(
+    'google',
+    {
+        successRedirect: '/success',
+        failureRedirect: '/error'
+    }
+));
+
+app.get('/success', (req, res) => 
+    res.render(`./users/${req.user._id}`, {user: req.user})
+);
+
+
 
 app.get('/error', (req, res) => res.send("error logging in"));
 
-
-app.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/error' }),
-    function (req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/success')}
-    );
 
 app.get('/', function (req, res) {
     res.render('index');
@@ -111,6 +112,12 @@ app.get('/seed', function (req, res) {
     .catch(err => console.log(err))
 }
 )
+
+app.get('/logout', function(req, res){
+    req.logout(function() {
+      res.redirect('/index');
+    });
+  });
 
 
 app.use('/requests', requestsCtrl)

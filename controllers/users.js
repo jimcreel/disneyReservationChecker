@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
 
 // Show Route: shows the user details and link to edit/delete
 router.get('/:id', (req, res) => {
-    db.User.findById(req.params.id)
+    db.User.findOne({googleId: req.params.id})
         .then(user => {
 	    res.render('./user/user-show.ejs', { user: user })
         })
