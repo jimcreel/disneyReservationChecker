@@ -7,6 +7,7 @@
     
 </head>
 <body>
+    <%- include('../partials/nav') %>
     <% function getText (code) {
         switch (code) {
             case 'DLR':
@@ -33,7 +34,7 @@
         let parkText = '' %>
 
     <div class="container">
-        <h1> New Request for <%= user.id %> </h1>
+        <h1> New Request for <%= user.name %> </h1>
     <form method="POST" action="/requests/create/<%= user.id %>">
         <% if(resortPark !== undefined && resortPark !== 'ANY') { 
              resort = resortPark.slice(0,3) 

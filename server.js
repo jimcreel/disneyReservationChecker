@@ -9,6 +9,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const passport = require('passport');
 
+
 const db = require('./models');
 require('./config/passport');
 const requestsCtrl = require('./controllers/requests')
@@ -18,6 +19,8 @@ const { abort } = require('process');
 const { api } = require('./models');
 const app = express();
 let userProfile;
+// Require the auth middleware
+
 
 // refresh the browser when nodemon restarts
 const liveReloadServer = livereload.createServer();
@@ -78,9 +81,11 @@ app.get ('/oauth2callback', passport.authenticate(
     }
 ));
 
-app.get('/success', (req, res) => 
-    res.render(`./users/${req.user._id}`, {user: req.user})
-);
+app.get('/success', (req, res) => {
+        res.render('index', {user: req.user})
+    });
+    
+
 
 
 
@@ -88,7 +93,8 @@ app.get('/error', (req, res) => res.send("error logging in"));
 
 
 app.get('/', function (req, res) {
-    res.render('index');
+    
+    res.render('index', {user: req.user});
 })
 
 app.get('/home/:resort', function (req, res) {
@@ -115,7 +121,7 @@ app.get('/seed', function (req, res) {
 
 app.get('/logout', function(req, res){
     req.logout(function() {
-      res.redirect('/index');
+      res.render('index');
     });
   });
 

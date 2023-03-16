@@ -7,8 +7,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 </head>
+<%- include ('./partials/nav.ejs') %>
 <body>
-<a href="/users/640d649def9a82312f066ba0">See all requests</a>
+
 <% // Get the current date %>
 <% function getText(code) {
   switch (code) {
@@ -31,6 +32,25 @@
   }
   
 }; %>
+<div class="legend">
+<p class="legend"><strong>Legend: </strong></p>
+<p>
+  <% if (resort === 'DLR')
+  { %>
+    <img class = "icons" src="/assets/DLR_DP.png"> - Disneyland Park
+    <img class = "icons"src="/assets/DLR_CA.png"> - California Adventure
+    <img class = "icons" src ="/assets/both.png"> - Both Parks Available
+  <% } else if (resort === 'WDW')
+  { %>
+    <img class = "icons"src="/assets/WDW_MK.png"> - Magic Kingdom
+    <img class = "icons"src="/assets/WDW_EP.png"> - Epcot
+    <img class = "icons"src="/assets/WDW_HS.png"> - Hollywood Studios
+    <img class = "icons" src="/assets/WDW_AK.png"> - Animal Kingdom
+  <% } %>
+<img class = "icons" src="/assets/green.png"> - Currently Unavailable
+
+</p>
+</div>
 <% let today = new Date(); %>
 <% let weekCounter = 0; %>
 
@@ -77,20 +97,20 @@
       <% modalHTML += `<div class="modal-content">` %>
       <% modalHTML += `<div class="modal-header">` %>
       <% modalHTML += `<span class="close" id="close-${resortFullDate}">&times;</span>` %>
-      <% modalHTML += `<h2>Availability for ${resortFullDate}</h2>` %>
+      <% modalHTML += `<h3>Availability for ${resortFullDate}</h3>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `<div class="modal-body">` %>
       <% modalHTML += `<div class="modal-body-content">` %>
       <% modalHTML += `<div class="modal-body-content-left">` %>
         <% let textResort = getText(resort); %> 
-      <% modalHTML += `<h3>Resort: ${textResort}</h3>` %>
-      <% modalHTML += `<h3>Park Availability: </h3>` %>
+      <% modalHTML += `<p>Resort: ${textResort}</p>` %>
+      <% modalHTML += `<p>Park Availability: </p>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `<div class="modal-body-content-right">` %>
       <% for (facilities of resortAvailability.facilities) { %>
         <% modalHTML += `<div class="facilities">` %>
         <% modalHTML += `<img src=/assets/${facilities.facilityName}.png>` %>
-        <% modalHTML += `<h3>${facilities.available ? 'Available' : facilities.blocked ? 'Blocked Out' : 'No Reservations'}</h3>` %>
+        <% modalHTML += `<p>${facilities.available ? 'Available' : facilities.blocked ? 'Blocked Out' : 'No Reservations'}</p>` %>
         <% if (facilities.available && resort === 'DLR'){
           modalHTML += `<a href="https://disneyland.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
         }else if (facilities.available && resort === 'WDW'){
@@ -103,7 +123,7 @@
         <% modalHTML += `</div>` %>
       <% } %>
       <% modalHTML += `<div class ="facilities">` %>
-        <% modalHTML += `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${resort}_ANY"><button>Request a Notification for Any Park</button></a>` %>
+        <% modalHTML += `<img src='/assets/WDW_ALL.webp'><p>Any Park</p><a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${resort}_ANY"><button>Request Any Park</button></a>` %>
         <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>
@@ -132,7 +152,7 @@
           } %>
           
         <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
-            <% resortClass = 'slash' %>
+            <% imgHTML = `<img src="/assets/green.png" alt="yellow" style="width: 15px; height: 15px;">` %>
         <% } %>
     <% }else{ %>
         <% resortClass = 'slash' %>

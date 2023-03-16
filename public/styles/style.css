@@ -1,6 +1,19 @@
 * {
   font-family: 'Roboto', sans-serif;
 }
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.legend p, img{
+  margin: 5px;
+}
+
+
 #calendars {
   display: flex;
   flex-wrap: wrap;
@@ -57,7 +70,6 @@
 
 .slash, .cms-key-no-availability {
   background-color: #ccc;
-  text-decoration: line-through;
   color: lightslategray;
   border: 1px solid #ccc;
 }
@@ -91,6 +103,7 @@ a {
   padding: 20px;
   border: 1px solid #888;
   width: 40%; 
+  font-size: 1.5
 }
 
 .modal button {
@@ -128,18 +141,33 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 5px;
   border: 1px solid lightgray;
   border-radius: 5px;
   padding: 10px;
   width: 10vh;
-  font-size: 12px;
+  font-size: 1rem;
 }
 .facilities img {
   width: 30px;
   height: auto;
   margin: 5px;
   
+}
+
+.facilities button {
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+
+.icons {
+  width: 15px;
+  height: auto;
+}
+.nav li{
+  margin: 10px;
 }
 @keyframes zoom {
   from {

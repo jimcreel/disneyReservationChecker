@@ -4,13 +4,15 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
-    max-width: 20vw;
+    width: 20vw;
+    min-width: 15vw;
 }
 
 .request-body {
     display: flex;
     flex-direction: row;
-   
+    flex-wrap: wrap;
+    
 }
 
 .user-details {

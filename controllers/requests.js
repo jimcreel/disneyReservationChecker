@@ -15,18 +15,18 @@ const router = express.Router()
 /* Require the db connection, and models
 --------------------------------------------------------------- */
 const db = require('../models')
-
+const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 /* Routes
 --------------------------------------------------------------- */
 
 
 // New Route: GET localhost:3000/requests/new
-router.get('/new/:userId/:date?/:resortPark?', (req, res) => {
+router.get('/new/:userId/:date?/:resortPark?', ensureLoggedIn, (req, res) => {
     db.User.findById(req.params.userId)
         .then(user =>{
             res.render('./request/request-new.ejs', { 
-            user: user,
+            user: req.user,
             date: req.params.date,
             resortPark: req.params.resortPark
          })

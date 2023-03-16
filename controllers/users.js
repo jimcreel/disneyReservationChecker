@@ -12,10 +12,13 @@ const express = require('express')
 const router = express.Router()
 
 
+
 /* Require the db connection, and models
 --------------------------------------------------------------- */
 const db = require('../models')
 
+// Require the auth middleware
+const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 /* Routes
 --------------------------------------------------------------- */
@@ -36,15 +39,12 @@ router.post('/', (req, res) => {
 });
 
 // Show Route: shows the user details and link to edit/delete
-router.get('/:id', (req, res) => {
-    db.User.findOne({googleId: req.params.id})
-        .then(user => {
-	    res.render('./user/user-show.ejs', { user: user })
-        })
-});
+router.get('/:id', ensureLoggedIn, function (req, res) {
+	    res.render('./user/user-show.ejs', { user: req.user })
+        });
 
 // Show Route: shows the user edit form
-router.get('/:id/edit', function (req, res) {
+router.get('/:id/edit', ensureLoggedIn, function (req, res) {
     db.User.findById(req.params.id)
     .then(user => {
     res.render('./user/user-edit.ejs',
