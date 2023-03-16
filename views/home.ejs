@@ -97,11 +97,14 @@
           modalHTML += `<a href="https://disneyworld.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
         }else if (!facilities.available){
           modalHTML += `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${facilities.facilityName}"><button>Request a Notification</button></a>`
-        }
-        modalHTML += `</div>`
-         %>
-        
+        } %>
+
+          
+        <% modalHTML += `</div>` %>
       <% } %>
+      <% modalHTML += `<div class ="facilities">` %>
+        <% modalHTML += `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/ANY"><button>Request a Notification for Any Park</button></a>` %>
+        <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>

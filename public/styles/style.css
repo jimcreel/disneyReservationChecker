@@ -30,6 +30,9 @@
   text-align: center;
   padding: 5px;
   border-top: 1px solid lightgray;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
   display: flex;
   flex-direction: column;
   height: 50px;
@@ -38,11 +41,10 @@
   align-items: center;
   font-size: 16px;
   font-weight: bold;
-  border: 1px lightgray;
 }
 
 .day:hover {
-  transform: scale(1.02);
+  transform: scale(1.1);
   transition: scale 0.5s ease-in-out;
   border: 1px solid darkslategray;
 

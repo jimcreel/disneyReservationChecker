@@ -20,4 +20,11 @@ document.getElementById('resortSelect').addEventListener('change', function() {
     }
   });
 
-  
+  let resortSelect = document.getElementById("resortSelect");
+  for (let i = 0; i < resortSelect.length; i++) {
+    if (resortSelect[i].value === resortText) {
+      resortSelect[i].selected = true;
+    }else{
+      resortSelect[i].selected = false;
+    }
+  }

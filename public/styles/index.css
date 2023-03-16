@@ -1,3 +1,6 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
 .DLR {
     height: auto;
     width: 30vw;
@@ -15,3 +18,4 @@ body {
     justify-content: center;
     align-items: center;
 }
+
