@@ -7,7 +7,7 @@
     
 </head>
 <body>
-    <% include('../partials/nav') %>
+    <%- include('../partials/nav') %>
     <div class="container">
         <h1> Edit Request for <%= user.name %> </h1>
     <form method="POST" action="/requests/<%= request.id %>?_method=PUT">
