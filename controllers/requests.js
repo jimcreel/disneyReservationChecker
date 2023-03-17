@@ -55,7 +55,6 @@ router.get('/:requestId/edit', ensureLoggedIn, (req, res) => {
 
 
 router.put('/:requestId', ensureLoggedIn, (req, res) => {
-    console.log(req.body),
     db.User.findOneAndUpdate({ 'requests._id': req.params.requestId},
     {$set: {
         'requests.$.date': req.body.date,
