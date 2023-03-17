@@ -10,7 +10,6 @@ const session = require('express-session');
 const passport = require('passport');
 
 
-
 const db = require('./models');
 require('./config/passport');
 const requestsCtrl = require('./controllers/requests')
@@ -22,7 +21,7 @@ const app = express();
 let userProfile;
 // Require the auth middleware
 
-const ensureLoggedIn = require('./config/ensureLoggedIn');
+
 // refresh the browser when nodemon restarts
 const liveReloadServer = livereload.createServer();
 liveReloadServer.server.once("connection", () => {
@@ -83,8 +82,7 @@ app.get ('/oauth2callback', passport.authenticate(
 ));
 
 app.get('/success', (req, res) => {
-    
-        res.redirect('/')
+        res.render('index', {user: req.user})
     });
     
 
@@ -94,14 +92,20 @@ app.get('/success', (req, res) => {
 app.get('/error', (req, res) => res.send("error logging in"));
 
 
-app.get('/', ensureLoggedIn, function (req, res) {
+app.get('/', function (req, res) {
     
     res.render('index', {user: req.user});
 })
 
-app.get('/home/:resort?', function (req, res) {
-    console.log(user);
-});
+app.get('/home/:resort', function (req, res) {
+    let resort = req.params.resort
+    db.api.getResorts(req, res, resort)
+    .then(availability => {
+        res.render('home', 
+        {availability: availability,
+        resort: resort})
+    })
+})
 
 
 
