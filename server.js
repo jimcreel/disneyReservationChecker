@@ -100,9 +100,9 @@ app.get('/', function (req, res) {
 app.get('/home/:resort', function (req, res) {
     let resort = req.params.resort
     db.api.getResorts(req, res, resort)
-    .then(availability => {
+    .then(availabilities => {
         res.render('home', 
-        {availability: availability,
+        {availabilities: availabilities,
         resort: resort})
     })
 })

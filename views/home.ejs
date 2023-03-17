@@ -10,7 +10,7 @@
 <%- include ('./partials/nav.ejs') %>
 <body>
 
-<% // Get the current date %>
+<!-- a function to change disney codes to text-->
 <% function getText(code) {
   switch (code) {
       case 'DLR':
@@ -29,9 +29,39 @@
           return 'Hollywood Studios'
       case 'AK':
           return 'Animal Kingdom'
+      case 'inspire-key-pass':
+          return 'Inspire'
+      case 'imagine-key-pass':
+          return 'Imagine'
+      case 'dream-key-pass':
+          return 'Dream'
+      case 'enchant-key-pass':
+          return 'Enchant'
+      case 'believe-key-pass':
+          return 'Believe'
+      case 'disney-incredi-pass':
+          return 'Incredi-Pass'
+      case 'disney-sorcerer-pass':
+          return 'Sorcerer'
+      case 'disney-pirate-pass':
+          return 'Pirate'
+      case 'disney-pixie-dust-pass':
+          return 'Pixie Dust'
   }
   
 }; %>
+
+<!-- this section builds the buttons that filter data by pass -->
+<div class = "pass">
+  <% for (pass in availabilities) {%>
+  <% let passType = availabilities[pass].passType; %>
+  <% let button = `<button type="button" class="btn btn-primary pass-button" 
+  data-bs-toggle="modal" id='${passType}'> ${getText(passType)} </button>`; %>
+  <%- button %>
+  <% } %>
+  </div>
+
+<!-- a legend to make the calendar more readable-->
 <div class="legend">
 <p class="legend"><strong>Legend: </strong></p>
 <p>
@@ -42,6 +72,9 @@
     <img class = "icons" src ="/assets/both.png"> - Both Parks Available
   <% } else if (resort === 'WDW')
   { %>
+    <img class = 'icons' src="/assets/WDW_ALL.webp"> - All Parks Available
+    <img class = 'icons' src = "/assets/some.png"> - Some Parks Available
+    <br>
     <img class = "icons"src="/assets/WDW_MK.png"> - Magic Kingdom
     <img class = "icons"src="/assets/WDW_EP.png"> - Epcot
     <img class = "icons"src="/assets/WDW_HS.png"> - Hollywood Studios
@@ -51,33 +84,35 @@
 
 </p>
 </div>
+
+<!-- this section builds the calendar -->
 <% let today = new Date(); %>
 <% let weekCounter = 0; %>
 
 
-<% // Array of month names %>
+<!-- Array of month names -->
 <% let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
 
-<% // Array of day names %>
+<!-- Array of day names -->
 <% let dayNames = ["S", "M", "T", "W", "T", "F", "S"]; %>
 
-<% // Function to generate calendar HTML %> 
+<!-- Generate Calendar HTML names -->
 <% function generateCalendarHTML(date) { %>
   <% // Create a new date object for the given month %>
   <% let month = new Date(date.getFullYear(), date.getMonth(), 1); %>
 <% weekCounter = 0; %>
-  <% // Start building the HTML %>
+
   <% let html = '<div class="calendar">'; %> 
   <% html += '<div class="month">' + monthNames[month.getMonth()] + ' ' + month.getFullYear() + '</div>'; %>
 
-  <% // Add the day labels %>
+ <!-- add the day labels -->
   <% html += '<div class="week">'; %> 
  <% for (let i = 0; i < 7; i++) { %>
     <% html += '<div class="day">' + dayNames[i] + '</div>'; %>
   <% } %>
   <% html += '</div>'; %>
 
-  <% // Add the days of the month %>
+ <!-- add the days to week containers and then to month -->
   <% let week = '<div class="week">'; %> 
     <% weekCounter += 1; %>
   <% for (let i = 0; i < month.getDay(); i++) { %>
@@ -88,12 +123,15 @@
     <% let resortDate = month.getDate().toString().padStart(2, '0'); %>
     <% let resortYear = month.getFullYear(); %>
     <% let resortFullDate = resortYear + '-' + resortMonth + '-' + resortDate; %>
-    <% let resortAvailability = availability[0]['calendar-availabilities'].find(avail => avail.date === resortFullDate); %>
+    <!-- iterate through the different pass availabilities-->
+    <% for (let i = 0; i < availabilities.length; i++) { %>
+    <% let resortAvailability = availabilities[i]['calendar-availabilities'].find(avail => avail.date === resortFullDate); %>
     <% let resortClass = ''; %>
     <% let imgHTML = ''; %>
     <% let modalHTML = ''; %>
+    <!-- build modals for dates that have availability keys in their objects-->
     <% if (resortAvailability !== undefined) { %>
-      <% modalHTML = `<div class="modal" id="modal-${resortFullDate}">` %>
+      <% modalHTML = `<div class="modal" id="modal-${resortFullDate}-${availabilities[i].passType}">` %>
       <% modalHTML += `<div class="modal-content">` %>
       <% modalHTML += `<div class="modal-header">` %>
       <% modalHTML += `<span class="close" id="close-${resortFullDate}">&times;</span>` %>
@@ -107,24 +145,35 @@
       <% modalHTML += `<p>Park Availability: </p>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `<div class="modal-body-content-right">` %>
+      <!-- build individual facility divs for each park in the availability object -->
       <% for (facilities of resortAvailability.facilities) { %>
         <% modalHTML += `<div class="facilities">` %>
         <% modalHTML += `<img src=/assets/${facilities.facilityName}.png>` %>
         <% modalHTML += `<p>${facilities.available ? 'Available' : facilities.blocked ? 'Blocked Out' : 'No Reservations'}</p>` %>
+        <!-- conditional buttons to request dates if they're not blocked -->
+        <!-- first one links to disney's site for the reservation-->
         <% if (facilities.available && resort === 'DLR'){
           modalHTML += `<a href="https://disneyland.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
         }else if (facilities.available && resort === 'WDW'){
           modalHTML += `<a href="https://disneyworld.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
-        }else if (!facilities.available){
+        }else if (!facilities.available && !facilities.blocked){
           modalHTML += `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${facilities.facilityName}"><button>Request a Notification</button></a>`
         } %>
 
           
         <% modalHTML += `</div>` %>
       <% } %>
-      <% modalHTML += `<div class ="facilities">` %>
+      
+       <!-- lets the user place a request for the first available park on a given date (if pass not blocked)-->
+        <% for (facilities of resortAvailability.facilities) { %>
+        <% if (!facilities.blocked) { %>
+          <% modalHTML += `<div class ="facilities">` %>
         <% modalHTML += `<img src='/assets/WDW_ALL.webp'><p>Any Park</p><a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${resort}_ANY"><button>Request Any Park</button></a>` %>
         <% modalHTML += `</div>` %>
+        <% break %>
+        <% } %>
+        <% } %>
+        
       <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>
       <% modalHTML += `</div>` %>
@@ -132,7 +181,7 @@
       <% modalHTML += `</div>` %>
       <% html += modalHTML; %>
       
-
+      <!-- adding classes and images to day divs to indicate availability-->
       <% if (resortAvailability.availability === 'cms-key-all-availability' ) { %>
         <% if (resort === 'DLR') { %>
           <% resortClass = 'both' %>
@@ -145,37 +194,48 @@
         <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
           <% if (resort === 'DLR') { %>
             <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>
-            <% imgHTML = `<img src="/assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;"></a>` %> 
+            <% imgHTML = `<img src="/assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;">` %> 
           <% }else{
             resortClass = 'some'
             imgHTML = `<img src="/assets/some.png" alt="some" style="width: 27px; height: 15px;">`
           } %>
-          
+      <!-- if no availability, check to see if it's blocked or just full -->
         <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
-            <% imgHTML = `<img src="/assets/green.png" alt="yellow" style="width: 15px; height: 15px;">` %>
+            <% for (facilities of resortAvailability.facilities) { %>
+              <% if (facilities.blocked === true) { %>
+                <% resortClass = 'slash' %>
+                <% }else{ %>
+                  <% imgHTML = `<img src="/assets/green.png" alt="green" style="width: 15px; height: 15px;">` %>
+                  <% resortClass = 'green' %>
+                <% } %>
+              <% } %>
+            
         <% } %>
     <% }else{ %>
         <% resortClass = 'slash' %>
     <% } %>
     
-
-    
-    <% week += `<div class='day ${resortClass}' id='${resortFullDate}'>` + month.getDate() + '</a>' + imgHTML + '</div>'; %>
     
 
-    
+    <!-- finish the resortClass so it can respond to conditional rendering -->
+    <% resortClass += ' ' + availabilities[i].passType + ' availability' %>
+    <% week += `<div class='day ${resortClass}' id='${resortFullDate}-${availabilities[i].passType}'>` + month.getDate() + '</a>' + imgHTML + '</div>'; %>
+    <% } %>
+
+    <!-- start a new week if we're at Saturday-->
     <% if (month.getDay() === 6) { %> 
       <% week += '</div><div class="week">'; %> 
         <% weekCounter += 1; %>
     <% } %>
     <% month.setDate(month.getDate() + 1); %>
   <% } %>
+  <!-- make every month six weeks long so they line up in styling-->
   <% for (let i = month.getDay(); i < 7; i++) { %> 
     <% week += '<div class="day empty"></div>'; %>
   <% } %>
   <% html += week + '</div>'; %>
 
-  <% // Close the calendar div %> 
+  <!-- close the calendar div -->
   <% if (weekCounter === 5){ %>
     <% html += '<div class="week">'; %>
     <% for (let i = 0; i < 7; i++) { %>
@@ -188,7 +248,7 @@
   <% return html; %> 
 <% } %>
 
-<% // Generate HTML for the next four months %>
+<!-- loops through the calendar creation four times -->
 <% let calendarHTML = ''; %>
 <% for (let i = 0; i < 4; i++) { %> 
   <% calendarHTML += generateCalendarHTML(new Date(today.getFullYear(), today.getMonth() + i, 1)); %> 
