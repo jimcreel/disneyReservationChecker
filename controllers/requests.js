@@ -54,14 +54,18 @@ router.get('/:requestId/edit', ensureLoggedIn, (req, res) => {
 });
 
 
-router.post('/:requestId', ensureLoggedIn, (req, res) => {
-    db.User.findOneAndUpdate(
-        { 'requests._id': req.params.requestId },
-        { $set: { 'requests.$.status': req.body.status } },
-        { new: true }
-    )
-    then(user => 
-        res.redirect(`/user/${user.id}`))
+router.put('/:requestId', ensureLoggedIn, (req, res) => {
+    console.log(req.body),
+    db.User.findOneAndUpdate({ 'requests._id': req.params.requestId},
+    {$set: {
+        'requests.$.date': req.body.date,
+        'requests.$.resort': req.body.resort,
+        'requests.$.pass': req.body.pass,
+        'requests.$.park': req.body.park
+    }
+    }, {new: true})
+        .then(user => 
+        res.redirect(`/users/${req.user.id}`))
     });
 
 
