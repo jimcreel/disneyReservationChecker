@@ -52,7 +52,8 @@
 }; %>
 
 <!-- this section builds the buttons that filter data by pass -->
-<div class = "pass">
+<div class = "container">
+<div class = "pass row">
   <% for (pass in availabilities) {%>
   <% let passType = availabilities[pass].passType; %>
   <% let button = `<button type="button" class="btn btn-primary pass-button" 
@@ -60,6 +61,7 @@
   <%- button %>
   <% } %>
   </div>
+</div>
 
 <!-- a legend to make the calendar more readable-->
 <div class="legend">
@@ -67,20 +69,20 @@
 <p>
   <% if (resort === 'DLR')
   { %>
-    <img class = "icons" src="/assets/DLR_DP.png"> - Disneyland Park
-    <img class = "icons"src="/assets/DLR_CA.png"> - California Adventure
-    <img class = "icons" src ="/assets/both.png"> - Both Parks Available
+    <div><img class = "icons" src="/assets/DLR_DP.png"> - Disneyland Park</div>
+    <div><img class = "icons"src="/assets/DLR_CA.png"> - California Adventure</div>
+    <div><img class = "icons" src ="/assets/both.png"> - Both Parks Available</div>
   <% } else if (resort === 'WDW')
   { %>
-    <img class = 'icons' src="/assets/WDW_ALL.webp"> - All Parks Available
-    <img class = 'icons' src = "/assets/some.png"> - Some Parks Available
+    <div><img class = 'icons' src="/assets/WDW_ALL.webp"> - All Parks Available</div>
+    <div><img class = 'icons' src = "/assets/some.png"> - Some Parks Available</div>
     <br>
-    <img class = "icons"src="/assets/WDW_MK.png"> - Magic Kingdom
-    <img class = "icons"src="/assets/WDW_EP.png"> - Epcot
-    <img class = "icons"src="/assets/WDW_HS.png"> - Hollywood Studios
-    <img class = "icons" src="/assets/WDW_AK.png"> - Animal Kingdom
+    <div><img class = "icons"src="/assets/WDW_MK.png"> - Magic Kingdom</div>
+    <div><img class = "icons"src="/assets/WDW_EP.png"> - Epcot</div>
+    <div><img class = "icons"src="/assets/WDW_HS.png"> - Hollywood Studios</div>
+    <div><img class = "icons" src="/assets/WDW_AK.png"> - Animal Kingdom</div>
   <% } %>
-<img class = "icons" src="/assets/green.png"> - Currently Unavailable
+<div><img class = "icons" src="/assets/green.png"> - Currently Unavailable</div>
 
 </p>
 </div>
@@ -157,7 +159,7 @@
         }else if (facilities.available && resort === 'WDW'){
           modalHTML += `<a href="https://disneyworld.disney.go.com/entry-reservation/" target="_blank"><button>Book Now</button></a>`
         }else if (!facilities.available && !facilities.blocked){
-          modalHTML += `<a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${facilities.facilityName}"><button>Request a Notification</button></a>`
+          modalHTML += `<a href="/requests/new/${user._id}/${resortFullDate}/${facilities.facilityName}"><button>Request a Notification</button></a>`
         } %>
 
           

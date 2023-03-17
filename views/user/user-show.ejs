@@ -1,29 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('../partials/header', {title: `User Profile`}) %>
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/user-details.css">
+    <%- include('../partials/header', {title: `User Profile`}) %>
+    
 </head>
 <body>
+    <% function getText(code) {
+        switch (code) {
+            case 'ANY':
+                return 'Any'
+            case 'DLR':
+                return 'Disneyland Resort'
+            case 'WDW':
+                return 'Walt Disney World Resort'
+            case 'DP':
+                return 'Disneyland Park'
+            case 'CA':
+                return 'California Adventure'
+            case 'MK':
+                return 'Magic Kingdom'
+            case 'EPCOT':
+                return 'Epcot'
+            case 'HS':
+                return 'Hollywood Studios'
+            case 'AK':
+                return 'Animal Kingdom'
+            case 'inspire-key-pass':
+                return 'Inspire'
+            case 'imagine-key-pass':
+                return 'Imagine'
+            case 'dream-key-pass':
+                return 'Dream'
+            case 'enchant-key-pass':
+                return 'Enchant'
+            case 'believe-key-pass':
+                return 'Believe'
+            case 'disney-incredi-pass':
+                return 'Incredi-Pass'
+            case 'disney-sorcerer-pass':
+                return 'Sorcerer'
+            case 'disney-pirate-pass':
+                return 'Pirate'
+            case 'disney-pixie-dust-pass':
+                return 'Pixie Dust'
+        }
+        
+      }; %>
     <%- include('../partials/nav') %>
-    <h1> User Profile </h1>
-    <div class="user-details">
-    <p> Username: <%= user.username %></p>
+    <div class="container">
+    <div class = "row">
+    <div class="user-details col-lg-3 col-md-4 col-sm-10">
+        <h1> User Profile </h1>
+    <p> Name: <%= user.name %></p>
     <p> Email: <%= user.email %></p>
     <p> Phone: <%= user.phone %></p>
-    <p> Home Resort: <%= user.defaultResort %></p>
-    <p> Annual Pass: <%= user.defaultPass %></p>
-    <button class="sm-request-button"><a href="/users/<%=user._id%>/edit">Edit User</a></button>
+    <p> Home Resort: <%= getText(user.defaultResort) %></p>
+    <p> Annual Pass: <%= getText(user.defaultPass) %></p>
+    <button class="sm-request-button"><a href="/users/<%=user._id%>/edit" style="text-decoration: none">Edit User</a></button>
     </div>
+</div>
+</div>
     <h1> Requests: </h1>
-    <div class="request-body">
+    <div class="request-body row">
         <% for (request in user.requests) { %>
-            <div class="request">
+            <div class="request col-lg-3 col-md-4  col-sm-10">
             <p>Request Date: <%= user.requests[request].date %></p>
-            <p>Resort: <%= user.requests[request].resort %></p>
-            <p>Park: <%= user.requests[request].park %></p>
-            <p>Pass: <%= user.requests[request].pass %></p>
+            <p>Resort: <%= getText(user.requests[request].resort) %></p>
+            <p>Park: <%= getText(user.requests[request].park) %></p>
+            <p>Pass: <%= getText(user.requests[request].pass) %></p>
             <p>Available: <%= user.requests[request].available %></p>
             <form method="POST" action="/requests/<%= user.requests[request]._id %>?_method=DELETE">
                 <input class="sm-request-button" type="submit" value="Delete" />
@@ -32,9 +78,10 @@
                 <input class="sm-request-button" type="submit" value="Update" />
                 </form>
             </div>
+        
         <% } %>
-        </div>
-
+    </div>
+    
 
 </body>
 </html>

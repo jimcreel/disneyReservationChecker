@@ -8,6 +8,7 @@ const connectLiveReload = require("connect-livereload");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const passport = require('passport');
+const ensureLoggedIn = require('./config/ensureLoggedIn');
 
 
 const db = require('./models');
@@ -81,8 +82,8 @@ app.get ('/oauth2callback', passport.authenticate(
     }
 ));
 
-app.get('/success', (req, res) => {
-        res.render('index', {user: req.user})
+app.get('/success', (req, res) => {    
+    res.render('index')
     });
     
 
@@ -97,8 +98,8 @@ app.get('/', function (req, res) {
     res.render('index', {user: req.user});
 })
 
-app.get('/home/:resort', function (req, res) {
-    let resort = req.params.resort
+app.get('/home/:resort', ensureLoggedIn, function (req, res) {
+    let resort = req.params.resort;
     db.api.getResorts(req, res, resort)
     .then(availabilities => {
         res.render('home', 

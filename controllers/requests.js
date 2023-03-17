@@ -23,31 +23,26 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 // New Route: GET localhost:3000/requests/new
 router.get('/new/:userId/:date?/:resortPark?', ensureLoggedIn, (req, res) => {
-    db.User.findById(req.params.userId)
-        .then(user =>{
             res.render('./request/request-new.ejs', { 
-            user: req.user,
             date: req.params.date,
             resortPark: req.params.resortPark
          })
 
-})
 });
 
 // Create Route: POST localhost:3000/requests/
-router.post('/create/:userId', (req, res) => {
-    console.log(req.body);
+router.post('/create/:userId', ensureLoggedIn, (req, res) => {
     db.User.findByIdAndUpdate(
         req.params.userId,
         { $push: { requests: req.body } },
         { new: true }
     )
         .then(user =>
-        res.redirect(`/users/${user.id}`),
+        res.redirect(`/users/${user._id}`),
     ) 
 });
 
-router.get('/:requestId/edit', (req, res) => {
+router.get('/:requestId/edit', ensureLoggedIn, (req, res) => {
     db.User.findOne({ 'requests._id': req.params.requestId })
         .then(user => {
             const request = user.requests.id(req.params.requestId)
@@ -59,7 +54,7 @@ router.get('/:requestId/edit', (req, res) => {
 });
 
 
-router.post('/:requestId', (req, res) => {
+router.post('/:requestId', ensureLoggedIn, (req, res) => {
     db.User.findOneAndUpdate(
         { 'requests._id': req.params.requestId },
         { $set: { 'requests.$.status': req.body.status } },
@@ -71,7 +66,7 @@ router.post('/:requestId', (req, res) => {
 
 
 // Destroy Route: DELETE localhost:3000/reviews/:id
-router.delete('/:id', (req, res) => {
+router.delete('/:id', ensureLoggedIn, (req, res) => {
     db.User.findOneAndUpdate(
         { 'requests._id': req.params.id },
         { $pull: { requests: { _id: req.params.id } } },
