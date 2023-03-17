@@ -32,6 +32,13 @@
   }
   
 }; %>
+<<% if (!user) {%>
+<% let userPass = 'inspire-key-pass' %>
+<% } else
+{ %>
+<% let userPass = user.defaultPass %>
+<% } %>
+<% let passAvailability = availability.find((a) => a.passType === userPass) %>>
 <div class="legend">
 <p class="legend"><strong>Legend: </strong></p>
 <p>
@@ -88,7 +95,7 @@
     <% let resortDate = month.getDate().toString().padStart(2, '0'); %>
     <% let resortYear = month.getFullYear(); %>
     <% let resortFullDate = resortYear + '-' + resortMonth + '-' + resortDate; %>
-    <% let resortAvailability = availability[0]['calendar-availabilities'].find(avail => avail.date === resortFullDate); %>
+    <% let resortAvailability = passAvailability['calendar-availabilities'].find(avail => avail.date === resortFullDate); %>
     <% let resortClass = ''; %>
     <% let imgHTML = ''; %>
     <% let modalHTML = ''; %>
