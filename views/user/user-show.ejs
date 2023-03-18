@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/user-details.css">
     <%- include('../partials/header', {title: `User Profile`}) %>
+    <link rel="stylesheet" href="/styles/user-details.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    
+    
     
 </head>
 <body>
@@ -51,8 +53,9 @@
     <%- include('../partials/nav') %>
     <div class="container">
     <div class = "row">
-    <div class="user-details col-lg-3 col-md-4 col-sm-10">
         <h1> User Profile </h1>
+    <div class="user-details col-lg-3 col-md-4 col-sm-10">
+        
     <p> Name: <%= user.name %></p>
     <p> Email: <%= user.email %></p>
     <p> Phone: <%= user.phone %></p>

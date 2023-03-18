@@ -7,21 +7,27 @@
     <title>Document</title>
     <%- include ('../partials/header', {title: `User Profile`}) %>
     <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/user-details.css">
+    <link rel="stylesheet" href="/styles/user-edit.css">
 </head>
 
 
 <body>
     <%- include('../partials/nav') %>
     <h1> User Profile </h1>
-    <div class="user-details">
+    <div class="container">
+    <div class="row">
+        <div class="user-details col-lg-4 col-md-6 col-sm-10">
     <form action = "/users/<%=user.id %>?_method=PUT" method = "POST">
         <label for="username">Username</label>
         <input type="text" name="username" value="<%= user.username %>">
+        <br>
         <label for="email">Email</label>
         <input type="text" name="email" value="<%= user.email %>">
+        <br>
+
         <label for="phone">Phone</label>
         <input type="text" name="phone" value="<%= user.phone %>">
+        <br>
         <select name = "defaultResort">
             <option value="default" disabled selected>Select Your Home Resort</option>
             <option value="DLR">Disneyland Resort</option>
@@ -41,9 +47,9 @@
 
         </select>
         <input type="submit" value="Update">
-
-
     </form>
+    </div>
+    </div>
     </div>
 </body>
 </html>

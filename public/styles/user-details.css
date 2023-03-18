@@ -4,6 +4,7 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
+    max-width: 320px;
     
 }
 
@@ -11,7 +12,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .user-details {
@@ -20,7 +22,7 @@
     justify-content: space-around;
     border: 1px solid #ccc;
     padding: 2em;
-    width: 30vw;
+    max-width: 320px;
 }
 
 .sm-request-button {
