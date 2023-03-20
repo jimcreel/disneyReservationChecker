@@ -199,7 +199,7 @@
             <% imgHTML = `<img src="https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;">` %> 
           <% }else{
             resortClass = 'some'
-            imgHTML = `<img src="/https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/some.png" alt="some" style="width: 27px; height: 15px;">`
+            imgHTML = `<img src="https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/some.png" alt="some" style="width: 27px; height: 15px;">`
           } %>
       <!-- if no availability, check to see if it's blocked or just full -->
         <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
