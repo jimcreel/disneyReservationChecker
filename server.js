@@ -1,4 +1,4 @@
-//require models
+//require models.
 
 require('dotenv').config()
 const path = require('path');
