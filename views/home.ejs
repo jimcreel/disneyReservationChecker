@@ -69,20 +69,20 @@
 <p>
   <% if (resort === 'DLR')
   { %>
-    <div><img class = "icons" src="/assets/DLR_DP.png"> - Disneyland Park</div>
-    <div><img class = "icons"src="/assets/DLR_CA.png"> - California Adventure</div>
-    <div><img class = "icons" src ="/assets/both.png"> - Both Parks Available</div>
+    <div><img class = "icons" src="https://i.ibb.co/yygwczN/DLR_DP.png"> - Disneyland Park</div>
+    <div><img class = "icons"src="https://i.ibb.co/yygwczN/DLR_CA.png"> - California Adventure</div>
+    <div><img class = "icons" src ="https://i.ibb.co/yygwczN/both.png"> - Both Parks Available</div>
   <% } else if (resort === 'WDW')
   { %>
-    <div><img class = 'icons' src="/assets/WDW_ALL.webp"> - All Parks Available</div>
-    <div><img class = 'icons' src = "/assets/some.png"> - Some Parks Available</div>
+    <div><img class = 'icons' src="https://i.ibb.co/yygwczN/WDW_ALL.webp"> - All Parks Available</div>
+    <div><img class = 'icons' src = "https://i.ibb.co/yygwczN/some.png"> - Some Parks Available</div>
     <br>
-    <div><img class = "icons"src="/assets/WDW_MK.png"> - Magic Kingdom</div>
-    <div><img class = "icons"src="/assets/WDW_EP.png"> - Epcot</div>
-    <div><img class = "icons"src="/assets/WDW_HS.png"> - Hollywood Studios</div>
-    <div><img class = "icons" src="/assets/WDW_AK.png"> - Animal Kingdom</div>
+    <div><img class = "icons"src="https://i.ibb.co/yygwczN/WDW_MK.png"> - Magic Kingdom</div>
+    <div><img class = "icons"src="https://i.ibb.co/yygwczN/WDW_EP.png"> - Epcot</div>
+    <div><img class = "icons"src="https://i.ibb.co/yygwczN/WDW_HS.png"> - Hollywood Studios</div>
+    <div><img class = "icons" src="https://i.ibb.co/yygwczN/WDW_AK.png"> - Animal Kingdom</div>
   <% } %>
-<div><img class = "icons" src="/assets/green.png"> - Currently Unavailable</div>
+<div><img class = "icons" src="https://i.ibb.co/yygwczN/green.png"> - Currently Unavailable</div>
 
 </p>
 </div>
@@ -150,7 +150,7 @@
       <!-- build individual facility divs for each park in the availability object -->
       <% for (facilities of resortAvailability.facilities) { %>
         <% modalHTML += `<div class="facilities">` %>
-        <% modalHTML += `<img src=/assets/${facilities.facilityName}.png>` %>
+        <% modalHTML += `<img src=https://i.ibb.co/yygwczN/${facilities.facilityName}.png>` %>
         <% modalHTML += `<p>${facilities.available ? 'Available' : facilities.blocked ? 'Blocked Out' : 'No Reservations'}</p>` %>
         <!-- conditional buttons to request dates if they're not blocked -->
         <!-- first one links to disney's site for the reservation-->
@@ -170,7 +170,7 @@
         <% for (facilities of resortAvailability.facilities) { %>
         <% if (!facilities.blocked) { %>
           <% modalHTML += `<div class ="facilities">` %>
-        <% modalHTML += `<img src='/assets/WDW_ALL.webp'><p>Any Park</p><a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${resort}_ANY"><button>Request Any Park</button></a>` %>
+        <% modalHTML += `<img src='https://i.ibb.co/yygwczN/WDW_ALL.webp'><p>Any Park</p><a href="/requests/new/640d649def9a82312f066ba0/${resortFullDate}/${resort}_ANY"><button>Request Any Park</button></a>` %>
         <% modalHTML += `</div>` %>
         <% break %>
         <% } %>
@@ -187,19 +187,19 @@
       <% if (resortAvailability.availability === 'cms-key-all-availability' ) { %>
         <% if (resort === 'DLR') { %>
           <% resortClass = 'both' %>
-          <% imgHTML = `<img src="/assets/both.png" alt="both" style="width: 27px; height: 15px;">` %>
+          <% imgHTML = `<img src="https://i.ibb.co/yygwczN/both.png" alt="both" style="width: 27px; height: 15px;">` %>
         <% }else{
           resortClass = 'all'
-          imgHTML = `<img src="/assets/all.png" alt="all" style="width: 27px; height: 15px;">`
+          imgHTML = `<img src="https://i.ibb.co/yygwczN/all.png" alt="all" style="width: 27px; height: 15px;">`
         } %>
         
         <% }else if (resortAvailability.availability === 'cms-key-at-least-one-availability') { %>
           <% if (resort === 'DLR') { %>
             <% resortClass = resortAvailability.facilities.find(resort => resort.available === true).facilityName; %>
-            <% imgHTML = `<img src="/assets/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;">` %> 
+            <% imgHTML = `<img src="https://i.ibb.co/yygwczN/${resortClass}.png" alt="${resortClass}" style="width: 15px; height: 15px;">` %> 
           <% }else{
             resortClass = 'some'
-            imgHTML = `<img src="/assets/some.png" alt="some" style="width: 27px; height: 15px;">`
+            imgHTML = `<img src="/https://i.ibb.co/yygwczN/some.png" alt="some" style="width: 27px; height: 15px;">`
           } %>
       <!-- if no availability, check to see if it's blocked or just full -->
         <% }else if (resortAvailability.availability === 'cms-key-no-availability') { %>
@@ -207,7 +207,7 @@
               <% if (facilities.blocked === true) { %>
                 <% resortClass = 'slash' %>
                 <% }else{ %>
-                  <% imgHTML = `<img src="/assets/green.png" alt="green" style="width: 15px; height: 15px;">` %>
+                  <% imgHTML = `<img src="https://i.ibb.co/yygwczN/green.png" alt="green" style="width: 15px; height: 15px;">` %>
                   <% resortClass = 'green' %>
                 <% } %>
               <% } %>
