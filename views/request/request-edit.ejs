@@ -21,7 +21,7 @@
         <label for="park">Park:</label>
         <select name = "park" type="text" placeholder="Park">
             <option value="Select Park" selected disabled>Select Park</option>
-            <option value="ANY" <%= request.park === 'ANY' ? 'selected': '' %> disabled>Any</option>
+            <option value="ANY" <%= request.park === 'ANY' ? 'selected': '' %>>Any</option>
             <option value="DP" class="DLR"<%= request.park === 'DP' ? 'selected': '' %>   <%= request.resort === 'DLR' ? '': 'disabled' %>>Disneyland Resort</option>
             <option value="CA" class="DLR"<%= request.park === 'CA' ? 'selected': '' %>   <%= request.resort === 'DLR' ? '': 'disabled' %>>Disney California Adventure</option>
             <option value="MK" class="WDW"<%= request.park === 'MK' ? 'selected': '' %>   <%= request.resort === 'WDW' ? '': 'disabled' %>>Magic Kingdom</option>
@@ -53,7 +53,7 @@
         <input name = "available" value="false" hidden>
         </form>
         </div>
-        <script src="/js/main.js" defer></script>
+        <script src="/js/request_new.js" defer></script>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
