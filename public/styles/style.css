@@ -112,13 +112,30 @@ a {
 
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; 
-  padding: 20px;
-  border: 1px solid #888;
-  width: 40%; 
-  font-size: 1.5;
-  min-width: 350px;
+background-color: #f7fafc;
+margin: 10% auto;
+padding: 25px;
+border-radius: 10px;
+box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+width: 80%;
+max-width: 600px;
+font-size: 1.2rem;
+color: #2d3748;
+
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.modal-date {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto;
 }
 
 .modal button {
