@@ -15,34 +15,25 @@ const db = require('./models');
 require('./config/passport');
 const requestsCtrl = require('./controllers/requests')
 const usersCtrl = require('./controllers/users')
-const methodOverride = require('method-override');
-const { abort } = require('process');
-const { api } = require('./models');
+
+
 const app = express();
 let userProfile;
 // Require the auth middleware
 
 
 // refresh the browser when nodemon restarts
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-    setTimeout(() => {
-        liveReloadServer.refresh("/");
-    }, 100);
-});
 
-/* Configure the app (app.set)
---------------------------------------------------------------- */
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'));
+
+
 
 
 /* Middleware (app.use)
 --------------------------------------------------------------- */
 app.use(express.static('public'))
-app.use(connectLiveReload());
+
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'));
+
 app.use(session({
     secret: process.env.GOOGLE_CLIENT_SECRET,
     resave: false,
