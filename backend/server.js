@@ -3,8 +3,7 @@
 require('dotenv').config()
 const path = require('path');
 const express = require('express');
-const livereload = require("livereload");
-const connectLiveReload = require("connect-livereload");
+
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const passport = require('passport');
