@@ -14,8 +14,8 @@ const db = require('./models');
 require('./config/passport');
 const requestsCtrl = require('./controllers/requests')
 const usersCtrl = require('./controllers/users')
-
-
+const { createProxyMiddleware } = require('http-proxy-middleware');
+let cors = require('cors')
 const app = express();
 let userProfile;
 // Require the auth middleware
@@ -45,7 +45,15 @@ app.use(function (req, res, next) {
     res.locals.user = req.user;
     next();
   });
-  
+app.use('api', createProxyMiddleware({
+    target: 'https://localhost:8080',
+    changeOrigin: true,
+    secure: false,
+    onProxyRes: function (proxyRes, req, res) {
+        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    }
+
+}))
 
 
 
