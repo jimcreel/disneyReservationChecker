@@ -13,6 +13,8 @@ export default function Calendar (){
             <Month date={new Date(today.getFullYear(), today.getMonth()+1, 1)} />
             <Month date={new Date(today.getFullYear(), today.getMonth()+2, 1)} />
             <Month date={new Date(today.getFullYear(), today.getMonth()+3, 1)} />
+            <Month date={new Date(today.getFullYear(), today.getMonth()+4, 1)} />
+            <Month date={new Date(today.getFullYear(), today.getMonth()+5, 1)} />
         </div>
     )
 }
