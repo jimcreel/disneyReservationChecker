@@ -25,7 +25,7 @@ export default function App() {
         
     });
     }, [pass])
-        console.log(availability)
+        
 
     return (
         <>

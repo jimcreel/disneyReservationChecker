@@ -1,7 +1,11 @@
-export default function Day() {
+export default function Day({date}) {
+  let dateNum = ''
+  if (date) {
+    dateNum = date.getDate()
+  }
   return(
     <div className="day w-[50px] h-[50px]">
-      <p>Day</p>
+      <p>{dateNum}</p>
     </div>
   )
 }
