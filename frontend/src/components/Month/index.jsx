@@ -1,6 +1,10 @@
 import Day from '../Day'
 
-export default function Month ({date}){
+export default function Month (props){
+    let {date} = props
+    let {availability} = props
+    let {resort} = props
+
 
     let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let dayNames = ["S", "M", "T", "W", "T", "F", "S"]; 
@@ -19,8 +23,9 @@ export default function Month ({date}){
     for (let i = 1; i <= 42; i++){
         monthDates.push(new Date(date.getFullYear(), date.getMonth(), i-firstDay))
     }
+    console.log('availabilityArr',availability)
     let monthHTML = monthDates.map((date) => {
-        return <Day date={date} />
+        return <Day date={date} availability={availability} resort={resort}/>
     })
 
     
