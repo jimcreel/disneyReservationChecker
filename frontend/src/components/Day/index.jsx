@@ -18,16 +18,21 @@ export default function Day(props) {
   let availabilityHTML = ''
   let dayClass = "day w-[50px] h-[50px] border border-black  flex align-center justify-between flex-col pb-2 hover:cursor-pointer hover:shadow-md hover:border-gray-400 hover:bg-gray-100"
   let today = new Date()
+  let requestLink = ''
   if (date.getMonth() != month) {
+    
     dayClass = "day w-[50px] h-[50px] border  border-black  flex align-center justify-between flex-col pb-2 bg-gray-200"
     dateClass = 'text-xl font-thin '
     } else if (date < today){
+      requestLink = `/request/${resort.resort}/${dateStr}`
       dayClass = "day w-[50px] h-[50px] border  border-black  flex align-center justify-between flex-col pb-2 bg-gray-400"
       dateClass = 'text-xl font-thin'
     }
   
   let dateAvailability = []
   if (calendarAvail && date.getMonth()==month) {
+    
+    requestLink = `/request/${resort.resort}/${dateStr}`
     availabilityHTML = calendarAvail.map((avail) => {
       if (avail.date && avail.date === dateStr) {
         if (avail.availability == 'cms-key-no-availability' ){
@@ -60,11 +65,8 @@ export default function Day(props) {
       } 
       }})
     }
-  let requestLink = ''
-  if (requestAvailable){
-    requestLink = `/request/${resort.resort}/${dateStr}`
-
-  }
+  
+  
 
   return(
     <>
