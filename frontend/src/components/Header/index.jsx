@@ -10,13 +10,10 @@ export default function Header(props) {
   const { pass } = props
   
 
-  function handleResortClick(resort) {
   
-    setResort(resort)
-  }
 
-  function handlePassClick(pass) {
-  
+  function handlePassClick(pass, resort) {
+    setResort(resort)
     setPass(pass)
   }
 
@@ -29,28 +26,24 @@ export default function Header(props) {
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Resorts" id="basic-nav-dropdown">
-              <NavDropdown.Item  onClick = {() => handleResortClick('DLR')}>Disneyland</NavDropdown.Item>
-              <NavDropdown.Item  onClick = {() => handleResortClick('WDW')}>Disney World</NavDropdown.Item>
-              
+            <NavDropdown title="Resorts" id="basic-nav-dropdown">              
+              <NavDropdown title="Disneyland" id="basic-nav-dropdown">
+                <NavDropdown.Item onClick = {() => handlePassClick('inspire-key-pass', 'DLR')}>Inspire Key</NavDropdown.Item>
+                <NavDropdown.Item onClick = {() => handlePassClick('imagine-key-pass', 'DLR')}>Imagine Key</NavDropdown.Item>
+                <NavDropdown.Item onClick = {() => handlePassClick('dream-key-pass', 'DLR')}>Dream Key</NavDropdown.Item>
+                <NavDropdown.Item onClick = {() => handlePassClick('enchant-key-pass', 'DLR')}>Enchant Key</NavDropdown.Item>
+                <NavDropdown.Item onClick = {() => handlePassClick('believe-key-pass', 'DLR')}>Believe Key</NavDropdown.Item>
+              </NavDropdown>
+            
+            
+            
+            <NavDropdown title="Disney World" id="basic-nav-dropdown">
+              <NavDropdown.Item onClick = {() => handlePassClick('disney-incredi-pass', 'WDW')}>Incredi-Pass</NavDropdown.Item>
+              <NavDropdown.Item onClick = {() => handlePassClick('disney-sorcerer-pass', 'WDW')}>Sorcerer Pass</NavDropdown.Item>
+              <NavDropdown.Item onClick = {() => handlePassClick('disney-pirate-pass', 'WDW')}>Pirate Pass</NavDropdown.Item>
+              <NavDropdown.Item onClick = {() => handlePassClick('disney-pixie-dust-pass', 'WDW')}>Pixie Dust Pass</NavDropdown.Item>
             </NavDropdown>
-            {resort == 'DLR' &&
-            <NavDropdown title="Passes" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick = {() => handlePassClick('inspire-key-pass')}>Inspire Key</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('imagine-key-pass')}>Imagine Key</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('dream-key-pass')}>Dream Key</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('enchant-key-pass')}>Enchant Key</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('believe-key-pass')}>Believe Key</NavDropdown.Item>
             </NavDropdown>
-             }
-            {resort == 'WDW' &&
-            <NavDropdown title="Passes" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-incredi-pass')}>Incredi-Pass</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-sorcerer-pass')}>Sorcerer Pass</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-pirate-pass')}>Pirate Pass</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-pixie-dust-pass')}>Pixie Dust Pass</NavDropdown.Item>
-            </NavDropdown>
-            }
 
           </Nav>
         </Navbar.Collapse>

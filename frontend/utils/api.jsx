@@ -27,7 +27,7 @@ export function getText(code) {
             return 'California Adventure'
         case 'MK':
             return 'Magic Kingdom'
-        case 'EPCOT':
+        case 'EP':
             return 'Epcot'
         case 'HS':
             return 'Hollywood Studios'

@@ -21,7 +21,7 @@ export default function App() {
         .then((result) => {
             setAvailability(result)        
         })
-    }, [pass])
+    }, [resort, pass])
         
     return (
         <>

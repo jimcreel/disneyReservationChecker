@@ -1,10 +1,15 @@
 
 import Month from '../Month';
+import { useEffect } from 'react';
+import { getAvailability } from '../../../utils/api';
+import { get } from 'mongoose';
 
 export default function Calendar (props){
+   
     let availability = props
     let resort = props
     let today = new Date();
+
     let calendarHTML = 'loading...'
     if (availability) { 
         calendarHTML = 
