@@ -11,9 +11,7 @@ export default function Day(props) {
   let requestAvailable = false
   // get the date as a string in yyyy-mm-dd format
   let dateStr = date.toISOString().split('T')[0]
-  console.log(availability)
   let calendarAvail = availability.availability[0]['calendar-availabilities']
-  console.log('calendarAvail', calendarAvail)
   let dateClass = 'text-xl font-thin hover:font-normal  '
   let availabilityHTML = ''
   let dayClass = "day w-[50px] h-[50px] border border-black  flex align-center justify-between flex-col pb-2 hover:cursor-pointer hover:shadow-md hover:border-gray-400 hover:bg-gray-100"
@@ -24,7 +22,6 @@ export default function Day(props) {
     dayClass = "day w-[50px] h-[50px] border  border-black  flex align-center justify-between flex-col pb-2 bg-gray-200"
     dateClass = 'text-xl font-thin '
     } else if (date < today){
-      requestLink = `/request/${resort.resort}/${dateStr}`
       dayClass = "day w-[50px] h-[50px] border  border-black  flex align-center justify-between flex-col pb-2 bg-gray-400"
       dateClass = 'text-xl font-thin'
     }
@@ -32,9 +29,10 @@ export default function Day(props) {
   let dateAvailability = []
   if (calendarAvail && date.getMonth()==month) {
     
-    requestLink = `/request/${resort.resort}/${dateStr}`
+    
     availabilityHTML = calendarAvail.map((avail) => {
       if (avail.date && avail.date === dateStr) {
+        requestLink = `/request/${resort.resort}/${dateStr}`
         if (avail.availability == 'cms-key-no-availability' ){
           if(avail.facilities[0].blocked){
             dayClass = "day w-[50px] h-[50px] border  border-black  flex align-center justify-between flex-col pb-2 bg-slate-400"

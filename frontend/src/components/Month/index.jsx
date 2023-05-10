@@ -23,7 +23,7 @@ export default function Month (props){
     for (let i = 1; i <= 42; i++){
         monthDates.push(new Date(date.getFullYear(), date.getMonth(), i-firstDay))
     }
-    console.log('availabilityArr',availability)
+
     let monthHTML = monthDates.map((date) => {
         return <Day date={date} availability={availability} resort={resort} month={month}/>
     })

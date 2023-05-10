@@ -28,12 +28,13 @@ export default function App() {
             <AvailabilityContext.Provider value={availability}>       
                 <ResortContext.Provider value={resort}>
                     <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
-                    <Calendar availability={availability} resort={resort}/>
+                    
                     <Routes>
                         
                         <Route path="/" element={<HomePage availability={availability}/>} />
                         <Route path="/request/:resort/:date" element={<Request availability={availability} />}/>
                     </Routes>
+                    <Calendar availability={availability} resort={resort}/>
                 </ResortContext.Provider>
             </AvailabilityContext.Provider>
         </>
