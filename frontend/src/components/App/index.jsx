@@ -4,7 +4,10 @@ import HomePage from "../HomePage"
 import Header from "../Header"
 import { getAvailability } from "../../../utils/api"
 import Calendar from "../Calendar"
+import Request from "../Request"
 
+export const AvailabilityContext = React.createContext()
+export const ResortContext = React.createContext()
 
 export default function App() {
     const [resort, setResort] = useState(['DLR'])
@@ -22,13 +25,17 @@ export default function App() {
         
     return (
         <>
-                    
-            <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
-            <Calendar availability={availability} resort={resort}/>
-            <Routes>
-                
-                <Route path="/" element={<HomePage />} />
-            </Routes>
+            <AvailabilityContext.Provider value={availability}>       
+                <ResortContext.Provider value={resort}>
+                    <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
+                    <Calendar availability={availability} resort={resort}/>
+                    <Routes>
+                        
+                        <Route path="/" element={<HomePage availability={availability}/>} />
+                        <Route path="/request/:resort/:date" element={<Request availability={availability} />}/>
+                    </Routes>
+                </ResortContext.Provider>
+            </AvailabilityContext.Provider>
         </>
     )
 }

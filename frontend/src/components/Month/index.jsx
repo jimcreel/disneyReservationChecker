@@ -25,7 +25,7 @@ export default function Month (props){
     }
     console.log('availabilityArr',availability)
     let monthHTML = monthDates.map((date) => {
-        return <Day date={date} availability={availability} resort={resort}/>
+        return <Day date={date} availability={availability} resort={resort} month={month}/>
     })
 
     
