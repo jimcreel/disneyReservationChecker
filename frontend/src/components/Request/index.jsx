@@ -1,9 +1,12 @@
 import { useParams } from 'react-router-dom'
 import { getText } from '../../../utils/api'
+import { useContext} from 'react'
+import { AvailabilityContext } from '../App'
 export default function Request (props) {
     
 
-    const availability = props.availability
+    const availability = useContext(AvailabilityContext)
+    console.log(availability)
     const date = useParams().date
     const resort = getText(useParams().resort)
     let displayDate = 'loading...'
@@ -30,7 +33,7 @@ export default function Request (props) {
     let requestDate = new Date(date);
     let requestIndex = Math.ceil((requestDate.getTime() - today.getTime()) / (1000 * 3600 * 24))
     let requestHTML = 'loading...'
-    if (availability && displayDate) {
+    if (availability[0].availabilities && displayDate) {
         let facilityArray = availability[0]['calendar-availabilities'][requestIndex]['facilities']
         requestHTML = facilityArray.map((facility, i) => {
             //get last two characters of facility id
@@ -53,7 +56,10 @@ export default function Request (props) {
             )
         })
     }
-    let requestHeader = <h1 className='text-center font-bold'>{resort} - {displayDate}</h1>
+    let requestHeader = 'loading...'
+    if(availability){
+        requestHeader = <h1 className='text-center font-bold'>{resort} - {displayDate}</h1>
+    }
     
 
 
