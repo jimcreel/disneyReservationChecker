@@ -5,6 +5,7 @@ import Header from "../Header"
 import { getAvailability } from "../../../utils/api"
 import Calendar from "../Calendar"
 import Request from "../Request"
+import RequestForm from "../RequestForm"
 
 export const AvailabilityContext = React.createContext()
 export const ResortContext = React.createContext()
@@ -34,6 +35,7 @@ export default function App() {
                         
                         <Route path="/" element={<HomePage availability={availability}/>} />
                         <Route path="/request/:resort/:date" element={<Request  />}/>
+                        <Route path="/request/new/:userId/:date?/:resortPark?" element={<RequestForm />} />
                     </Routes>
                     <Calendar availability={availability} resort={resort}/>
                 </ResortContext.Provider>
