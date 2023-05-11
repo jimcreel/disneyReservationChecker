@@ -6,7 +6,6 @@ export default function Request (props) {
     
 
     const availability = useContext(AvailabilityContext)
-    console.log(availability)
     const date = useParams().date
     const resort = getText(useParams().resort)
     let displayDate = 'loading...'
@@ -47,10 +46,11 @@ export default function Request (props) {
                 <div className='flex flex-row justify-center items-center w-100 my-2'>
                   <img src={facilityImg} alt={facilityName} className='h-[25px] w-[25px] mx-2' />
                   <h1 className='text-center'>{facilityName}</h1>
-                  <button className={`rounded-full border text-white w-[125px] self-end ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`} disabled={facilityAvail === 'blocked'}>
+                  
+                </div>
+                <button className={`rounded-full border text-white w-[125px] self-center ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`} disabled={facilityAvail === 'blocked'}>
                     {facilityAvail}
                   </button>
-                </div>
               </div>
                 
             )

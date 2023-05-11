@@ -54,7 +54,6 @@ export default function Day(props) {
               let availImg=''
               for (let i = 0; i < 2; i++){
                 if (avail.facilities[i].available){
-                  console.log(avail.facilities[i])
                   availImg = `https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/${avail.facilities[i].facilityName}.png`
                   }
               }
