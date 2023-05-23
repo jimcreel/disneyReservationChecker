@@ -6,9 +6,7 @@ export default function Request (props) {
     
     
     const availability = useContext(AvailabilityContext)
-    console.log('this is availability', availability)
     const {date} = props
-    console.log('this is date', date)
     const {resort} = props
     let displayDate = 'loading...'
     if (date) {
@@ -21,7 +19,7 @@ export default function Request (props) {
     function handleRequestClick(event, facility) {
         
         let requestDate = new Date(date);
-        console.log(facility)
+        
 
     }
         
@@ -96,8 +94,14 @@ export default function Request (props) {
 
 
     let requestHeader = 'loading...'
+    let displayResort = ''
     if(availability){
-        let displayResort = getText(resort.resort)
+        
+        if (typeof resort.resort === 'string') {
+            displayResort = getText(resort.resort)
+        } else {
+            displayResort = getText(resort.resort[0])
+        }
         requestHeader = <h1 className='text-center font-bold'>{displayResort} - {displayDate}</h1>
     }
     

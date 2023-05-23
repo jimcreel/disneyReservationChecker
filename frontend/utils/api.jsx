@@ -11,10 +11,13 @@ export async function getAvailability(resort, pass) {
     return response.data;
 }
 
+
+
 // ... rest of the code
 
 
 export function getText(code) {
+    
     switch (code) {
         case 'DLR':
             return 'Disneyland Resort'
