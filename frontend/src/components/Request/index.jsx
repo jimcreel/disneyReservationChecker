@@ -9,6 +9,10 @@ export default function Request (props) {
     const availability = useContext(AvailabilityContext)
     const {date} = props
     const {resort} = props
+    const {setResort} = props
+    const {setPass} = props
+    const {setPark} = props
+    
     let displayDate = 'loading...'
     if (date) {
         displayDate = date.slice(5,7) + '/' + date.slice(8,10) + '/' + date.slice(0,4)

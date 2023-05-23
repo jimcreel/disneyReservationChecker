@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import Request from '../Request';
 import RequestForm from '../RequestForm';
 
+const [date, setDate] = useState('')
+const [resort, setResort] = useState('')
+const [park, setPark] = useState('')
+
 export default function Modal({ requestAvailable, date, resort, availability, showModal, setShowModal }) {
     const [showForm, setShowForm] = useState(false);
 
   let modalBody = '';
   if (!showForm){
     if (requestAvailable) {
-        modalBody = <Request date={date} resort={resort} availability={availability} setShowForm={setShowForm}/>;
+        modalBody = <Request date={date} resort={resort} availability={availability} setShowForm={setShowForm} setDate={setDate} setResort={setResort} setPark={setPark}/>;
     } else {
         modalBody = <div className='text-center text-2xl'>Blocked</div>;
     }
