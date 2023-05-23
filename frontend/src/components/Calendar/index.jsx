@@ -1,7 +1,7 @@
 
 import Month from '../Month';
 import { useEffect } from 'react';
-import { getAvailability } from '../../../utils/api';
+
 import { get } from 'mongoose';
 
 export default function Calendar (props){

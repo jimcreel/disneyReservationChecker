@@ -50,18 +50,21 @@ export default function Request (props) {
             return (
                     
                 <div key={i} className='flex flex-col w-100'>
-                <div className='flex flex-row justify-center items-center w-100 my-2'>
-                  <img src={facilityImg} alt={facilityName} className='h-[25px] w-[25px] mx-2' />
-                  <h1 className='text-center'>{facilityName}</h1>
-                  
-                </div>
-                <button 
-                className={`rounded-full border text-white w-[125px] self-center ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
-                disabled={facilityAvail === 'blocked'}
-                onClick={()=> handleAvailClick()}
-                >
+                <div className='flex flex-row justify-between items-center w-100 my-2'>
+                    <div className='flex flex-row items-center'>
+                        <img src={facilityImg} alt={facilityName} className='h-[25px] w-[25px] mx-2' />
+                        <h1 className='text-center'>{facilityName}</h1>
+                    </div>
+                  <button 
+                    className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
+                    disabled={facilityAvail === 'blocked'}
+                    onClick={()=> handleAvailClick()}
+                    >
                     {facilityAvail}
                   </button>
+                  
+                </div>
+                
                 
                 
               </div>
@@ -72,19 +75,21 @@ export default function Request (props) {
         if (!anyBlocked && anyFull){
             anyButton = 
             <div key={5} className='flex flex-col w-100'>
-                <div className='flex flex-row justify-center items-center w-100 my-2'>
-                <img src='https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/all.png' alt='ANY' className='h-[25px] w-[25px] mx-2' />
-                <h1 className='text-center'>Any Park</h1>
-                
+                <div className='flex flex-row justify-between items-center w-100 my-2'>
+                    <div className='flex flex-row items-center'>
+                        <img src='https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/all.png' alt='ANY' className='h-[25px] w-[25px] mx-2 ' />
+                        <h1 className='text-center'>Any Park</h1>
+                    </div>
+                <button 
+                    className={`rounded-full border text-white w-[125px] ${anyBlocked ? 'bg-slate-200' : 'bg-blue-400'}`}
+                    disabled={anyBlocked}
+                    onClick={()=> handleRequestClick(anyBlocked)}
+                    >
+                        {anyBlocked ? 'blocked' : 'request'}
+                </button>
                 </div>
                 
-                <button 
-                className={`rounded-full border text-white w-[125px] self-center ${anyBlocked ? 'bg-slate-200' : 'bg-blue-400'}`}
-                disabled={anyBlocked}
-                onClick={()=> handleRequestClick(anyBlocked)}
-                >
-                    {anyBlocked ? 'blocked' : 'request'}
-                </button>
+                
             
             
         </div>
@@ -102,15 +107,16 @@ export default function Request (props) {
         } else {
             displayResort = getText(resort.resort[0])
         }
-        requestHeader = <h1 className='text-center font-bold'>{displayResort} - {displayDate}</h1>
+        requestHeader = <h1 className='font-bold mb-2 text-2xl'>{displayResort}  {displayDate}</h1>
     }
     
     
 
     return (
         <>
-            <div id='requestBox' className='flex flex-col w-[350px] items-center mx-auto'> 
+            <div id='requestBox' className='flex flex-row flex-wrap w-[350px] items-center justify-center mx-auto'> 
                 {requestHeader}
+                <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"/>
                 {requestHTML}
                 {anyButton}
             
