@@ -24,8 +24,10 @@ export default function Month (props){
         monthDates.push(new Date(date.getFullYear(), date.getMonth(), i-firstDay))
     }
 
-    let monthHTML = monthDates.map((date) => {
-        return <Day date={date} availability={availability} resort={resort} month={month}/>
+    let monthHTML = monthDates.map((date, index) => {
+        return <Day 
+        key={date}
+        date={date} availability={availability} resort={resort} month={month}/>
     })
 
     
@@ -37,7 +39,7 @@ export default function Month (props){
     return (
         <div className="month max-w-[350px] text-center m-8">
             {monthHeader}
-           <div className="week flex flex-row">
+           <div className="week flex flex-row" >
             {weekHeader}
            </div>
            <div className="week flex flex-row flex-wrap">
