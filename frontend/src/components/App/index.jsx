@@ -34,7 +34,6 @@ export default function App() {
                     <Routes>
                         
                         <Route path="/" element={<HomePage availability={availability}/>} />
-                        <Route path="/request/:resort/:date" element={<Request  />}/>
                         <Route path="/request/new/:userId/:date?/:resortPark?" element={<RequestForm />} />
                     </Routes>
                     <Calendar availability={availability} resort={resort}/>

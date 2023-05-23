@@ -1,9 +1,17 @@
 
 import { Link } from "react-router-dom"
+import Modal from "../Modal"
+import { useState } from "react"
 
 
 export default function Day(props) {
   const { date, availability, resort, month } = props
+  const [showModal, setShowModal] = useState(false)
+
+  function handleDayClick () {
+    setShowModal(true)
+  }
+
   let dateNum = ''
   if (date.getMonth() == month) {
     dateNum = date.getDate()
@@ -67,14 +75,15 @@ export default function Day(props) {
 
   return(
     <>
-    <Link to={requestLink}>
-      <div className={dayClass}>
+    
+      <div className={dayClass} onClick={()=>handleDayClick()}>
         <p className={dateClass}>{dateNum}</p>
         <div className='availability flex justify-center '>
           {availabilityHTML}
           </div>
       </div>
-    </Link>
+    
+    <Modal requestAvailable={requestAvailable} date={dateStr} resort={resort} availability={availability} showModal={showModal} setShowModal={setShowModal}/>
     </>
   )
 }

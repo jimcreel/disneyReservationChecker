@@ -4,25 +4,24 @@ import { useContext} from 'react'
 import { AvailabilityContext } from '../App'
 export default function Request (props) {
     
-
+    
     const availability = useContext(AvailabilityContext)
-    const date = useParams().date
-    const resort = getText(useParams().resort)
+    console.log('this is availability', availability)
+    const {date} = props
+    console.log('this is date', date)
+    const {resort} = props
     let displayDate = 'loading...'
     if (date) {
         displayDate = date.slice(5,7) + '/' + date.slice(8,10) + '/' + date.slice(0,4)
     }
 
+    function handleAvailClick (event) {
+        console.log('avail clicked')
+    }
     function handleRequestClick(event, facility) {
-        event.preventDefault()
+        
         let requestDate = new Date(date);
-        if (facilityAvail) {
-            alert('request submitted')
-        } else if (facilityBlocked) {
-            alert('facility blocked')
-        } else if (facilityRequest) {
-            alert('request already submitted')
-        }
+        console.log(facility)
 
     }
         
@@ -31,9 +30,10 @@ export default function Request (props) {
     let today = new Date();
     let requestDate = new Date(date);
     let requestIndex = Math.ceil((requestDate.getTime() - today.getTime()) / (1000 * 3600 * 24))
-    let requestHTML = 'loading...'
+    let requestHTML = []
     let anyBlocked = false
     let anyFull = false
+    let anyButton = ''
     if (availability[0].availabilities && displayDate) {
         let facilityArray = availability[0]['calendar-availabilities'][requestIndex]['facilities']
         requestHTML = facilityArray.map((facility, i) => {
@@ -48,6 +48,7 @@ export default function Request (props) {
             if (facilityAvail !== 'available') {
                 anyFull = true
             }
+            
             return (
                     
                 <div key={i} className='flex flex-col w-100'>
@@ -59,7 +60,7 @@ export default function Request (props) {
                 <button 
                 className={`rounded-full border text-white w-[125px] self-center ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
                 disabled={facilityAvail === 'blocked'}
-                onclick={()=> handleRequestClick}
+                onClick={()=> handleAvailClick()}
                 >
                     {facilityAvail}
                   </button>
@@ -69,8 +70,9 @@ export default function Request (props) {
                 
             )
         })
+        
         if (!anyBlocked && anyFull){
-            let anyButton = 
+            anyButton = 
             <div key={5} className='flex flex-col w-100'>
                 <div className='flex flex-row justify-center items-center w-100 my-2'>
                 <img src='https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/all.png' alt='ANY' className='h-[25px] w-[25px] mx-2' />
@@ -81,29 +83,32 @@ export default function Request (props) {
                 <button 
                 className={`rounded-full border text-white w-[125px] self-center ${anyBlocked ? 'bg-slate-200' : 'bg-blue-400'}`}
                 disabled={anyBlocked}
-                onclick={()=> handleRequestClick}
+                onClick={()=> handleRequestClick(anyBlocked)}
                 >
                     {anyBlocked ? 'blocked' : 'request'}
                 </button>
             
             
         </div>
-        requestHTML.push(anyButton)
+        
     }
 }
 
+
     let requestHeader = 'loading...'
     if(availability){
-        requestHeader = <h1 className='text-center font-bold'>{resort} - {displayDate}</h1>
+        let displayResort = getText(resort.resort)
+        requestHeader = <h1 className='text-center font-bold'>{displayResort} - {displayDate}</h1>
     }
     
-
+    
 
     return (
         <>
             <div id='requestBox' className='flex flex-col w-[350px] items-center mx-auto'> 
                 {requestHeader}
                 {requestHTML}
+                {anyButton}
             
             </div>
         </>
