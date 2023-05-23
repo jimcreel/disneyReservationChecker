@@ -1,10 +1,11 @@
-import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { getText } from '../../../utils/api'
 import { useContext} from 'react'
 import { AvailabilityContext } from '../App'
+import { set } from 'mongoose'
 export default function Request (props) {
     
-    
+    const {setShowForm} = props
     const availability = useContext(AvailabilityContext)
     const {date} = props
     const {resort} = props
@@ -17,14 +18,14 @@ export default function Request (props) {
         console.log('avail clicked')
     }
     function handleRequestClick(event, facility) {
-        
+        setShowForm(true)
         let requestDate = new Date(date);
         
 
     }
         
         
-
+    let userId = 'jim.creel@gmail.com'
     let today = new Date();
     let requestDate = new Date(date);
     let requestIndex = Math.ceil((requestDate.getTime() - today.getTime()) / (1000 * 3600 * 24))
@@ -55,13 +56,16 @@ export default function Request (props) {
                         <img src={facilityImg} alt={facilityName} className='h-[25px] w-[25px] mx-2' />
                         <h1 className='text-center'>{facilityName}</h1>
                     </div>
-                  <button 
-                    className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
-                    disabled={facilityAvail === 'blocked'}
-                    onClick={()=> handleAvailClick()}
-                    >
-                    {facilityAvail}
-                  </button>
+                    
+                  <Link to={`/request/new/${userId}/${date}/${facility.facilityName}`}>
+                    <button 
+                        className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
+                        disabled={facilityAvail === 'blocked'}
+                        onClick = {(event) => handleRequestClick(event, facility)}
+                        >
+                        {facilityAvail}
+                    </button>
+                    </Link>
                   
                 </div>
                 

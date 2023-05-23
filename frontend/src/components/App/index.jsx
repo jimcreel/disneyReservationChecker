@@ -33,11 +33,7 @@ export default function App() {
                     <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
                     
                     
-                    <Routes>
-                        
-                        <Route path="/" element={<HomePage availability={availability}/>} />
-                        <Route path="/request/new/:userId/:date?/:resortPark?" element={<RequestForm />} />
-                    </Routes>
+                    
                     <Calendar availability={availability} resort={resort}/>
                 </ResortContext.Provider>
             </AvailabilityContext.Provider>
