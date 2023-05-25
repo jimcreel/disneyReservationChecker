@@ -12,8 +12,7 @@ const mongodbUri = process.env.MONGODBURI;
 
 // Export models and API functions to `server.js`
 module.exports = {
-    api: require('./api'),
+    
     User: require('./user'),
     Request: require('./request'),
-    getText: require('./getText')
 }

@@ -12,12 +12,7 @@ const requestSchema = new mongoose.Schema ({
         required: true,
         default: 'ANY'
     },
-    pass: {
-        type: String,
-        enum: ['inspire-key-pass', 'believe-key-pass', 'enchant-key-pass', 'dream-key-pass', 'imagine-key-pass',
-                'disney-incredi-pass', 'disney-sorceror-pass', 'disney-pirate-pass', 'disney-pixie-dust-pass'],
-        required: true
-    },
+    
     date: {
         type: String, 
         required: true

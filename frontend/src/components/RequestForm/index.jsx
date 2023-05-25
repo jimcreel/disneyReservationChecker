@@ -3,7 +3,9 @@ import { getText } from "../../../utils/api"
 
 export default function RequestForm(props) {
 
-    
+    const {resort} = props
+    const {date} = props
+    const {setShowForm} = props
 
     function handleCancel () {
         setShowForm(false)

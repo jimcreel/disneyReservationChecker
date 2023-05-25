@@ -24,8 +24,8 @@ export default function Header(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
             <NavDropdown title="Resorts" id="basic-nav-dropdown">              
               <NavDropdown title="Disneyland" id="basic-nav-dropdown">
                 <NavDropdown.Item onClick = {() => handlePassClick('inspire-key-pass', 'DLR')}>Inspire Key</NavDropdown.Item>
@@ -44,7 +44,7 @@ export default function Header(props) {
               <NavDropdown.Item onClick = {() => handlePassClick('disney-pixie-dust-pass', 'WDW')}>Pixie Dust Pass</NavDropdown.Item>
             </NavDropdown>
             </NavDropdown>
-
+            
           </Nav>
         </Navbar.Collapse>
       </Container>

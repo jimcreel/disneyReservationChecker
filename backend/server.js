@@ -31,7 +31,8 @@ let userProfile;
 --------------------------------------------------------------- */
 app.use(express.static('public'))
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
 app.use(session({
     secret: process.env.GOOGLE_CLIENT_SECRET,
@@ -45,15 +46,8 @@ app.use(function (req, res, next) {
     res.locals.user = req.user;
     next();
   });
-app.use('api', createProxyMiddleware({
-    target: 'https://localhost:8080',
-    changeOrigin: true,
-    secure: false,
-    onProxyRes: function (proxyRes, req, res) {
-        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-    }
-
-}))
+app.use('/api/requests', require('./controllers/requests'))
+app.use('/api/users', require('./controllers/users'))
 
 
 

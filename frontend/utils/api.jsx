@@ -53,5 +53,7 @@ export function getText(code) {
             return 'Pirate'
         case 'disney-pixie-dust-pass':
             return 'Pixie Dust'
+        case 'ANY':
+            return 'Any'
     }
 }

@@ -2,28 +2,50 @@ import { Link } from 'react-router-dom'
 import { getText } from '../../../utils/api'
 import { useContext} from 'react'
 import { AvailabilityContext } from '../App'
-import { set } from 'mongoose'
+import { makeNewRequest } from '../../../utils/backend'
 export default function Request (props) {
     
     const {setShowForm} = props
     const availability = useContext(AvailabilityContext)
     const {date} = props
     const {resort} = props
-    const {setResort} = props
-    const {setPass} = props
-    const {setPark} = props
+    
     
     let displayDate = 'loading...'
     if (date) {
         displayDate = date.slice(5,7) + '/' + date.slice(8,10) + '/' + date.slice(0,4)
     }
 
-    function handleAvailClick (event) {
-        console.log('avail clicked')
-    }
-    function handleRequestClick(event, facility) {
-        setShowForm(true)
-        let requestDate = new Date(date);
+  
+    function handleRequestClick(avail, parkCode) {
+        let requestResort = ''
+        console.log(typeof(resort.resort))
+        if (typeof(resort.resort) === 'object'){
+            requestResort = resort.resort[0]
+        } else {
+            requestResort = resort.resort
+        }
+        let request = {
+            resort: requestResort,
+            park: parkCode,
+            date: date,
+            available: false,
+        }
+        console.log(request)
+        if (avail === 'request') {
+            makeNewRequest(request)
+            .then (res => {
+                console.log(res)
+                setShowForm(true)
+            })
+            .catch(err => {
+                console.log(err)
+            }
+            )
+        }
+
+        
+        
         
 
     }
@@ -42,6 +64,8 @@ export default function Request (props) {
         requestHTML = facilityArray.map((facility, i) => {
             //get last two characters of facility id
             let facilityName = facility.facilityName.slice(-2)
+            let facilityCode = facilityName
+            let resortCode = facility.facilityName.slice(0,2)
             let facilityImg = `https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/${facility.facilityName}.png`
             facilityName = getText(facilityName)
             let facilityAvail = facility.available ? 'available' : facility.blocked ? 'blocked' : 'request'
@@ -61,15 +85,26 @@ export default function Request (props) {
                         <h1 className='text-center'>{facilityName}</h1>
                     </div>
                     
-                  <Link to={`/request/new/${userId}/${date}/${facility.facilityName}`}>
-                    <button 
-                        className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
-                        disabled={facilityAvail === 'blocked'}
-                        onClick = {(event) => handleRequestClick(event, facility)}
-                        >
-                        {facilityAvail}
-                    </button>
-                    </Link>
+                    {facilityAvail != 'available' &&
+                        <button 
+                            className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
+                            disabled={facilityAvail === 'blocked'}
+                            onClick = {(event) => handleRequestClick(facilityAvail, facilityCode)}
+                            >
+                            {facilityAvail}
+                        </button>
+                    }
+                    {facilityAvail === 'available' &&
+                        
+                        <Link to={resort.resort === 'DLR' ? 'https://disneyland.disney.go.com/entry-reservation/' : 'https://disneyworld.disney.go.com/park-reservations/'} target="_blank">
+                            <button
+                                className={`rounded-full border text-white w-[125px] bg-green-400`}
+                                >
+                                {facilityAvail}
+                            </button>
+                        </Link>
+                    }
+                    
                   
                 </div>
                 
@@ -91,7 +126,7 @@ export default function Request (props) {
                 <button 
                     className={`rounded-full border text-white w-[125px] ${anyBlocked ? 'bg-slate-200' : 'bg-blue-400'}`}
                     disabled={anyBlocked}
-                    onClick={()=> handleRequestClick(anyBlocked)}
+                    onClick={()=> handleRequestClick('request', 'ANY')}
                     >
                         {anyBlocked ? 'blocked' : 'request'}
                 </button>

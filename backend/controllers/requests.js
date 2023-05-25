@@ -27,19 +27,30 @@ router.get('/new/:userId/:date?/:resortPark?', ensureLoggedIn, (req, res) => {
             date: req.params.date,
             resortPark: req.params.resortPark
          })
+         
 
 });
 
+// Show Route: GET localhost:3000/requests/:requestId
+router.get('/:userId', (req, res) => {
+    db.User.findById(req.params.userId)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(err => console.log(err))
+});
+
+
 // Create Route: POST localhost:3000/requests/
-router.post('/create/:userId', ensureLoggedIn, (req, res) => {
+router.post('/create/:userId',  (req, res) => {
     db.User.findByIdAndUpdate(
         req.params.userId,
         { $push: { requests: req.body } },
         { new: true }
     )
-        .then(user =>
-        res.redirect(`/users/${user._id}`),
-    ) 
+        .then(result => res.json(result))
+        .catch(err => console.log(err))
+        
 });
 
 router.get('/:requestId/edit', ensureLoggedIn, (req, res) => {
@@ -69,14 +80,15 @@ router.put('/:requestId', ensureLoggedIn, (req, res) => {
 
 
 // Destroy Route: DELETE localhost:3000/reviews/:id
-router.delete('/:id', ensureLoggedIn, (req, res) => {
+router.delete('/:id',  (req, res) => {
+    console.log('delete route hit')
     db.User.findOneAndUpdate(
         { 'requests._id': req.params.id },
         { $pull: { requests: { _id: req.params.id } } },
         { new: true }
     )
         .then(item =>
-            res.redirect(`back`)
+            res.json(item)
         )
 });
 

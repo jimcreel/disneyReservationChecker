@@ -39,8 +39,12 @@ router.post('/', (req, res) => {
 });
 
 // Show Route: shows the user details and link to edit/delete
-router.get('/:id', ensureLoggedIn, function (req, res) {
-	    res.render('./user/user-show.ejs', { user: req.user })
+router.get('/:id', (req, res) => {
+        console.log('user request received')
+	db.User.findById(req.params.id)
+    .then(user => {
+        res.json(user)
+    })
         });
 
 // Show Route: shows the user edit form
