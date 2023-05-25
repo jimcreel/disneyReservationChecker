@@ -38,27 +38,30 @@ export default function ProfilePage () {
     
         
     
-    let profileHTML = []
-    if (requests) {
-        profileHTML = requests.map((request) => {
-            return (
-                <>
-                    <div key={request._id} className='flex flex-row flex-wrap justify-center m-5'>
-                        <h1>{getText(request.resort)}</h1>
-                        <h1>{getText(request.park)}</h1>
-                        <h1>{changeDateFormat(request.date)}</h1>
-                        <h1>{request.available}</h1>
-                        <button 
-                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' 
-                            onClick={() => handleDeleteClick(request)}>
-                            Delete
-                        </button>
-
-                    </div>
-                </>
-            )
-        }).sort((b,a) => { return new Date(b.date) - new Date(a.date) }).reverse()
-    }
+    let profileHTML = [];
+    let sortedRequests = [];
+if (requests) {
+    sortedRequests = requests.sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+    });
+    profileHTML = sortedRequests.map((request) => {
+        return (
+            <>
+                <div key={request._id} className='flex flex-row flex-wrap justify-center m-5'>
+                    <h1>{getText(request.resort)}</h1>
+                    <h1>{getText(request.park)}</h1>
+                    <h1>{changeDateFormat(request.date)}</h1>
+                    <h1>{request.available}</h1>
+                    <button 
+                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' 
+                        onClick={() => handleDeleteClick(request)}>
+                        Delete
+                    </button>
+                </div>
+            </>
+        );
+    });
+}
 
 
     return (

@@ -15,6 +15,5 @@ export async function getUser(){
 
 export async function deleteRequest(requestId){
     const response = await axios.delete(`/api/requests/${requestId}`);
-    console.log(response)
     return response.data;
 }

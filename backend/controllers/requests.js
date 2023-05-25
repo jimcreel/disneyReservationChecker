@@ -35,9 +35,11 @@ router.get('/new/:userId/:date?/:resortPark?', ensureLoggedIn, (req, res) => {
 router.get('/:userId', (req, res) => {
     db.User.findById(req.params.userId)
         .then(user => {
-            res.json(user)
+            const sortedRequests = user.requests.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const sortedUser = { ...user.toObject(), requests: sortedRequests };
+            res.json(sortedUser);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 });
 
 
