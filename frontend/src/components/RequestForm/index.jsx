@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { getText } from "../../../utils/api"
+import { getText, changeDateFormat } from "../../../utils/api"
 
 export default function RequestForm(props) {
 
@@ -7,6 +7,8 @@ export default function RequestForm(props) {
     const {date} = props
     const {setShowForm} = props
     const {setShowModal} = props
+    const {showForm} = props
+
 
     function handleCancel () {
         setShowForm(false)
@@ -22,8 +24,8 @@ export default function RequestForm(props) {
     return (
         <div>
             <h1>Request Submitted for </h1>
-            <h2>{date}</h2>
-            <h2>{displayResort}</h2>
+            <h2>{changeDateFormat(date)}</h2>
+            <h2>{getText(showForm.park)}</h2>
 
             <button 
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

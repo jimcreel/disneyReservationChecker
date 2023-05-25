@@ -81,7 +81,6 @@ router.put('/:requestId', ensureLoggedIn, (req, res) => {
 
 // Destroy Route: DELETE localhost:3000/reviews/:id
 router.delete('/:id',  (req, res) => {
-    console.log('delete route hit')
     db.User.findOneAndUpdate(
         { 'requests._id': req.params.id },
         { $pull: { requests: { _id: req.params.id } } },

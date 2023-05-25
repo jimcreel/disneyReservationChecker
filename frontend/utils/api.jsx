@@ -57,3 +57,24 @@ export function getText(code) {
             return 'Any'
     }
 }
+
+
+export function changeDateFormat(dateString) {
+    const date = new Date(dateString);
+    
+    let day = String(date.getUTCDate());
+    if (day.length < 2) day = '0' + day;
+    
+    let month = String(date.getUTCMonth() + 1); // Months are 0-based in JS
+    
+    const year = date.getUTCFullYear();
+    
+    return `${getMonthString(month)} ${day}, ${year}`;
+  }
+  
+
+export function getMonthString(monthNum){
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    return monthNames[monthNum -1];
+}

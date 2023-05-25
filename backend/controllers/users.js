@@ -40,7 +40,6 @@ router.post('/', (req, res) => {
 
 // Show Route: shows the user details and link to edit/delete
 router.get('/:id', (req, res) => {
-        console.log('user request received')
 	db.User.findById(req.params.id)
     .then(user => {
         res.json(user)

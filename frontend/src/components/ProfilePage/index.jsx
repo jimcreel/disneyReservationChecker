@@ -1,7 +1,8 @@
 import {getUser} from '../../../utils/backend'
 import {useState, useEffect} from 'react'
 import {getText} from '../../../utils/api'
-import { deleteRequest,changeDateFormat } from '../../../utils/backend'
+import { changeDateFormat } from '../../../utils/api'
+import { deleteRequest } from '../../../utils/backend'
 
 export default function ProfilePage () {
     const [profile, setProfile] = useState({})
