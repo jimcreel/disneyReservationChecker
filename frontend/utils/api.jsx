@@ -54,7 +54,7 @@ export function getText(code) {
         case 'disney-pixie-dust-pass':
             return 'Pixie Dust'
         case 'ANY':
-            return 'Any'
+            return 'Any Park'
     }
 }
 
