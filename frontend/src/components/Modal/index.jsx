@@ -18,7 +18,7 @@ export default function Modal({ requestAvailable, date, resort, availability, sh
     }
     let modalHTML = ''
 } else {
-    modalBody = <RequestForm date={date} resort={resort} availability={availability} setShowForm={setShowForm} />;
+    modalBody = <RequestForm date={date} resort={resort} availability={availability} setShowForm={setShowForm} setShowModal={setShowModal}/>;
 }
  
     

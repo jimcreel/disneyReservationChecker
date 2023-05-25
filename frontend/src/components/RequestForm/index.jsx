@@ -6,9 +6,11 @@ export default function RequestForm(props) {
     const {resort} = props
     const {date} = props
     const {setShowForm} = props
+    const {setShowModal} = props
 
     function handleCancel () {
         setShowForm(false)
+        setShowModal(false)
     }
     let displayResort = ''
     if (typeof resort.resort === 'string') {
@@ -19,7 +21,7 @@ export default function RequestForm(props) {
     
     return (
         <div>
-            <h1>Request Form</h1>
+            <h1>Request Submitted for </h1>
             <h2>{date}</h2>
             <h2>{displayResort}</h2>
 
@@ -27,7 +29,7 @@ export default function RequestForm(props) {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 onClick = {() => handleCancel()}
                 >
-                Cancel
+                Ok
             </button>
         
         </div>

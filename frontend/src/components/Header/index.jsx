@@ -24,7 +24,7 @@ export default function Header(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/">Calendar View</Nav.Link>
             <Nav.Link href="/profile">Profile</Nav.Link>
             <NavDropdown title="Resorts" id="basic-nav-dropdown">              
               <NavDropdown title="Disneyland" id="basic-nav-dropdown">
