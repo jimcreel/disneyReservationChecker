@@ -15,7 +15,7 @@ export default function ProfilePage () {
                 name: result.name,
                 email: result.email,
                 defaultPass: result.defaultPass,
-                defaultPark: result.defaultPark,
+                defaultResort: result.defaultResort
             })
             setRequests(result.requests)
             
