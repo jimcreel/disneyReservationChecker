@@ -45,7 +45,7 @@ export default function Request(props) {
     let anyBlocked = false;
     let anyFull = false;
     let anyButton = '';
-    if (availability[0].availabilities && date) {
+    if (availability[0]['calendar-availabilities'][requestIndex]?.facilities && date) {
         let facilityArray = availability[0]['calendar-availabilities'][requestIndex]['facilities'];
         requestHTML = facilityArray.map((facility, i) => {
             //get last two characters of facility id
