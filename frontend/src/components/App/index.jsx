@@ -7,6 +7,7 @@ import Calendar from "../Calendar"
 import Request from "../Request"
 import RequestForm from "../RequestForm"
 import ProfilePage from "../ProfilePage"
+import Marquee from "../Marquee"
 
 export const AvailabilityContext = React.createContext()
 export const ResortContext = React.createContext()
@@ -32,6 +33,7 @@ export default function App() {
             <AvailabilityContext.Provider value={availability}>       
                 <ResortContext.Provider value={resort}>
                     <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
+                    <Marquee resort = {resort}/>
                     
                     
                     <Routes> 

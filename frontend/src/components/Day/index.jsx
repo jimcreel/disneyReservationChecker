@@ -28,7 +28,7 @@ export default function Day(props) {
   let requestLink = ''
   if (date.getMonth() != month) {
     
-    dayClass = "day w-[50px] h-[50px] border  border-black  flex align-center justify-between flex-col pb-2 bg-gray-200"
+    dayClass = "day w-[50px] h-[50px] border  border-black rounded-sm flex align-center justify-between flex-col pb-2 bg-gray-200"
     dateClass = 'text-xl font-thin '
     } else if (date < today){
       dayClass = "day w-[50px] h-[50px] border  border-black  flex align-center justify-between flex-col pb-2 bg-gray-400"

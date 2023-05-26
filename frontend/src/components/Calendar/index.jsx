@@ -9,9 +9,7 @@ export default function Calendar (props){
    
     let availability = props
     let resort = props
-    console.log(resort)
     let pass = props
-    console.log(pass)
     let today = new Date();
     let displayResort = ''
     let displayPass = ''
