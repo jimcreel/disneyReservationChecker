@@ -36,23 +36,23 @@ export function getText(code) {
         case 'AK':
             return 'Animal Kingdom'
         case 'inspire-key-pass':
-            return 'Inspire'
+            return 'Inspire Key'
         case 'imagine-key-pass':
-            return 'Imagine'
+            return 'Imagine Key'
         case 'dream-key-pass':
-            return 'Dream'
+            return 'Dream Key'
         case 'enchant-key-pass':
-            return 'Enchant'
+            return 'Enchant Key'
         case 'believe-key-pass':
-            return 'Believe'
+            return 'Believe Key'
         case 'disney-incredi-pass':
             return 'Incredi-Pass'
         case 'disney-sorcerer-pass':
-            return 'Sorcerer'
+            return 'Sorcerer Pass'
         case 'disney-pirate-pass':
-            return 'Pirate'
+            return 'Pirate Pass'
         case 'disney-pixie-dust-pass':
-            return 'Pixie Dust'
+            return 'Pixie Dust Pass'
         case 'ANY':
             return 'Any Park'
     }

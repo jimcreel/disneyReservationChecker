@@ -35,7 +35,7 @@ export default function App() {
                     
                     
                     <Routes> 
-                        <Route path="/" element={<Calendar availability={availability} resort={resort}/>} />
+                        <Route path="/" element={<Calendar availability={availability} resort={resort} pass={pass}/>} />
                         <Route path="/profile" element={<ProfilePage />} />
                     </Routes>
                     

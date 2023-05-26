@@ -24,6 +24,7 @@ export default function Day(props) {
   let availabilityHTML = ''
   let dayClass = "day w-[50px] h-[50px] border border-black  flex align-center justify-between flex-col pb-2 hover:cursor-pointer hover:shadow-md hover:border-gray-400 hover:bg-gray-100"
   let today = new Date()
+  today.setUTCHours(0,0,0,0)
   let requestLink = ''
   if (date.getMonth() != month) {
     
