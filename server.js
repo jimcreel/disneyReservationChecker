@@ -9,6 +9,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const passport = require('passport');
 const ensureLoggedIn = require('./config/ensureLoggedIn');
+const cors = require('cors');
 
 
 const db = require('./models');
@@ -41,6 +42,7 @@ app.set('views', path.join(__dirname, '/views'));
 --------------------------------------------------------------- */
 app.use(express.static('public'))
 app.use(connectLiveReload());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(session({
