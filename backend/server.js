@@ -8,6 +8,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const passport = require('passport');
 const ensureLoggedIn = require('./config/ensureLoggedIn');
+const cors = require('cors');
 
 
 const db = require('./models');
@@ -33,6 +34,7 @@ app.use(express.static('public'))
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(cors())
 
 app.use(session({
     secret: process.env.GOOGLE_CLIENT_SECRET,
