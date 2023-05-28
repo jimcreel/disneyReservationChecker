@@ -15,12 +15,13 @@
 - AWS
 - express.js
 - node.js
-
+- React
 ## Installation Instructions
 
 - clone the repository
-- install node.js
-- run node server.js
+- run npm install
+- run npm run start
+- open a browser to localhost on the specified port
 
 ## User Stories
 
@@ -40,6 +41,5 @@
 
 ## Unsolved Problems
 
-- i'm working to integrate the python backend script with mongodb. The original uses a POSTgres db, so as of now it will not send notifications. 
-- styling is basic in some areas due to authorization. hopefully will be working through that soon. 
-- google authentication is required, which may prevent some users from using the site
+- authorization will be re-implemented in the near future. 
+- the app has moved to a react front end with separate express backend. 
