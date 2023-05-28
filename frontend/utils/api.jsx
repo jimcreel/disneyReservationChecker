@@ -5,14 +5,6 @@ import axios from "axios";
 
 
 
-export async function getAvailability(resort, pass) {
-    let url = `https://${resort}.disney.go.com/passes/blockout-dates/api/get-availability/?product-types=${pass}&destinationId=DLR&numMonths=14` 
-    const response = await axios.get(url);
-    return response.data;
-}
-
-
-
 // ... rest of the code
 
 

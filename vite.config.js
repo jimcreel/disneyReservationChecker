@@ -11,7 +11,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'https://magic-reservations.herokuapp.com:3000',
+                target: 'https://magicres-backend.herokuapp.com',
                 changeOrigin: true,
                 secure: false,
                 ws: true,
