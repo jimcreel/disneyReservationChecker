@@ -40,7 +40,7 @@ export default function Request(props) {
     let requestDate = new Date(date);
     today.setUTCHours(0, 0, 0, 0); // Set UTC hours to 0 to ignore time zone
     requestDate.setUTCHours(0, 0, 0, 0); // Set UTC hours to 0 to ignore time zone
-    let requestIndex = Math.ceil((requestDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
+    let requestIndex = Math.ceil((requestDate.getTime() - today.getTime()) / (1000 * 3600 * 24)) +1;
     let requestHTML = [];
     let anyBlocked = false;
     let anyFull = false;
@@ -49,12 +49,13 @@ export default function Request(props) {
         let facilityArray = availability[0]['calendar-availabilities'][requestIndex]['facilities'];
         requestHTML = facilityArray.map((facility, i) => {
             //get last two characters of facility id
+            console.log(facility, date)
             let facilityName = facility.facilityName.slice(-2);
             let facilityCode = facilityName;
             let resortCode = facility.facilityName.slice(0, 2);
             let facilityImg = `https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/${facility.facilityName}.png`;
             facilityName = getText(facilityName);
-            let facilityAvail = facility.available ? 'available' : facility.blocked ? 'blocked' : 'request';
+            let facilityAvail = facility.available === true ? 'available' : facility.blocked === true ? 'blocked' : 'request';
             if (facilityAvail === 'blocked') {
                 anyBlocked = true;
             }
