@@ -38,15 +38,14 @@ export default function Request(props) {
     let userId = 'jim.creel@gmail.com';
     let today = new Date();
     let requestDate = new Date(date);
-    today.setUTCHours(0, 0, 0, 0); // Set UTC hours to 0 to ignore time zone
-    requestDate.setUTCHours(0, 0, 0, 0); // Set UTC hours to 0 to ignore time zone
-    let requestIndex = Math.ceil((requestDate.getTime() - today.getTime()) / (1000 * 3600 * 24)) +1;
+    let [availabilityDate] = availability[0]['calendar-availabilities'].filter((avail) => avail.date === date);
+    console.log(availabilityDate)
     let requestHTML = [];
     let anyBlocked = false;
     let anyFull = false;
     let anyButton = '';
-    if (availability[0]['calendar-availabilities'][requestIndex]?.facilities && date) {
-        let facilityArray = availability[0]['calendar-availabilities'][requestIndex]['facilities'];
+    if (availabilityDate.facilities && date) {
+        let facilityArray = availabilityDate['facilities'];
         requestHTML = facilityArray.map((facility, i) => {
             //get last two characters of facility id
             console.log(facility, date)
