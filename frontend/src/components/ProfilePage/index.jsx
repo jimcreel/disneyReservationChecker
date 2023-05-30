@@ -46,6 +46,7 @@ if (requests) {
                     <div className='m-5'>
                         <h1>{getText(request.resort)}</h1>
                         <h1>{getText(request.park)}</h1>
+                        <h1>{getText(request.pass)}</h1>
                         <h1>{changeDateFormat(request.date)}</h1>
                     </div>
                     <h1>{request.available}</h1>

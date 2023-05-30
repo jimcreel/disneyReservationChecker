@@ -1,7 +1,8 @@
 
 import Month from '../Month';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { getText } from '../../../utils/api';
+import { PassContext } from '../App';
 
 import { get } from 'mongoose';
 
@@ -9,7 +10,7 @@ export default function Calendar (props){
    
     let availability = props
     let resort = props
-    let pass = props
+    let pass = useContext(PassContext)
     let today = new Date();
     let displayResort = ''
     let displayPass = ''
@@ -18,10 +19,10 @@ export default function Calendar (props){
     if (availability) { 
         calendarHTML = 
         <div id="calendars" className='flex flex-row flex-wrap justify-center'>
-        <Month key={today.getMonth()} date={new Date(today.getFullYear(), today.getMonth(), 1)} availability={availability} resort={resort}/>
-        <Month key={today.getMonth() + 1} date={new Date(today.getFullYear(), today.getMonth()+1, 1)} availability={availability} resort={resort}/>
-        <Month key={today.getMonth() + 2} date={new Date(today.getFullYear(), today.getMonth()+2, 1)} availability={availability} resort={resort}/>
-        <Month key={today.getMonth() + 3} date={new Date(today.getFullYear(), today.getMonth()+3, 1)} availability={availability} resort={resort}/>
+        <Month key={today.getMonth()} date={new Date(today.getFullYear(), today.getMonth(), 1)} availability={availability} resort={resort} pass={pass}/>
+        <Month key={today.getMonth() + 1} date={new Date(today.getFullYear(), today.getMonth()+1, 1)} availability={availability} resort={resort} pass={pass}/>
+        <Month key={today.getMonth() + 2} date={new Date(today.getFullYear(), today.getMonth()+2, 1)} availability={availability} resort={resort} pass={pass}/>
+        <Month key={today.getMonth() + 3} date={new Date(today.getFullYear(), today.getMonth()+3, 1)} availability={availability} resort={resort} pass={pass}/>
             </div>
     }
     if (typeof(resort.resort) === 'string') {
@@ -31,9 +32,9 @@ export default function Calendar (props){
     }
 
     if (typeof(pass.pass) === 'string') {
-        displayPass = getText(pass.pass)
+        displayPass = getText(pass)
     } else {
-        displayPass = getText(pass.pass[0])
+        displayPass = getText(pass)
     }
 
     return (

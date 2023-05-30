@@ -10,6 +10,8 @@ export default function Request(props) {
     const availability = useContext(AvailabilityContext);
     const { date } = props;
     const { resort } = props;
+    const {pass} = props
+
 
     function handleRequestClick(avail, parkCode) {
         let requestResort = '';
@@ -22,8 +24,10 @@ export default function Request(props) {
             resort: requestResort,
             park: parkCode,
             date: date,
+            pass: pass,
             available: false,
         };
+        console.log(request);
         if (avail === 'request') {
             makeNewRequest(request)
                 .then((res) => {
