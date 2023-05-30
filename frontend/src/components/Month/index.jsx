@@ -4,6 +4,7 @@ export default function Month (props){
     let {date} = props
     let {availability} = props
     let {resort} = props
+    let {pass} = props
 
 
     let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -27,7 +28,7 @@ export default function Month (props){
     let monthHTML = monthDates.map((date, index) => {
         return <Day 
         key={date}
-        date={date} availability={availability} resort={resort} month={month}/>
+        date={date} availability={availability} resort={resort} month={month} pass={pass}/>
     })
 
     

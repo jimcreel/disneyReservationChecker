@@ -5,13 +5,14 @@ import { getText, changeDateFormat } from '../../../utils/api';
 
 
 
-export default function Modal({ requestAvailable, date, resort, availability, showModal, setShowModal }) {
+export default function Modal({ requestAvailable, date, resort, availability, showModal, setShowModal, pass}) {
     const [showForm, setShowForm] = useState({active: false, park: ''});
     
+
   let modalBody = '';
   if (!showForm.active){
     if (requestAvailable ) {
-        modalBody = <Request date={date} resort={resort} availability={availability} setShowForm={setShowForm} />;
+        modalBody = <Request date={date} resort={resort} availability={availability} setShowForm={setShowForm} pass={pass}/>;
     } else {
         modalBody = <div className='text-center text-2xl'>Sorry, this date is blocked for this pass.</div>;
     }

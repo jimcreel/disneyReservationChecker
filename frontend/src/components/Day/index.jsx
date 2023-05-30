@@ -5,7 +5,7 @@ import { useState } from "react"
 
 
 export default function Day(props) {
-  const { date, availability, resort, month } = props
+  const { date, availability, resort, month, pass } = props
   const [showModal, setShowModal] = useState(false)
 
   function handleDayClick () {
@@ -85,7 +85,7 @@ export default function Day(props) {
           </div>
       </div>
     
-    <Modal requestAvailable={requestAvailable} date={dateStr} resort={resort} availability={availability} showModal={showModal} setShowModal={setShowModal}/>
+    <Modal requestAvailable={requestAvailable} date={dateStr} resort={resort} availability={availability} showModal={showModal} setShowModal={setShowModal} pass={pass}/>
     </>
   )
 }

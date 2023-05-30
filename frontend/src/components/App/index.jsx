@@ -11,6 +11,7 @@ import Marquee from "../Marquee"
 
 export const AvailabilityContext = React.createContext()
 export const ResortContext = React.createContext()
+export const PassContext = React.createContext()
 
 export default function App() {
     const [resort, setResort] = useState('DLR')
@@ -32,15 +33,16 @@ export default function App() {
         <>
             <AvailabilityContext.Provider value={availability}>       
                 <ResortContext.Provider value={resort}>
-                    <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
-                    <Marquee resort = {resort}/>
-                    
-                    
-                    <Routes> 
-                        <Route path="/" element={<Calendar availability={availability} resort={resort} pass={pass}/>} />
-                        <Route path="/profile" element={<ProfilePage />} />
-                    </Routes>
-                    
+                    <PassContext.Provider value={pass}>
+                        <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
+                        <Marquee resort = {resort}/>
+                        
+                        
+                        <Routes> 
+                            <Route path="/" element={<Calendar availability={availability} resort={resort}/>} />
+                            <Route path="/profile" element={<ProfilePage />} />
+                        </Routes>
+                    </PassContext.Provider>     
                 </ResortContext.Provider>
             </AvailabilityContext.Provider>
         </>
