@@ -27,7 +27,6 @@ export default function Request(props) {
             pass: pass,
             available: false,
         };
-        console.log(request);
         if (avail === 'request') {
             makeNewRequest(request)
                 .then((res) => {
@@ -43,7 +42,7 @@ export default function Request(props) {
     let today = new Date();
     let requestDate = new Date(date);
     let [availabilityDate] = availability[0]['calendar-availabilities'].filter((avail) => avail.date === date);
-    console.log(availabilityDate)
+    
     let requestHTML = [];
     let anyBlocked = false;
     let anyFull = false;
@@ -52,7 +51,6 @@ export default function Request(props) {
         let facilityArray = availabilityDate['facilities'];
         requestHTML = facilityArray.map((facility, i) => {
             //get last two characters of facility id
-            console.log(facility, date)
             let facilityName = facility.facilityName.slice(-2);
             let facilityCode = facilityName;
             let resortCode = facility.facilityName.slice(0, 2);

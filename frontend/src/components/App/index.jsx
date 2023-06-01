@@ -8,6 +8,7 @@ import Request from "../Request"
 import RequestForm from "../RequestForm"
 import ProfilePage from "../ProfilePage"
 import Marquee from "../Marquee"
+import AuthForm from "../AuthForm"
 
 export const AvailabilityContext = React.createContext()
 export const ResortContext = React.createContext()
@@ -16,7 +17,7 @@ export const PassContext = React.createContext()
 export default function App() {
     const [resort, setResort] = useState('DLR')
     const [availability, setAvailability] = useState([{}])
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('userToken') ? true : false)
     const [pass, setPass] = useState('inspire-key-pass')
     
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function App() {
         .then((result) => {
             setAvailability(result)        
         })
-    }, [resort, pass])
+    }, [resort, pass, loggedIn])
 
     
         
@@ -34,13 +35,14 @@ export default function App() {
             <AvailabilityContext.Provider value={availability}>       
                 <ResortContext.Provider value={resort}>
                     <PassContext.Provider value={pass}>
-                        <Header setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
+                        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} setResort = {setResort} resort={resort} setPass={setPass} pass={pass}/>
                         <Marquee resort = {resort}/>
                         
                         
                         <Routes> 
                             <Route path="/" element={<Calendar availability={availability} resort={resort}/>} />
                             <Route path="/profile" element={<ProfilePage />} />
+                            <Route path="/auth/:formType" element={<AuthForm />} />
                         </Routes>
                     </PassContext.Provider>     
                 </ResortContext.Provider>

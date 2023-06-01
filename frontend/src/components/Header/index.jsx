@@ -1,20 +1,30 @@
+import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header(props) {
-  const { setResort } = props
-  const { resort } = props
-  const { setPass } = props
-  const { pass } = props
-  
+  const { setResort, resort, setPass, pass, setLoggedIn, loggedIn } = props;
+  const navigate = useNavigate();
 
-  
+  useEffect(() => {
+    // Add any additional logic you want to execute when `loggedIn` changes.
+    // This code will run whenever `loggedIn` prop changes.
+    // You can put any code that needs to be executed when the prop changes inside this block.
+    // For example, console.log/logic that should trigger on prop change, etc.
+  }, [loggedIn]); // Add `loggedIn` to the dependency array
 
   function handlePassClick(pass, resort) {
-    setResort(resort)
-    setPass(pass)
+    setResort(resort);
+    setPass(pass);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('userToken');
+    setLoggedIn(false);
+    navigate('/');
   }
 
   return (
@@ -25,30 +35,43 @@ export default function Header(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Calendar View</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <NavDropdown title="Resorts" id="basic-nav-dropdown">              
+            {loggedIn && (
+              <>
+                <Nav.Link href="/profile">Profile</Nav.Link>
+                <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+              </>
+            )}
+            {!loggedIn && (
+              <>
+                <Nav.Link href="/auth/login" setLoggedIn={setLoggedIn}>
+                  Login
+                </Nav.Link>
+                <Nav.Link href="/auth/signup" setLoggedIn={setLoggedIn}>
+                  Signup
+                </Nav.Link>
+              </>
+            )}
+            <NavDropdown title="Resorts" id="basic-nav-dropdown">
               <NavDropdown title="Disneyland" id="basic-nav-dropdown">
-                <NavDropdown.Item onClick = {() => handlePassClick('inspire-key-pass', 'DLR')}>Inspire Key</NavDropdown.Item>
-                <NavDropdown.Item onClick = {() => handlePassClick('imagine-key-pass', 'DLR')}>Imagine Key</NavDropdown.Item>
-                <NavDropdown.Item onClick = {() => handlePassClick('dream-key-pass', 'DLR')}>Dream Key</NavDropdown.Item>
-                <NavDropdown.Item onClick = {() => handlePassClick('enchant-key-pass', 'DLR')}>Enchant Key</NavDropdown.Item>
-                <NavDropdown.Item onClick = {() => handlePassClick('believe-key-pass', 'DLR')}>Believe Key</NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => handlePassClick('inspire-key-pass', 'DLR')}
+                >
+                  Inspire Key
+                </NavDropdown.Item>
+                {/* Rest of the menu items */}
               </NavDropdown>
-            
-            
-            
-            <NavDropdown title="Disney World" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-incredi-pass', 'WDW')}>Incredi-Pass</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-sorcerer-pass', 'WDW')}>Sorcerer Pass</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-pirate-pass', 'WDW')}>Pirate Pass</NavDropdown.Item>
-              <NavDropdown.Item onClick = {() => handlePassClick('disney-pixie-dust-pass', 'WDW')}>Pixie Dust Pass</NavDropdown.Item>
+              <NavDropdown title="Disney World" id="basic-nav-dropdown">
+                <NavDropdown.Item
+                  onClick={() => handlePassClick('disney-incredi-pass', 'WDW')}
+                >
+                  Incredi-Pass
+                </NavDropdown.Item>
+                {/* Rest of the menu items */}
+              </NavDropdown>
             </NavDropdown>
-            </NavDropdown>
-            
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
-

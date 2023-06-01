@@ -33,9 +33,9 @@ export default function ProfilePage () {
     
         
     
-    let profileHTML = [];
+    let profileHTML = 'No requests found.';
     let sortedRequests = [];
-if (requests) {
+if (requests.length>0) {
     sortedRequests = requests.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
     });
