@@ -12,6 +12,8 @@ export default function Request(props) {
     const { resort } = props;
     const {pass} = props
 
+    const loggedIn = localStorage.getItem('userToken') ? true : false;
+
 
     function handleRequestClick(avail, parkCode) {
         let requestResort = '';
@@ -38,9 +40,7 @@ export default function Request(props) {
         }
     }
 
-    let userId = 'jim.creel@gmail.com';
-    let today = new Date();
-    let requestDate = new Date(date);
+    
     let [availabilityDate] = availability[0]['calendar-availabilities'].filter((avail) => avail.date === date);
     
     let requestHTML = [];
@@ -75,7 +75,7 @@ export default function Request(props) {
                         {facilityAvail != 'available' && (
                             <button
                                 className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
-                                disabled={facilityAvail === 'blocked'}
+                                disabled={facilityAvail === 'blocked' || !loggedIn}
                                 onClick={(event) => handleRequestClick(facilityAvail, facilityCode)}
                             >
                                 {facilityAvail === 'blocked' ? 'Sorry, this date is blocked' : facilityAvail}

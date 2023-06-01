@@ -3,12 +3,12 @@ import {useParams, useNavigate} from 'react-router-dom'
 import { login, signUp } from "../../../utils/backend";
 
 
-export default function AuthFormPage() {
+export default function AuthFormPage(props) {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
-
+    const {setLoggedIn} = props
     const navigate = useNavigate();
     const { formType } = useParams();
     let actionText
@@ -19,11 +19,17 @@ export default function AuthFormPage() {
         if(formType === 'login'){
             const {token} = await login(formData);
             localStorage.setItem('userToken', token);
+            setLoggedIn(true)
+            navigate('/')
+            
         } else {
             const {token} = await signUp(formData);
             localStorage.setItem('userToken', token);
+            setLoggedIn(true)
+            navigate('/')
+            
         }
-        navigate('/')
+       
     }
 
     const handleInputChange = (event) => {

@@ -40,9 +40,9 @@ export default function App() {
                         
                         
                         <Routes> 
-                            <Route path="/" element={<Calendar availability={availability} resort={resort}/>} />
+                            <Route path="/" element={<Calendar availability={availability} resort={resort} loggedIn={loggedIn}/>} />
                             <Route path="/profile" element={<ProfilePage />} />
-                            <Route path="/auth/:formType" element={<AuthForm />} />
+                            <Route path="/auth/:formType" element={<AuthForm setLoggedIn={setLoggedIn} />} />
                         </Routes>
                     </PassContext.Provider>     
                 </ResortContext.Provider>

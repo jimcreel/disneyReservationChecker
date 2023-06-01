@@ -4,10 +4,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
+import { getText, getPasses } from '../../../utils/api';
 
 export default function Header(props) {
   const { setResort, resort, setPass, pass, setLoggedIn, loggedIn } = props;
   const navigate = useNavigate();
+
 
   useEffect(() => {
     // Add any additional logic you want to execute when `loggedIn` changes.
@@ -26,6 +28,19 @@ export default function Header(props) {
     setLoggedIn(false);
     navigate('/');
   }
+   
+  function buildPassDropdown(passArr, resort) {
+    let passDropDown = passArr.map((pass) => {
+      return (
+        <NavDropdown.Item
+          onClick={() => handlePassClick(pass, resort)}
+        >
+          {getText(pass)}
+        </NavDropdown.Item>
+      );
+    })
+    return passDropDown;
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -43,30 +58,21 @@ export default function Header(props) {
             )}
             {!loggedIn && (
               <>
-                <Nav.Link href="/auth/login" setLoggedIn={setLoggedIn}>
+                <Nav.Link href="/auth/login" onClick={() => handleLogin()}>
                   Login
                 </Nav.Link>
-                <Nav.Link href="/auth/signup" setLoggedIn={setLoggedIn}>
+                <Nav.Link href="/auth/signup" onClick={() => handleLogin()}>
                   Signup
                 </Nav.Link>
               </>
             )}
             <NavDropdown title="Resorts" id="basic-nav-dropdown">
               <NavDropdown title="Disneyland" id="basic-nav-dropdown">
-                <NavDropdown.Item
-                  onClick={() => handlePassClick('inspire-key-pass', 'DLR')}
-                >
-                  Inspire Key
-                </NavDropdown.Item>
-                {/* Rest of the menu items */}
+                {buildPassDropdown(getPasses('DLR'), 'DLR')}
               </NavDropdown>
               <NavDropdown title="Disney World" id="basic-nav-dropdown">
-                <NavDropdown.Item
-                  onClick={() => handlePassClick('disney-incredi-pass', 'WDW')}
-                >
-                  Incredi-Pass
-                </NavDropdown.Item>
-                {/* Rest of the menu items */}
+                {buildPassDropdown(getPasses('WDW'), 'WDW')}
+                
               </NavDropdown>
             </NavDropdown>
           </Nav>
