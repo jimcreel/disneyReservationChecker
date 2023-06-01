@@ -45,7 +45,7 @@ export async function getUser(){
 }
 
 export async function deleteRequest(requestId){
-    
+    let headers = buildHeader()
     // const response = await axios.delete(`https://magicres-backend.herokuapp.com/api/requests/${requestId}`, {headers});
     const response = await axios.delete(`http://localhost:3000/api/requests/${requestId}`, headers);
     return response.data;

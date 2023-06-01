@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import { AvailabilityContext } from '../App';
 import { makeNewRequest } from '../../../utils/backend';
 import { changeDateFormat } from '../../../utils/api';
+import { useNavigate} from 'react-router-dom';
+
 
 export default function Request(props) {
     const { setShowForm } = props;
@@ -11,11 +13,22 @@ export default function Request(props) {
     const { date } = props;
     const { resort } = props;
     const {pass} = props
+    const navigate = useNavigate();
 
-    const loggedIn = localStorage.getItem('userToken') ? true : false;
+    function getLoginStatus(){
+        if (localStorage.getItem('userToken')) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
 
-
-    function handleRequestClick(avail, parkCode) {
+    function handleRequestClick(avail, parkCode, loginStatus) {
+        if (loginStatus === false) {
+            navigate('/auth/login');
+            return;
+        }
         let requestResort = '';
         if (typeof resort.resort === 'object') {
             requestResort = resort.resort[0];
@@ -72,20 +85,23 @@ export default function Request(props) {
                             <h1 className='text-center'>{facilityName}</h1>
                         </div>
 
-                        {facilityAvail != 'available' && (
+                        {(facilityAvail != 'available') && (
                             <button
                                 className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
-                                disabled={facilityAvail === 'blocked' || !loggedIn}
-                                onClick={(event) => handleRequestClick(facilityAvail, facilityCode)}
+                                disabled={facilityAvail === 'blocked'}
+                                onClick={(event) => handleRequestClick(facilityAvail, facilityCode, getLoginStatus())}
                             >
+                                
                                 {facilityAvail === 'blocked' ? 'Sorry, this date is blocked' : facilityAvail}
                             </button>
                         )}
-                        {facilityAvail === 'available' && (
+                        
+                        {facilityAvail === 'available'  && (
                             <Link to={resort.resort === 'DLR' ? 'https://disneyland.disney.go.com/entry-reservation/' : 'https://disneyworld.disney.go.com/park-reservations/'} target="_blank">
                                 <button className={`rounded-full border text-white w-[125px] bg-green-400`}>{facilityAvail}</button>
                             </Link>
                         )}
+                        
                     </div>
                 </div>
             );
