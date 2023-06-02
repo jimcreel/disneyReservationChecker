@@ -5,9 +5,13 @@ import { login, signUp } from "../../../utils/backend";
 
 export default function AuthFormPage(props) {
     const [formData, setFormData] = useState({
+        name: "",
         email: "",
         password: "",
+        confirmPassword: ""
+
     });
+    const [badPassword, setBadPassword] = useState(false);
     const {setLoggedIn} = props
     const navigate = useNavigate();
     const { formType } = useParams();
@@ -23,6 +27,10 @@ export default function AuthFormPage(props) {
             navigate('/')
             
         } else {
+            if (formData.password !== formData.confirmPassword) {
+                setBadPassword(true);
+                return;
+            }
             const {token} = await signUp(formData);
             localStorage.setItem('userToken', token);
             setLoggedIn(true)
@@ -32,10 +40,11 @@ export default function AuthFormPage(props) {
        
     }
 
-    const handleInputChange = (event) => {
+    function handleInputChange (event){
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
 
+    
     return (
         <div className="flex items-center justify-center h-[90vh]">
             <div className="bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">
@@ -58,20 +67,40 @@ export default function AuthFormPage(props) {
                     </div>
                     <div>
                         <label className="block text-gray-100 font-bold mb-2" htmlFor="password">
-                            Password
+                            Password {badPassword && <span className="text-red-500">Passwords do not match</span>}
                         </label>
                         <input
                             className="w-full p-2 text-gray-900 rounded-md focus:outline-none focus:ring focus:border-blue-600"
                             id="password"
                             name="password"
                             type="password"
-                            minLength="6"
+                            minLength="8"
                             required
                             placeholder="Password"
                             value={formData.password}
                             onChange={handleInputChange}
                         />
                     </div>
+                    {formType === 'signup' && (
+                        <>
+                    <div>
+                        <label className="block text-gray-100 font-bold mb-2" htmlFor="password">
+                            Confirm Password
+                        </label>
+                        <input
+                            className="w-full p-2 text-gray-900 rounded-md focus:outline-none focus:ring focus:border-blue-600"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            type="password"
+                            minLength="8"
+                            required
+                            placeholder="Password"
+                            value={formData.confirmPassword}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    </>
+                    )}
                     <div>
                         <button
                             type="submit"
@@ -79,6 +108,8 @@ export default function AuthFormPage(props) {
                             {actionText}
                         </button>
                     </div>
+                   
+                    
                 </form>
             </div>
         </div>
