@@ -65,7 +65,7 @@ export async function editUser(user){
 
 export async function changePassword(user){
     let headers = buildHeader()
-    const response = await axios.put(`${uri}/api/users/64136c6f16ea0ebb1b1e1f3e`, user, headers);
+    const response = await axios.put(`${uri}/api/users/`, user, headers);
     // const response = await axios.put(`http://localhost:3000/api/users/password`, user, headers);
     console.log(response.data)
     return response.data;
