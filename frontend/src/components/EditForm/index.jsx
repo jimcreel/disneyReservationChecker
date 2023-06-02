@@ -47,11 +47,11 @@ export default function EditForm(props) {
 
     }
     
-        let dlrPasses = getPasses('DLR').map((pass) => {
-          return <option value={pass}>{getText(pass)}</option>;
+        let dlrPasses = getPasses('DLR').map((pass, index) => {
+          return <option value={pass} key={index}>{getText(pass)}</option>;
         });
-        let wdwPasses = getPasses('WDW').map((pass) => {
-          return <option value={pass}>{getText(pass)}</option>;
+        let wdwPasses = getPasses('WDW').map((pass, index) => {
+          return <option value={pass} key={index}>{getText(pass)}</option>;
         });
       
         let editFormHTML = (
@@ -71,7 +71,7 @@ export default function EditForm(props) {
                   <div className='flex flex-row items-baseline justify-left w-full mb-4'>
                       <label className='font-bold m-2 text-xl'>Email:</label>
                       <input
-                      className='border border-black mb-2 pl-2'
+                      className='border border-black mb-2 pl-2 '
                       type='text'
                       name='email'
                       defaultValue={profile.email}

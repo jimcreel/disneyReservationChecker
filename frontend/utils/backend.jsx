@@ -58,3 +58,16 @@ export async function editUser(user){
     const response = await axios.put(`http://localhost:3000/api/users`, user, headers);
     return response.data;
 }
+
+export async function changePassword(user){
+    let headers = buildHeader()
+    // const response = await axios.put(`https://magicres-backend.herokuapp.com/api/users/64136c6f16ea0ebb1b1e1f3e`, user, {headers});
+    const response = await axios.put(`http://localhost:3000/api/users/password`, user, headers);
+    console.log(response.data)
+    return response.data;
+}
+
+export async function resetPassword(email){
+    const response = await axios.post(`http://localhost:3000/api/users/send-password`, email);
+    return response.data;
+}
