@@ -7,7 +7,7 @@ export default function EditForm(props) {
     const { profile, setProfile, setShowEditForm } = props;
     const [editForm, setEditForm] = useState({})
     const [badMatch, setBadMatch] = useState(false)
-    console.log(profile)
+    
 
     function handleEditChange(event){
         setEditForm({

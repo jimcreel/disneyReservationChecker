@@ -34,7 +34,7 @@ export default function AuthFormPage(props) {
             const {token} = await signUp(formData);
             localStorage.setItem('userToken', token);
             setLoggedIn(true)
-            navigate('/')
+            navigate('/profile')
             
         }
        
@@ -47,11 +47,11 @@ export default function AuthFormPage(props) {
     
     return (
         <div className="flex items-center justify-center h-[90vh]">
-            <div className="bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">
-                <h2 className="text-3xl text-center font-bold text-gray-100 mb-8">{actionText}</h2>
+            <div className="bg-gray-200 rounded-lg shadow-xl p-8 w-full max-w-md">
+                <h2 className="text-3xl text-center font-bold text-black-100 mb-8">{actionText}</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
-                        <label className="block text-gray-100 font-bold mb-2" htmlFor="email">
+                        <label className="block text-black-100 font-bold mb-2" htmlFor="email">
                             Email
                         </label>
                         <input
@@ -66,7 +66,7 @@ export default function AuthFormPage(props) {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-100 font-bold mb-2" htmlFor="password">
+                        <label className="block text-black-100 font-bold mb-2" htmlFor="password">
                             Password {badPassword && <span className="text-red-500">Passwords do not match</span>}
                         </label>
                         <input
@@ -84,7 +84,7 @@ export default function AuthFormPage(props) {
                     {formType === 'signup' && (
                         <>
                     <div>
-                        <label className="block text-gray-100 font-bold mb-2" htmlFor="password">
+                        <label className="block text-black-100 font-bold mb-2" htmlFor="password">
                             Confirm Password
                         </label>
                         <input
@@ -104,10 +104,21 @@ export default function AuthFormPage(props) {
                     <div>
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 bg-green-700 text-gray-100 rounded-md hover:bg-green-800 transition duration-300">
+                            className="w-full py-2 px-4 bg-blue-400 text-gray-100 rounded-md hover:bg-green-800 transition duration-300">
                             {actionText}
                         </button>
                     </div>
+                    {formType === 'login' && (
+                    <div>
+                        <button
+                            type="button"
+                            className="w-full py-2 px-4 bg-blue-400 text-gray-100 rounded-md hover:bg-green-800 transition duration-300"
+                            onClick={() => navigate('/auth/signup')}
+                        >
+                            New Account
+                        </button>
+                    </div>
+                    )}
                    
                     
                 </form>
