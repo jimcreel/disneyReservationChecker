@@ -56,7 +56,7 @@ export async function deleteRequest(requestId){
 }
 
 export async function editUser(user){
-    console.log(user)
+    
     let headers = buildHeader()
     const response = await axios.put(`${uri}/api/users/`, user, headers);
     // const response = await axios.put(`http://localhost:3000/api/users`, user, headers);
