@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {useParams, useNavigate} from 'react-router-dom'
-import { login, signUp } from "../../../utils/backend";
+import { forgotPassword, login, signUp } from "../../../utils/backend";
 import { resetPassword } from "../../../utils/backend";
 
 
@@ -59,9 +59,10 @@ export default function AuthFormPage(props) {
             navigate('/profile')
             
         } else if (formType === 'forgot-password'){
-            resetPassword(email)
+            console.log(formData)
             setBadPassword(true)
             setPasswordError(<span className="text-red-500 m-3 self-start">Password Reset Email Sent</span>)
+            const {token} = await forgotPassword(formData)
             navigate('/auth/login')
         }
        
@@ -164,7 +165,7 @@ export default function AuthFormPage(props) {
                         <button
                             type="button"
                             className="w-full py-2 px-4 bg-blue-400 text-gray-100 rounded-md hover:bg-green-800 transition duration-300"
-                            onClick={() => navigate('/auth/login')}
+                            onClick={() => navigate('/')}
                         >
                             Login
                         </button>

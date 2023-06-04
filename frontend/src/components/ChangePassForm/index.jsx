@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { changePassword } from '../../../utils/backend';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function ChangePassForm(props) {
   const navigate = useNavigate();
@@ -12,7 +12,10 @@ export default function ChangePassForm(props) {
     confirmPassword: '',
   });
   const [passwordError, setPasswordError] = useState();
-  
+
+  const hash = useParams();
+  console.log(hash)
+
   function handleEditChange(event) {
     const { name, value } = event.target;
     setEditForm({ ...editForm, [name]: value });
@@ -30,6 +33,7 @@ export default function ChangePassForm(props) {
       setPasswordError(<p className="text-red-500 m-3 self-start">Passwords do not match</p>)
       return;
     }
+    
     const {token} = await changePassword(editForm);
     if (token) {
         localStorage.setItem('userToken', token);
@@ -49,6 +53,7 @@ export default function ChangePassForm(props) {
       <div className="flex flex-row items-baseline justify-left w-full mb-4">
         <h1 className="font-bold m-2 text-2xl">Change Password</h1>
       </div>
+      {!hash.token && (
       <div className="flex flex-row items-baseline justify-left w-full mb-4">
         <label className="font-regular m-2 text-xl">Old Password:</label>
         <input
@@ -58,6 +63,7 @@ export default function ChangePassForm(props) {
           onChange={handleEditChange}
         />
       </div>
+      )}
       <div className="flex flex-row items-baseline justify-left w-full mb-4">
         <label className="font-regular m-2 text-xl">New Password:</label>
         <input

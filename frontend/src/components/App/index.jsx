@@ -9,6 +9,7 @@ import RequestForm from "../RequestForm"
 import ProfilePage from "../ProfilePage"
 import Marquee from "../Marquee"
 import AuthForm from "../AuthForm"
+import ChangePassForm from "../ChangePassForm"
 
 export const AvailabilityContext = React.createContext()
 export const ResortContext = React.createContext()
@@ -43,6 +44,7 @@ export default function App() {
                             <Route path="/" element={<Calendar availability={availability} resort={resort} loggedIn={loggedIn}/>} />
                             <Route path="/profile" element={<ProfilePage />} />
                             <Route path="/auth/:formType" element={<AuthForm setLoggedIn={setLoggedIn} />} />
+                            <Route path="/change-password/:token" element={<ChangePassForm setLoggedIn={setLoggedIn} />} />
                         </Routes>
                     </PassContext.Provider>     
                 </ResortContext.Provider>

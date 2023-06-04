@@ -10,8 +10,8 @@ function buildHeader(){
     return headers;
 }
 
-// const uri = 'http://localhost:3000'
-const uri = 'https://magicres-backend.herokuapp.com'
+const uri = 'http://localhost:3000'
+// const uri = 'https://magicres-backend.herokuapp.com'
 
 export async function signUp(user){
     
@@ -36,7 +36,7 @@ export async function getAvailability(resort, pass){
 export async function makeNewRequest(request) {
     let headers = buildHeader()
 
-    const response = await axios.post(`${uri}/api/requests/create/`, request, headers);
+    const response = await axios.post(`${uri}/api/requests/create`, request, headers);
     // const response = await axios.post(`http://localhost:3000/api/requests/create`, request, headers);
     return response.data;
 }
@@ -58,7 +58,7 @@ export async function deleteRequest(requestId){
 export async function editUser(user){
     
     let headers = buildHeader()
-    const response = await axios.put(`${uri}/api/users/`, user, headers);
+    const response = await axios.put(`${uri}/api/users`, user, headers);
     // const response = await axios.put(`http://localhost:3000/api/users`, user, headers);
     return response.data;
 }
@@ -71,7 +71,16 @@ export async function changePassword(user){
     return response.data;
 }
 
-export async function resetPassword(email){
-    const response = await axios.post(`${uri}/api/users/send-password`, email);
+export async function resetPassword(hash){
+    let headers = buildHeader()
+    const response = await axios.post(`${uri}/api/users/send-password/:${hash}`, headers);
+    return response.data;
+}
+
+export async function forgotPassword(email){
+    console.log(email)
+    let headers = buildHeader()
+    const response = await axios.post(`${uri}/api/users/forgot-password`, email, headers);
+    console.log(response.data)
     return response.data;
 }
