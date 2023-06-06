@@ -52,7 +52,7 @@ export default function Header(props) {
             <Nav.Link href="/">Calendar View</Nav.Link>
             {loggedIn && (
               <>
-                <Nav.Link href="/profile">Profile</Nav.Link>
+                <Nav.Link href="/profile" >Profile</Nav.Link>
                 <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
               </>
             )}

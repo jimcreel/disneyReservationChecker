@@ -10,6 +10,7 @@ function buildHeader(){
     return headers;
 }
 
+
 const uri = 'http://localhost:3000'
 // const uri = 'https://magicres-backend.herokuapp.com'
 
@@ -68,12 +69,13 @@ export async function changePassword(user){
     console.log(user)
     if (user.resetPass){
         const response = await axios.put(`${uri}/api/users/change-password/${user.resetPass}`, user, headers);
+        return response.data;
     }else {
         const response = await axios.put(`${uri}/api/users/change-password`, user, headers);
+        return response.data;
     }
     // const response = await axios.put(`http://localhost:3000/api/users/password`, user, headers);
-    console.log(response)
-    return response.data;
+    
 }
 
 export async function resetPassword(hash){

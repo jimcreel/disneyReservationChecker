@@ -5,7 +5,8 @@ import { deleteRequest, editUser } from '../../../utils/backend'
 import EditForm from '../EditForm'
 import ChangePassForm from '../ChangePassForm'
 
-export default function ProfilePage () {
+export default function ProfilePage ({setLoggedIn}) {
+
     const [profile, setProfile] = useState({})
     const [requests, setRequests] = useState([{}])
     const [showEditForm, setShowEditForm] = useState(false)
@@ -102,14 +103,14 @@ if (profile && !showEditForm) {
 
   );
 } else if (profile && showEditForm) {
-    profileHeader = <EditForm profile={profile} setShowEditForm={setShowEditForm} setShowPasswordForm={setShowPasswordForm} setProfile={setProfile}/>
+    profileHeader = <EditForm profile={profile} setShowEditForm={setShowEditForm} setShowPasswordForm={setShowPasswordForm} setProfile={setProfile} setLoggedIn={setLoggedIn}/>
 } 
 
     return (
         <>  
             <div className='flex flex-row justify-center'>
                 {profileHeader}
-                {showPasswordForm && <ChangePassForm setShowPasswordForm={setShowPasswordForm}/>}
+                {showPasswordForm && <ChangePassForm setShowPasswordForm={setShowPasswordForm} setLoggedIn={setLoggedIn}/>}
             
             </div>
             <h1 className='text-center text-2xl'>User Requests: </h1>

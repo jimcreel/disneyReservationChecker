@@ -4,7 +4,7 @@ import {editUser} from '../../../utils/backend'
 import {useState} from 'react'
 
 export default function EditForm(props) {
-    const { profile, setProfile, setShowEditForm } = props;
+    const { profile, setProfile, setShowEditForm, setLoggedIn } = props;
     const [editForm, setEditForm] = useState({})
     const [badMatch, setBadMatch] = useState(false)
     
@@ -89,6 +89,7 @@ export default function EditForm(props) {
                       defaultValue={profile.defaultResort}
                       onChange={handleEditChange} // Pass the onChange event handler here
                       >
+                      <option value='none' disabled selected>None</option>
                       <option value='DLR'>Disneyland Resort</option>
                       <option value='WDW'>Walt Disney World Resort</option>
                       </select>
@@ -103,7 +104,7 @@ export default function EditForm(props) {
                       defaultValue={profile.defaultPass}
                       onChange={handleEditChange} // Pass the onChange event handler here
                       >
-                        <option value='none' disabled>None</option>
+                        <option value='none' disabled selected>None</option>
                       {editForm.defaultResort === 'WDW' ?  wdwPasses: dlrPasses}
                       </select>
                   </div>

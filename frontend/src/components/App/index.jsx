@@ -42,7 +42,7 @@ export default function App() {
                         
                         <Routes> 
                             <Route path="/" element={<Calendar availability={availability} resort={resort} loggedIn={loggedIn}/>} />
-                            <Route path="/profile" element={<ProfilePage />} />
+                            <Route path="/profile" element={<ProfilePage setLoggedIn={setLoggedIn}/>} />
                             <Route path="/auth/:formType" element={<AuthForm setLoggedIn={setLoggedIn} />} />
                             <Route path="/change-password/:token" element={<ChangePassForm setLoggedIn={setLoggedIn} />} />
                         </Routes>

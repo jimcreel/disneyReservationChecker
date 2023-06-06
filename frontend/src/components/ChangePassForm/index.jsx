@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export default function ChangePassForm(props) {
   const navigate = useNavigate();
-  const { setShowPasswordForm } = props;
+  const { setShowPasswordForm, setLoggedIn } = props;
   const [badPassword, setBadPassword] = useState(false);
   const [editForm, setEditForm] = useState({
     oldPassword: '',
@@ -45,6 +45,7 @@ export default function ChangePassForm(props) {
     const { token } = await changePassword(editForm);
     if (token) {
       localStorage.setItem('userToken', token);
+      setLoggedIn(true);
       setBadPassword(false);
       navigate('/profile');
     } else {
