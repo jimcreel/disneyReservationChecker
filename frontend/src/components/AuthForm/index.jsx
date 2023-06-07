@@ -1,10 +1,17 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import {useParams, useNavigate} from 'react-router-dom'
 import { forgotPassword, login, signUp } from "../../../utils/backend";
 import { resetPassword } from "../../../utils/backend";
+import useFetch from "../../hooks/useFetch";import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+
+
+
 
 
 export default function AuthFormPage(props) {
+    
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -17,6 +24,9 @@ export default function AuthFormPage(props) {
     const {setLoggedIn} = props
     const navigate = useNavigate();
     const { formType } = useParams();
+
+    
+
     let actionText
     switch (formType) {
         case 'login':
@@ -171,11 +181,21 @@ export default function AuthFormPage(props) {
                         </button>
                     </div>
                     )}
+                    <GoogleLogin
+                onSuccess={credentialResponse => {
+                    console.log(credentialResponse);
+                }}
+                onError={() => {
+                    console.log('Login Failed');
+                }}
+                />
             
                    
                     
                 </form>
             </div>
+            
         </div>
+        
     );
 }

@@ -33,6 +33,7 @@ export default function App() {
         
     return (
         <>
+            
             <AvailabilityContext.Provider value={availability}>       
                 <ResortContext.Provider value={resort}>
                     <PassContext.Provider value={pass}>
