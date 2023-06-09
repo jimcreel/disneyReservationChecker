@@ -14,8 +14,8 @@ export default function Month (props){
     let month = date.getMonth()
     
         monthHeader = <div className="month text-xl font-bold m-2 text-center"> {monthNames[month]} {date.getFullYear()} </div>
-        weekHeader = dayNames.map((day) => {
-            return <div className="day w-[50px] h-[50px] font-bold" >{day}</div>
+        weekHeader = dayNames.map((day, index) => {
+            return <div className="day w-[50px] h-[50px] font-bold" key={day+index}>{day}</div>
         })
 
     let monthDates = []

@@ -1,9 +1,8 @@
 
 import { useState, useEffect } from "react";
 import {useParams, useNavigate} from 'react-router-dom'
-import { forgotPassword, login, signUp } from "../../../utils/backend";
+import { forgotPassword, login, signUp, loginGoogle } from "../../../utils/backend";
 import { resetPassword } from "../../../utils/backend";
-import useFetch from "../../hooks/useFetch";import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 
 
@@ -19,6 +18,20 @@ export default function AuthFormPage(props) {
         confirmPassword: ""
 
     });
+
+    useEffect(() => {
+        const domain = window.location.hostname;
+        if (domain !== 'www.magic-reservations.com') {
+          setFormData({
+            ...formData,
+            email: "",
+            password: "",
+            confirmPassword: ""
+          });
+        }
+      }, []);
+
+
     const [badPassword, setBadPassword] = useState(false);
     const [passwordError, setPasswordError] = useState();
     const {setLoggedIn} = props
@@ -87,6 +100,13 @@ export default function AuthFormPage(props) {
         <div className="flex items-center justify-center h-[90vh]">
             <div className="bg-gray-200 rounded-lg shadow-xl p-8 w-full max-w-md">
                 <h2 className="text-3xl text-center font-bold text-black-100 mb-8">{actionText}</h2>
+                {window.location.hostname === 'magicreservations.jim-creel.com' && (
+                <>
+                    <p className="text-center text-black-100 mb-8">To test the site, use the following credentials: </p>
+                    <p className="text-center text-black-100 mb-8">Email: testuser@gmail.com</p>
+                    <p className="text-center text-black-100 mb-8">Password: testuser</p>
+                </>
+                )}
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-black-100 font-bold mb-2" htmlFor="email">
@@ -183,7 +203,13 @@ export default function AuthFormPage(props) {
                     )}
                     <GoogleLogin
                 onSuccess={credentialResponse => {
-                    console.log(credentialResponse);
+                    
+                    
+                    loginGoogle(credentialResponse);
+                    setLoggedIn(true)
+                    localStorage.setItem('userToken', token);
+                    navigate('/')
+                    
                 }}
                 onError={() => {
                     console.log('Login Failed');

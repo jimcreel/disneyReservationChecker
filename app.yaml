@@ -1,4 +1,6 @@
 runtime: nodejs18
+includes:
+  - env_variables.yaml
 
 handlers:
   - url: /

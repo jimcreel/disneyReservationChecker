@@ -33,6 +33,7 @@ export default function Header(props) {
     let passDropDown = passArr.map((pass) => {
       return (
         <NavDropdown.Item
+          key={pass}
           onClick={() => handlePassClick(pass, resort)}
         >
           {getText(pass)}
@@ -58,10 +59,10 @@ export default function Header(props) {
             )}
             {!loggedIn && (
               <>
-                <Nav.Link href="/auth/login" onClick={() => handleLogin()}>
+                <Nav.Link href="/auth/login" >
                   Login
                 </Nav.Link>
-                <Nav.Link href="/auth/signup" onClick={() => handleLogin()}>
+                <Nav.Link href="/auth/signup" >
                   Signup
                 </Nav.Link>
               </>
