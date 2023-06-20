@@ -18,10 +18,12 @@ export default function ProfilePage ({setLoggedIn}) {
         .then((result) => {
             console.log(result)
             setProfile({
-                name: result.name,
-                email: result.email,
-                defaultPass: result.defaultPass,
-                defaultResort: result.defaultResort
+                firstname: result.user.firstname,
+                lastname: result.user.lastname,
+                email: result.user.email,
+                phone: result.user.phone,
+                defaultpass: result.user.defaultpass,
+                defaultresort: result.user.defaultresort
             })
             setRequests(result.requests)
             
@@ -38,8 +40,8 @@ export default function ProfilePage ({setLoggedIn}) {
  
 
     const handleDeleteClick = async (requestToDelete) => {
-        await deleteRequest(requestToDelete._id);
-        setRequests(requests.filter(request => request._id !== requestToDelete._id));
+        await deleteRequest(requestToDelete.id);
+        setRequests(requests.filter(request => request.id !== requestToDelete.id));
     }
     
     
@@ -52,9 +54,10 @@ if (requests.length>0) {
         return new Date(a.date) - new Date(b.date);
     });
     profileHTML = sortedRequests.map((request) => {
+        console.log(request)
         return (
             <>
-                <div key={request._id} className='flex flex-row flex-wrap justify-center m-5 border border-black rounded w-min p-2'>
+                <div key={request.id} className='flex flex-row flex-wrap justify-center m-5 border border-black rounded w-min p-2'>
                     <div className='m-5'>
                         <h1>{getText(request.resort)}</h1>
                         <h1>{getText(request.park)}</h1>
@@ -77,12 +80,14 @@ let profileHeader = 'loading...';
 if (profile && !showEditForm) {
   profileHeader = (
     <div className="flex flex-col items-center justify-center w-full mb-4">
-        <h1 className="font-bold mb-4 text-2xl">{profile.name}</h1>
+        <h1 className="font-bold mb-4 text-2xl">{profile.firstname}</h1>
         <div className="text-lg">
-            <p><strong>Name:</strong> {profile.name}</p>
+            <p><strong>First Name:</strong> {profile.firstname}</p>
+            <p><strong>Last Name:</strong> {profile.lastname}</p>
             <p><strong>Email:</strong> {profile.email}</p>
-            <p><strong>Default Pass:</strong> {getText(profile.defaultPass)}</p>
-            <p><strong>Default Resort:</strong> {getText(profile.defaultResort)}</p>
+            <p><strong>Phone:</strong> {profile.phone}</p>
+            <p><strong>Default Pass:</strong> {getText(profile.defaultpass)}</p>
+            <p><strong>Default Resort:</strong> {getText(profile.defaultresort)}</p>
         </div>
         <div className="flex flex-row space-x-4">
             <button

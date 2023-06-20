@@ -17,18 +17,18 @@ export default function EditForm(props) {
     }
 
     function handleSubmit(){
-        if(editForm.defaultResort && editForm.defaultPass){
-            if (!getPasses(editForm.defaultResort).includes(editForm.defaultPass)){
+        if(editForm.defaultresort && editForm.defaultpass){
+            if (!getPasses(editForm.defaultresort).includes(editForm.defaultpass)){
                 setBadMatch(true)
                 return
             }
-        }else if (editForm.defaultResort){
-            if (!getPasses(editForm.defaultResort).includes(profile.defaultPass)){
+        }else if (editForm.defaultresort){
+            if (!getPasses(editForm.defaultresort).includes(profile.defaultpass)){
                 setBadMatch(true)
                 return
             }
-        }else if (editForm.defaultPass){
-            if (!getPasses(profile.defaultResort).includes(editForm.defaultPass)){
+        }else if (editForm.defaultpass){
+            if (!getPasses(profile.defaultresort).includes(editForm.defaultpass)){
                 setBadMatch(true)
                 return
             }
@@ -36,10 +36,11 @@ export default function EditForm(props) {
         editUser(editForm)
         .then((result) => {
             setProfile({
-                name: result.name,
+                firstname: result.firstname,
+                lastname: result.lastname,
                 email: result.email,
-                defaultPass: result.defaultPass,
-                defaultResort: result.defaultResort
+                defaultpass: result.defaultpass,
+                defaultresort: result.defaultresort
             })
         }
         )
@@ -59,12 +60,22 @@ export default function EditForm(props) {
             <form className='flex flex-col items-center justify-center w-full mb-4'>
               <label className='font-bold mb-2 text-2xl'>Edit Profile</label>
                  <div className='flex flex-row items-baseline justify-left w-full m-3'>
-                      <label className='font-bold m-2 text-xl'>Name:</label>
+                      <label className='font-bold m-2 text-xl'>First Name:</label>
                       <input
                       className='border border-black mb-2 pl-2'
                       type='text'
-                      name='name'
-                      defaultValue={profile.name}
+                      name='firstname'
+                      defaultValue={profile.firstname}
+                      onChange={handleEditChange} // Pass the onChange event handler here
+                      />
+                  </div>
+                  <div className='flex flex-row items-baseline justify-left w-full m-3'>
+                      <label className='font-bold m-2 text-xl'>Last Name:</label>
+                      <input
+                      className='border border-black mb-2 pl-2'
+                      type='text'
+                      name='lastname'
+                      defaultValue={profile.lastname}
                       onChange={handleEditChange} // Pass the onChange event handler here
                       />
                   </div>
@@ -78,6 +89,16 @@ export default function EditForm(props) {
                       onChange={handleEditChange} // Pass the onChange event handler here
                       />
                   </div>
+                  <div className='flex flex-row items-baseline justify-left w-full mb-4'>
+                      <label className='font-bold m-2 text-xl'>Phone:</label>
+                      <input
+                      className='border border-black mb-2 pl-2 '
+                      type='text'
+                      name='phone'
+                      defaultValue={profile.phone}
+                      onChange={handleEditChange} // Pass the onChange event handler here
+                      />
+                  </div>
                   
                   
                   <div className='flex flex-row items-baseline justify-left w-full mb-4'>
@@ -85,11 +106,11 @@ export default function EditForm(props) {
                       <select
                       className='border border-black mb-2'
                       type='text'
-                      name='defaultResort'
-                      defaultValue={profile.defaultResort}
+                      name='defaultresort'
+                      defaultValue={profile.defaultresort ? getText(profile.defaultresort): 'none'}
                       onChange={handleEditChange} // Pass the onChange event handler here
                       >
-                      <option value='none' disabled selected>None</option>
+                      <option value='none' disabled>None</option>
                       <option value='DLR'>Disneyland Resort</option>
                       <option value='WDW'>Walt Disney World Resort</option>
                       </select>
@@ -100,12 +121,12 @@ export default function EditForm(props) {
                       <select
                       className='border border-black mb-2'
                       type='text'
-                      name='defaultPass'
-                      defaultValue={profile.defaultPass}
+                      name='defaultpass'
+                      defaultValue={profile.defaultpass ? getText(profile.defaultpass) : 'none'}
                       onChange={handleEditChange} // Pass the onChange event handler here
                       >
                         <option value='none' disabled selected>None</option>
-                      {editForm.defaultResort === 'WDW' ?  wdwPasses: dlrPasses}
+                      {editForm.defaultresort === 'WDW' ?  wdwPasses: dlrPasses}
                       </select>
                   </div>
                   

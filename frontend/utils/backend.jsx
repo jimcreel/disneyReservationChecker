@@ -39,6 +39,7 @@ export async function getAvailability(resort, pass){
     return response.data;
 }
 export async function makeNewRequest(request) {
+    console.log(request)
     let headers = buildHeader()
     const response = await axios.post(`${uri}/api/requests/create`, request, headers);
     console.log(response)
