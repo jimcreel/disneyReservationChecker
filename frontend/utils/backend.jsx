@@ -39,17 +39,16 @@ export async function getAvailability(resort, pass){
     return response.data;
 }
 export async function makeNewRequest(request) {
-    console.log(request)
+    // console.log(request)
     let headers = buildHeader()
     const response = await axios.post(`${uri}/api/requests/create`, request, headers);
-    console.log(response)
+    // console.log(response)
     return response.data;
 }
 
 export async function getUser(){
     let headers = buildHeader()
     const response = await axios.get(`${uri}/api/users/profile`, headers);
-    console.log(response)
     return response.data;
 }
 
@@ -68,7 +67,6 @@ export async function editUser(user){
 
 export async function changePassword(user){
     let headers = buildHeader()
-    console.log(user)
     if (user.resetPass){
         const response = await axios.put(`${uri}/api/users/change-password/${user.resetPass}`, user, headers);
         return response.data;
@@ -87,10 +85,10 @@ export async function resetPassword(hash){
 }
 
 export async function forgotPassword(email){
-    console.log(email)
+    
     let headers = buildHeader()
     const response = await axios.post(`${uri}/api/users/forgot-password`, email, headers);
-    console.log(response.data)
+    
     return response.data;
 }
 

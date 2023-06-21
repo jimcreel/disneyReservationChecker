@@ -42,7 +42,8 @@ export default function ChangePassForm(props) {
       return;
     }
 
-    const { token } = await changePassword(editForm);
+    const {token}  = await changePassword(editForm);
+    console.log(token)
     if (token) {
       localStorage.setItem('userToken', token);
       setLoggedIn(true);

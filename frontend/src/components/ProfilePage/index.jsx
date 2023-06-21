@@ -16,7 +16,6 @@ export default function ProfilePage ({setLoggedIn}) {
     useEffect (() => {
         getUser()
         .then((result) => {
-            console.log(result)
             setProfile({
                 firstname: result.user.firstname,
                 lastname: result.user.lastname,
@@ -54,7 +53,6 @@ if (requests.length>0) {
         return new Date(a.date) - new Date(b.date);
     });
     profileHTML = sortedRequests.map((request) => {
-        console.log(request)
         return (
             <>
                 <div key={request.id} className='flex flex-row flex-wrap justify-center m-5 border border-black rounded w-min p-2'>
