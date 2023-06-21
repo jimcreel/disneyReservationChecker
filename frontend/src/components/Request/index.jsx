@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { getText } from '../../../utils/api';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AvailabilityContext } from '../App';
 import { makeNewRequest } from '../../../utils/backend';
 import { changeDateFormat } from '../../../utils/api';
@@ -14,6 +14,7 @@ export default function Request(props) {
     const { resort } = props;
     const {pass} = props
     const navigate = useNavigate();
+    const [showLoading, setShowLoading] = useState(false);
 
     function getLoginStatus(){
         if (localStorage.getItem('userToken')) {
@@ -25,6 +26,7 @@ export default function Request(props) {
     
 
     function handleRequestClick(avail, parkCode, loginStatus) {
+        setShowLoading(true)
         if (loginStatus === false) {
             navigate('/auth/login');
             return;
@@ -43,6 +45,7 @@ export default function Request(props) {
             available: false,
         };
         if (avail === 'request') {
+            
             makeNewRequest(request)
                 .then((res) => {
                     setShowForm({ active: true, park: request.park });
@@ -147,11 +150,18 @@ export default function Request(props) {
     return (
         <>
             <div id='requestBox' className='flex flex-row flex-wrap w-[350px] items-center justify-center mx-auto'>
-                {requestHeader}
-                <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
-                {requestHTML}
-                {anyButton}
+                {showLoading ? (
+                    <h1 className='font-bold mb-2 text-2xl'>Submitting Request...</h1>
+                ) : (
+                    <>
+                        {requestHeader}
+                        <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
+                        {requestHTML}
+                        {anyButton}
+                    </>
+                )}
             </div>
         </>
+
     );
 }

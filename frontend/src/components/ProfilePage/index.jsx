@@ -46,9 +46,12 @@ export default function ProfilePage ({setLoggedIn}) {
     
         
     
-    let profileHTML = 'No requests found.';
+    let profileHTML = 'Loading requests...';
+    setTimeout(() => {
+        profileHTML = 'No requests found.';
+        }, 1000)
     let sortedRequests = [];
-if (requests.length>0) {
+if (requests[0]?.resort) {
     sortedRequests = requests.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
     });
