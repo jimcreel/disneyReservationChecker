@@ -201,7 +201,7 @@ export default function AuthFormPage(props) {
                         </button>
                     </div>
                     )}
-                    <GoogleLogin
+                    {/* <GoogleLogin
                 onSuccess={credentialResponse => {
                     
                     
@@ -214,7 +214,7 @@ export default function AuthFormPage(props) {
                 onError={() => {
                     console.log('Login Failed');
                 }}
-                />
+                /> */}
             
                    
                     

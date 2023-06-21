@@ -12,11 +12,11 @@ function buildHeader(){
 
 let mode = import.meta.env.VITE_MODE
 
-const uri = 'https://magicres-backend.herokuapp.com'
-// const uri = 'http://localhost:3000'
+// const uri = 'https://magicres-backend.herokuapp.com'
+const uri = 'http://localhost:3000'
 
 export async function signUp(user){
-    
+    console.log(user)
     const {data} = await axios.post(`${uri}/api/users/signup`, user);
     return data;
 }
