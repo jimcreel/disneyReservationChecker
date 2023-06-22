@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { getText } from '../../../utils/api';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AvailabilityContext } from '../App';
 import { makeNewRequest } from '../../../utils/backend';
 import { changeDateFormat } from '../../../utils/api';
+import { useNavigate} from 'react-router-dom';
+
 
 export default function Request(props) {
     const { setShowForm } = props;
@@ -11,9 +13,24 @@ export default function Request(props) {
     const { date } = props;
     const { resort } = props;
     const {pass} = props
+    const navigate = useNavigate();
+    const [showLoading, setShowLoading] = useState(false);
 
+    function getLoginStatus(){
+        if (localStorage.getItem('userToken')) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
 
-    function handleRequestClick(avail, parkCode) {
+    function handleRequestClick(avail, parkCode, loginStatus) {
+        setShowLoading(true)
+        if (loginStatus === false) {
+            navigate('/auth/login');
+            return;
+        }
         let requestResort = '';
         if (typeof resort.resort === 'object') {
             requestResort = resort.resort[0];
@@ -27,8 +44,8 @@ export default function Request(props) {
             pass: pass,
             available: false,
         };
-        console.log(request);
         if (avail === 'request') {
+            
             makeNewRequest(request)
                 .then((res) => {
                     setShowForm({ active: true, park: request.park });
@@ -39,11 +56,9 @@ export default function Request(props) {
         }
     }
 
-    let userId = 'jim.creel@gmail.com';
-    let today = new Date();
-    let requestDate = new Date(date);
+    
     let [availabilityDate] = availability[0]['calendar-availabilities'].filter((avail) => avail.date === date);
-    console.log(availabilityDate)
+    
     let requestHTML = [];
     let anyBlocked = false;
     let anyFull = false;
@@ -52,7 +67,6 @@ export default function Request(props) {
         let facilityArray = availabilityDate['facilities'];
         requestHTML = facilityArray.map((facility, i) => {
             //get last two characters of facility id
-            console.log(facility, date)
             let facilityName = facility.facilityName.slice(-2);
             let facilityCode = facilityName;
             let resortCode = facility.facilityName.slice(0, 2);
@@ -74,20 +88,23 @@ export default function Request(props) {
                             <h1 className='text-center'>{facilityName}</h1>
                         </div>
 
-                        {facilityAvail != 'available' && (
+                        {(facilityAvail != 'available') && (
                             <button
                                 className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
                                 disabled={facilityAvail === 'blocked'}
-                                onClick={(event) => handleRequestClick(facilityAvail, facilityCode)}
+                                onClick={(event) => handleRequestClick(facilityAvail, facilityCode, getLoginStatus())}
                             >
+                                
                                 {facilityAvail === 'blocked' ? 'Sorry, this date is blocked' : facilityAvail}
                             </button>
                         )}
-                        {facilityAvail === 'available' && (
+                        
+                        {facilityAvail === 'available'  && (
                             <Link to={resort.resort === 'DLR' ? 'https://disneyland.disney.go.com/entry-reservation/' : 'https://disneyworld.disney.go.com/park-reservations/'} target="_blank">
                                 <button className={`rounded-full border text-white w-[125px] bg-green-400`}>{facilityAvail}</button>
                             </Link>
                         )}
+                        
                     </div>
                 </div>
             );
@@ -133,11 +150,18 @@ export default function Request(props) {
     return (
         <>
             <div id='requestBox' className='flex flex-row flex-wrap w-[350px] items-center justify-center mx-auto'>
-                {requestHeader}
-                <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
-                {requestHTML}
-                {anyButton}
+                {showLoading ? (
+                    <h1 className='font-bold mb-2 text-2xl'>Submitting Request...</h1>
+                ) : (
+                    <>
+                        {requestHeader}
+                        <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
+                        {requestHTML}
+                        {anyButton}
+                    </>
+                )}
             </div>
         </>
+
     );
 }

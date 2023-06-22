@@ -1,4 +1,6 @@
 runtime: nodejs18
+includes:
+  - env_variables.yaml
 
 handlers:
   - url: /
@@ -6,6 +8,18 @@ handlers:
     upload: frontend/dist/index.html
 
   - url: /profile
+    static_files: frontend/dist/index.html
+    upload: frontend/dist/index.html
+
+  - url: /auth/login
+    static_files: frontend/dist/index.html
+    upload: frontend/dist/index.html
+
+  - url: /auth/signup
+    static_files: frontend/dist/index.html
+    upload: frontend/dist/index.html
+
+  - url: /auth/forgot-password
     static_files: frontend/dist/index.html
     upload: frontend/dist/index.html
 

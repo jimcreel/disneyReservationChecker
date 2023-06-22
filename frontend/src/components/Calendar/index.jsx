@@ -7,7 +7,8 @@ import { PassContext } from '../App';
 import { get } from 'mongoose';
 
 export default function Calendar (props){
-   
+   const loggedIn = props
+
     let availability = props
     let resort = props
     let pass = useContext(PassContext)
