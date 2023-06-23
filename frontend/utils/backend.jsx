@@ -95,5 +95,6 @@ export async function forgotPassword(email){
 export async function getAllRestaurants(req){
     let headers = buildHeader()
     const response = await axios.get(`${uri}/api/dining`)
+    return response.data;
 }
 
