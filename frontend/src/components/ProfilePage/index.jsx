@@ -1,9 +1,10 @@
 import {getUser} from '../../../utils/backend'
 import {useState, useEffect} from 'react'
 import { changeDateFormat, getPasses, getText } from '../../../utils/api'
-import { deleteRequest, editUser } from '../../../utils/backend'
+import { deleteRequest, editUser, setAllRequests, checkAllRequests } from '../../../utils/backend'
 import EditForm from '../EditForm'
 import ChangePassForm from '../ChangePassForm'
+
 
 export default function ProfilePage ({setLoggedIn}) {
 
@@ -42,6 +43,11 @@ export default function ProfilePage ({setLoggedIn}) {
         await deleteRequest(requestToDelete.id);
         setRequests(requests.filter(request => request.id !== requestToDelete.id));
     }
+
+    function handleSetRequestsClick() {
+        setAllRequests()
+    }   
+    
     
     
         
@@ -121,6 +127,18 @@ if (profile && !showEditForm) {
             
             </div>
             <h1 className='text-center text-2xl'>User Requests: </h1>
+            {window.location.hostname === 'magicreservations.jim-creel.com' && (
+                <div className = 'flex flex-row justify-center'>
+                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[150px] self-center m-5' 
+                    onClick={() => handleSetRequestsClick()}>
+                        Set All Requests 
+                    </button>
+                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[150px] self-center m-5'
+                    onClick={() => checkAllRequests()}>
+                        Check All Requests
+                    </button>
+                </div>
+            )}
             <div className='flex flex-row flex-wrap justify-center m-5 border border-black rounded p-2'>
                 {profileHTML}
             </div>
