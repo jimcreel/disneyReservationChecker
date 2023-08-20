@@ -101,7 +101,7 @@ export default function EditForm(props) {
                   </div>
                   
                   
-                  <div className='flex flex-row items-baseline justify-left w-full mb-4'>
+                  {/* <div className='flex flex-row items-baseline justify-left w-full mb-4'>
                       <label className='font-bold m-2 text-xl'>Default Resort:</label>
                       <select
                       className='border border-black mb-2'
@@ -114,7 +114,7 @@ export default function EditForm(props) {
                       <option value='DLR'>Disneyland Resort</option>
                       <option value='WDW'>Walt Disney World Resort</option>
                       </select>
-                  </div>
+                  </div> */}
                     {badMatch ? <p className='text-red-500'>Invalid Pass for Resort</p> : null}
                   <div className='flex flex-row items-baseline justify-left w-full mb-4'>
                       <label className='font-bold m-2 text-xl'>Default Pass:</label>

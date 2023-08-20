@@ -12,11 +12,8 @@ export default function Header(props) {
 
 
   useEffect(() => {
-    // Add any additional logic you want to execute when `loggedIn` changes.
-    // This code will run whenever `loggedIn` prop changes.
-    // You can put any code that needs to be executed when the prop changes inside this block.
-    // For example, console.log/logic that should trigger on prop change, etc.
-  }, [loggedIn]); // Add `loggedIn` to the dependency array
+   
+  }, [loggedIn]); 
 
   function handlePassClick(pass, resort) {
     setResort(resort);
@@ -67,7 +64,7 @@ export default function Header(props) {
                 </Nav.Link>
               </>
             )}
-            <NavDropdown title="Resorts" id="basic-nav-dropdown">
+            {/* <NavDropdown title="Resorts" id="basic-nav-dropdown">
               <NavDropdown title="Disneyland" id="basic-nav-dropdown">
                 {buildPassDropdown(getPasses('DLR'), 'DLR')}
               </NavDropdown>
@@ -75,7 +72,7 @@ export default function Header(props) {
                 {buildPassDropdown(getPasses('WDW'), 'WDW')}
                 
               </NavDropdown>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

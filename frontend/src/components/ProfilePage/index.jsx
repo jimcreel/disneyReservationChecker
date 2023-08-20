@@ -64,7 +64,7 @@ if (requests[0]?.resort) {
                         <h1>{getText(request.park)}</h1>
                         <h1>{getText(request.pass)}</h1>
                         <h1>{changeDateFormat(request.date)}</h1>
-                        <h1>{request.available? 'available' : 'unavailable'}</h1>
+                        <h1>Status: {request.available? 'available' : 'unavailable'}</h1>
                     </div>
                     <h1>{request.available}</h1>
                     <button 
@@ -121,7 +121,7 @@ if (profile && !showEditForm) {
             
             </div>
             <h1 className='text-center text-2xl'>User Requests: </h1>
-            <div className='flex flex-row flex-wrap justify-center m-5 border border-black rounded p-2'>
+            <div className='flex flex-row flex-wrap justify-center m-5  border-black rounded p-2'>
                 {profileHTML}
             </div>
         </>
