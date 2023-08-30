@@ -57,6 +57,7 @@ export default function Header(props) {
                 <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
               </>
             )}
+            
             {!loggedIn && (
               <>
                 <Nav.Link href="/auth/login" >

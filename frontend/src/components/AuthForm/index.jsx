@@ -100,13 +100,7 @@ export default function AuthFormPage(props) {
         <div className="flex items-center justify-center h-[90vh]">
             <div className="bg-gray-200 rounded-lg shadow-xl p-8 w-full max-w-md">
                 <h2 className="text-3xl text-center font-bold text-black-100 mb-8">{actionText}</h2>
-                {window.location.hostname === 'magicreservations.jim-creel.com' && (
-                <>
-                    <p className="text-center text-black-100 mb-8">To test the site, use the following credentials: </p>
-                    <p className="text-center text-black-100 mb-8">Email: testuser@gmail.com</p>
-                    <p className="text-center text-black-100 mb-8">Password: testuser</p>
-                </>
-                )}
+                
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-black-100 font-bold mb-2" htmlFor="email">

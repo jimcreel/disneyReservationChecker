@@ -15,6 +15,18 @@ let mode = import.meta.env.VITE_MODE
 const uri = 'https://magicres-backend.herokuapp.com'
 // const uri = 'http://localhost:3000'
 
+export async function checkAllRequests(){
+    let headers = buildHeader()
+    const response = await axios.get(`${uri}/api/users/checkAllRequests`, headers);
+    return response.data;
+}
+
+export async function setAllRequests(){
+    let headers = buildHeader()
+    const response = await axios.get(`${uri}/api/users/setAllRequests`, headers);
+    return response.data;
+}
+
 export async function signUp(user){
     console.log(user)
     const {data} = await axios.post(`${uri}/api/users/signup`, user);
@@ -91,4 +103,10 @@ export async function forgotPassword(email){
     
     return response.data;
 }
+
+// export async function getAllRestaurants(req){
+//     let headers = buildHeader()
+//     const response = await axios.get(`${uri}/api/dining`)
+//     return response.data;
+// }
 
