@@ -10,6 +10,7 @@ import ProfilePage from "../ProfilePage"
 import Marquee from "../Marquee"
 import AuthForm from "../AuthForm"
 import ChangePassForm from "../ChangePassForm"
+import DiningRequestForm from "../DiningRequestForm"
 
 export const AvailabilityContext = React.createContext()
 export const ResortContext = React.createContext()
@@ -46,6 +47,7 @@ export default function App() {
                             <Route path="/profile" element={<ProfilePage setLoggedIn={setLoggedIn}/>} />
                             <Route path="/auth/:formType" element={<AuthForm setLoggedIn={setLoggedIn} />} />
                             <Route path="/change-password/:token" element={<ChangePassForm setLoggedIn={setLoggedIn} />} />
+                            <Route path="/dining" element={<DiningRequestForm/>} />
                         </Routes>
                     </PassContext.Provider>     
                 </ResortContext.Provider>
