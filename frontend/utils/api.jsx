@@ -75,15 +75,4 @@ export function getMonthString(monthNum){
     return monthNames[monthNum -1];
 }
 
-export function getPasses (resort){
-    switch (resort) {
-        case 'DLR': 
-            return ['inspire-key-pass', 'dream-key-pass', 'believe-key-pass',
-            'imagine-key-pass', 'enchant-key-pass']
-        case 'WDW': 
-            return ['disney-incredi-pass', 'disney-sorcerer-pass', 'disney-pirate-pass',
-            'disney-pixie-dust-pass']
-
-        }
-}
 

@@ -1,13 +1,14 @@
 import { set } from 'mongoose';
-import {getPasses, getText} from '../../../utils/api'
+import { getText} from '../../../utils/api'
 import {editUser} from '../../../utils/backend'
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import { PassListContext } from '../App';
 
 export default function EditForm(props) {
     const { profile, setProfile, setShowEditForm, setLoggedIn } = props;
     const [editForm, setEditForm] = useState({})
     const [badMatch, setBadMatch] = useState(false)
-    
+    const passList = useContext(PassListContext)
 
     function handleEditChange(event){
         setEditForm({
@@ -48,18 +49,16 @@ export default function EditForm(props) {
 
     }
     
-        let dlrPasses = getPasses('DLR').map((pass, index) => {
+        let passOptions = passList.map((pass, index) => {
           return <option value={pass} key={index}>{getText(pass)}</option>;
         });
-        let wdwPasses = getPasses('WDW').map((pass, index) => {
-          return <option value={pass} key={index}>{getText(pass)}</option>;
-        });
+        
       
         let editFormHTML = (
           <div className='flex flex-col items-center justify-center w-25 mb-4'>
             <form className='flex flex-col items-center justify-center w-full mb-4'>
               <label className='font-bold mb-2 text-2xl'>Edit Profile</label>
-                 <div className='flex flex-row items-baseline justify-left w-full m-3'>
+                 <div className='flex flex-row items-baseline justify-between w-full m-3'>
                       <label className='font-bold m-2 text-xl'>First Name:</label>
                       <input
                       className='border border-black mb-2 pl-2'
@@ -69,7 +68,7 @@ export default function EditForm(props) {
                       onChange={handleEditChange} // Pass the onChange event handler here
                       />
                   </div>
-                  <div className='flex flex-row items-baseline justify-left w-full m-3'>
+                  <div className='flex flex-row items-baseline justify-between w-full m-3'>
                       <label className='font-bold m-2 text-xl'>Last Name:</label>
                       <input
                       className='border border-black mb-2 pl-2'
@@ -79,7 +78,7 @@ export default function EditForm(props) {
                       onChange={handleEditChange} // Pass the onChange event handler here
                       />
                   </div>
-                  <div className='flex flex-row items-baseline justify-left w-full mb-4'>
+                  <div className='flex flex-row items-baseline justify-between w-full mb-4'>
                       <label className='font-bold m-2 text-xl'>Email:</label>
                       <input
                       className='border border-black mb-2 pl-2 '
@@ -89,7 +88,7 @@ export default function EditForm(props) {
                       onChange={handleEditChange} // Pass the onChange event handler here
                       />
                   </div>
-                  <div className='flex flex-row items-baseline justify-left w-full mb-4'>
+                  <div className='flex flex-row items-baseline justify-between w-full mb-4'>
                       <label className='font-bold m-2 text-xl'>Phone:</label>
                       <input
                       className='border border-black mb-2 pl-2 '
@@ -101,7 +100,7 @@ export default function EditForm(props) {
                   </div>
                   
                   
-                  <div className='flex flex-row items-baseline justify-left w-full mb-4'>
+                  <div className='flex flex-row items-baseline justify-between w-full mb-4'>
                       <label className='font-bold m-2 text-xl'>Default Resort:</label>
                       <select
                       className='border border-black mb-2'
@@ -116,7 +115,7 @@ export default function EditForm(props) {
                       </select>
                   </div>
                     {badMatch ? <p className='text-red-500'>Invalid Pass for Resort</p> : null}
-                  <div className='flex flex-row items-baseline justify-left w-full mb-4'>
+                  <div className='flex flex-row items-baseline justify-between w-full mb-4'>
                       <label className='font-bold m-2 text-xl'>Default Pass:</label>
                       <select
                       className='border border-black mb-2'
@@ -126,13 +125,13 @@ export default function EditForm(props) {
                       onChange={handleEditChange} // Pass the onChange event handler here
                       >
                         <option value='none' disabled selected>None</option>
-                      {editForm.defaultresort === 'WDW' ?  wdwPasses: dlrPasses}
+                      {passOptions}
                       </select>
                   </div>
                   
-                  <div className='flex flex-row items-baseline justify-left w-full mb-4'>
+                  <div className='flex flex-row items-baseline justify-between w-full mb-4'>
                       <label className='font-bold m-2 text-xl w-50'>
-                      Receive Notifications by Phone or Email:
+                      Notification Method:
                       </label>
                       <select
                       className='border border-black mb-2'

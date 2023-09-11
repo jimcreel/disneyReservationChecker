@@ -81,16 +81,16 @@ export default function Request(props) {
             }
 
             return (
-                <div key={i} className='flex flex-col w-100'>
-                    <div className='flex flex-row justify-between items-center w-100 my-2'>
-                        <div className='flex flex-row items-center'>
+                <div key={i} className='flex flex-row justify-between w-100 my-2'>
+                    
+                            
                             <img src={facilityImg} alt={facilityName} className='h-[25px] w-[25px] mx-2' />
-                            <h1 className='text-center'>{facilityName}</h1>
-                        </div>
+                            <h1 className='mx-2'>{facilityName}</h1>
+                        
 
                         {(facilityAvail != 'available') && (
                             <button
-                                className={`rounded-full border text-white w-[125px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
+                                className={`rounded-full border text-white w-[100px]  ${facilityAvail === 'blocked' ? 'bg-slate-200' : 'bg-blue-400'}`}
                                 disabled={facilityAvail === 'blocked'}
                                 onClick={(event) => handleRequestClick(facilityAvail, facilityCode, getLoginStatus())}
                             >
@@ -105,28 +105,26 @@ export default function Request(props) {
                             </Link>
                         )}
                         
-                    </div>
+                    
                 </div>
             );
         });
 
         if (!anyBlocked && anyFull) {
             anyButton = (
-                <div key={5} className='flex flex-col w-100'>
-                    <div className='flex flex-row justify-between items-center w-100 my-2'>
-                        <div className='flex flex-row items-center'>
+                <div key={5} className='flex flex-row justify-between w-100 my-2'>
                             <img src='https://heroku-magic-res.s3.us-west-1.amazonaws.com/magicRes/all.png' alt='ANY' className='h-[25px] w-[25px] mx-2 ' />
-                            <h1 className='text-center'>Any Park</h1>
-                        </div>
+                            <h1 >Any Park</h1>
+                        
                         <button
-                            className={`rounded-full border text-white w-[125px] ${anyBlocked ? 'bg-slate-200' : 'bg-blue-400'}`}
+                            className={`rounded-full border text-white w-[100px] ${anyBlocked ? 'bg-slate-200' : 'bg-blue-400'}`}
                             disabled={anyBlocked}
                             onClick={() => handleRequestClick('request', 'ANY')}
                         >
                             {anyBlocked ? 'blocked' : 'request'}
                         </button>
                     </div>
-                </div>
+                
             );
         }
     }
@@ -140,7 +138,7 @@ export default function Request(props) {
             displayResort = getText(resort.resort[0]);
         }
         requestHeader = (
-            <div className='flex flex-col items-center justify-center w-full mb-4'>
+            <div className='flex flex-col  justify-center w-full mb-4'>
                 <h1 className='font-bold mb-2 text-2xl'>{displayResort}</h1>
                 <h1> {changeDateFormat(date)}</h1>
             </div>
@@ -156,8 +154,10 @@ export default function Request(props) {
                     <>
                         {requestHeader}
                         <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
+                        <div className="flex flex-col justify-start">
                         {requestHTML}
                         {anyButton}
+                        </div>
                     </>
                 )}
             </div>

@@ -15,12 +15,23 @@ let mode = import.meta.env.VITE_MODE
 const uri = 'https://magicres-backend.herokuapp.com'
 // const uri = 'http://localhost:3000'
 
+export async function getPasses(resort) {
+    let headers = buildHeader()
+    const response = await axios.get(`${uri}/api/passes/${resort}`, headers);
+    return response.data;
+}
+
 export async function checkAllRequests(){
     let headers = buildHeader()
     const response = await axios.get(`${uri}/api/users/checkAllRequests`, headers);
     return response.data;
 }
-
+export async function getPassList(){
+    let headers = buildHeader()
+    const response = await axios.get(`${uri}/api/pass`, headers);
+    console.log(response.data)
+    return response.data;
+}
 export async function setAllRequests(){
     let headers = buildHeader()
     const response = await axios.get(`${uri}/api/users/setAllRequests`, headers);

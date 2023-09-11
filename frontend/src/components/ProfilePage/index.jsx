@@ -1,9 +1,12 @@
 import {getUser} from '../../../utils/backend'
 import {useState, useEffect} from 'react'
-import { changeDateFormat, getPasses, getText } from '../../../utils/api'
+import { changeDateFormat, getText } from '../../../utils/api'
+import { getPasses } from '../../../utils/backend'
 import { deleteRequest, editUser, setAllRequests, checkAllRequests } from '../../../utils/backend'
 import EditForm from '../EditForm'
 import ChangePassForm from '../ChangePassForm'
+import RequestCard from '../RequestCard'
+import { PassListContext } from '../App'
 
 
 export default function ProfilePage ({setLoggedIn}) {
@@ -37,12 +40,7 @@ export default function ProfilePage ({setLoggedIn}) {
         setShowPasswordForm(true)
         setShowEditForm(false)
     }
- 
 
-    const handleDeleteClick = async (requestToDelete) => {
-        await deleteRequest(requestToDelete.id);
-        setRequests(requests.filter(request => request.id !== requestToDelete.id));
-    }
 
     function handleSetRequestsClick() {
         setAllRequests()
@@ -52,34 +50,19 @@ export default function ProfilePage ({setLoggedIn}) {
     
         
     
-    let profileHTML = 'Loading requests...';
+    let requestHTML = 'Loading requests...';
     setTimeout(() => {
-        profileHTML = 'No requests found.';
+        requestHTML = 'No requests found.';
         }, 1000)
     let sortedRequests = [];
 if (requests[0]?.resort) {
     sortedRequests = requests.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
     });
-    profileHTML = sortedRequests.map((request) => {
+    requestHTML = sortedRequests.map((request) => {
         return (
             <>
-                <div key={request.id} className='flex flex-row flex-wrap justify-center m-5 border border-black rounded w-min p-2'>
-                    <div className='m-5'>
-                        <h1>{getText(request.resort)}</h1>
-                        <h1>{getText(request.park)}</h1>
-                        <h1>{getText(request.pass)}</h1>
-                        <h1>{changeDateFormat(request.date)}</h1>
-                        <h1>{request.available? 'available' : 'unavailable'}</h1>
-
-                    </div>
-                    
-                    <button 
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[150px] self-center' 
-                        onClick={() => handleDeleteClick(request)}>
-                        Delete
-                    </button>
-                </div>
+                <RequestCard key = {request.id} request ={request} requests = {requests} setRequests={setRequests} />
             </>
         );
     });
@@ -140,8 +123,8 @@ if (profile && !showEditForm) {
                     </button>
                 </div>
             )}
-            <div className='flex flex-row flex-wrap justify-center m-5 border border-black rounded p-2'>
-                {profileHTML}
+            <div className='flex flex-row flex-wrap justify-center self-center m-5 border border-black rounded p-2 w-4/5'>
+                {requestHTML}
             </div>
         </>
     )
